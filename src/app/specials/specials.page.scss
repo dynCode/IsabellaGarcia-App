@@ -1,0 +1,121 @@
+ion-title {
+    text-align: center;
+}
+.title-small {
+    font-size: 60%;
+    width: 100%;
+    display: block;
+}
+.title-large {
+    position: relative;
+    width: 100%;
+    display: block;
+    padding-bottom: 3px;
+    margin-bottom: 3px;
+    font-size: 22px;
+    line-height: 20px;
+}
+.title-large::before {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 1px;
+    bottom: 0px;
+    background-color: #ffffff;
+    left: 50%;
+    transform: translateX(-50%);
+}
+ion-toolbar.main-toolbar {
+    --color: #ffffff;
+    --background: #000000;
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+    --min-height: 55px;
+}
+.toolbar-btn {
+    --background: #292c2f;
+    --border-radius: 0px;
+    --color: #fff;
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+    height: 55px;
+    display: block;
+    width: 20%;
+    z-index: 1;
+    margin: 0px;
+}
+.buttons-first-slot {
+    width: 20%;
+    margin: 0px;
+}
+ion-menu-button {
+    --background: #292c2f;
+    --border-radius: 0px;
+    --color: #fff;
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+    height: 55px;
+    display: block;
+    width: 100%;
+    z-index: 1;
+    margin: 0px;
+}
+ion-toolbar.secondary-toolbar {
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+}
+.secondary-toolbar ion-grid {
+    --ion-grid-padding: 0px;
+}
+ion-searchbar {
+    --background: #ffffff;
+    --color: #292929;
+    padding: 5px;
+    height: 44px;
+}
+/*.secondary-toolbar ion-col {
+    padding: 0px;
+}*/
+.searchbar-input.sc-ion-searchbar-md {
+    padding-left: 5px;
+    padding-right: 5px;
+    -webkit-padding-start: 55px;
+    padding-inline-start: 55px;
+    -webkit-padding-end: 0px;
+    padding-inline-end: 0px;
+}
+.search-col {
+    background-color: #cccccc;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.br-col {
+    background-color: #ce3a57;
+    text-align: right;
+    line-height: 44px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.br-col p {
+    padding: 0px 5px;
+    margin: 0px;
+    color: #ffffff;
+}
+.br-currency {
+    font-size: 18px;
+    font-weight: 700;
+}
+.br-amount {
+    font-size: 24px;
+    font-weight: 100;
+}

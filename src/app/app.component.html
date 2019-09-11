@@ -1,0 +1,30 @@
+<ion-app>
+  <ion-split-pane>
+
+    <ion-menu>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Categories</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+
+        <ion-list *ngFor="let category of productsService.categories">
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item [routerLink]="['/', 'category', category.id]" >
+              <ion-label>
+                {{ category.name }}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet main></ion-router-outlet>
+
+  </ion-split-pane>
+
+</ion-app>
