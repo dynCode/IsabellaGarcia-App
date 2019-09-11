@@ -58,6 +58,30 @@ ion-searchbar {
     padding: 5px;
     height: 44px;
 }
-/*.secondary-toolbar ion-col {
-    padding: 0px;
-}*/
+.sProdImg {
+    border: 1px solid #939393;
+}
+.sProdTitle {
+    color: #707070;
+    font-size: 22px;
+    margin-top: 15px;
+    line-height: 26px;
+}
+.sProdDesc-Title {
+    color: #040707;
+    font-size: 13px;
+    font-weight: 800;
+    margin: 8px 0px;
+    padding: 8px 0px;
+    border-top: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+}
+.sProdDesc {
+    font-size: 14px;
+    color: #707070;
+}
+.sProdPrice {
+    color: #040707;
+    font-size: 20px;
+    font-weight: 800;
+}

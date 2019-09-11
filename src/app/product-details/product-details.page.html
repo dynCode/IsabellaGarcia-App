@@ -34,8 +34,23 @@
       <div class="sProdWrap">
         <div class="sProdImg"><img [src]="productsService.productDetails.images[0].src" /></div>
         <div class="sProdTitle">{{productsService.productDetails.name}}</div>
-        <div class="sProdPrice">{{productsService.productDetails.price | currency : "R "}}</div>
-        <!--<div [innerHtml]="product.description"></div>-->
+        <div class="sProdDesc">
+          <div class="sProdDesc-Title">
+            <span>PRODUCT DETAILS</span>
+          </div>
+          <div [innerHtml]="productsService.productDetails.description"></div>
+        </div>
+        <div class="sProdPrice">{{productsService.productDetails.price | currency : "R"}}</div>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6" class="inputQty">
+              <ion-input type="number" value="1"></ion-input>
+            </ion-col>
+            <ion-col size="6" class="addCart">
+              
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </div>
     </div>
   </ion-content>
