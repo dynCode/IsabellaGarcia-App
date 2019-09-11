@@ -14,6 +14,11 @@ export class ShopPage implements OnInit {
   ngOnInit() {
 		this.productsService.loadProducts();
 		console.log(this.productsService.allProducts);
-	}
+  }
+  
+  public getProdDet(id){
+    this.productsService.ProductDetails(id);
+		console.log(this.productsService.productDetails);
+  }
 
 }

@@ -1,0 +1,63 @@
+ion-title {
+    text-align: center;
+}
+
+ion-toolbar.main-toolbar {
+    --color: #ffffff;
+    --background: #000000;
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+    --min-height: 55px;
+}
+.toolbar-btn {
+    --background: #292c2f;
+    --border-radius: 0px;
+    --color: #fff;
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+    height: 55px;
+    display: block;
+    width: 20%;
+    z-index: 1;
+    margin: 0px;
+}
+.buttons-first-slot {
+    width: 20%;
+    margin: 0px;
+}
+ion-menu-button {
+    --background: #292c2f;
+    --border-radius: 0px;
+    --color: #fff;
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+    height: 55px;
+    display: block;
+    width: 100%;
+    z-index: 1;
+    margin: 0px;
+}
+ion-toolbar.secondary-toolbar {
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+}
+.secondary-toolbar ion-grid {
+    --ion-grid-padding: 0px;
+}
+ion-searchbar {
+    --background: #ffffff;
+    --color: #292929;
+    padding: 5px;
+    height: 44px;
+}
+/*.secondary-toolbar ion-col {
+    padding: 0px;
+}*/

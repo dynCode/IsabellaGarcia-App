@@ -34,22 +34,22 @@
 	transform: translateX(-50%) translateY(-50%);
 	width: 35%;
 }
-#tab-button-login ion-label {
+ion-tab-button.login ion-label {
 	color: #000;
 	font-size: 16px;
 	font-weight: 700;
 }
-#tab-button-login {
+ion-tab-button.login {
 	background-color: #fff;
 	max-width: 50%;
 	width: 100%;
 }
-#tab-button-register {
+ion-tab-button.register {
 	background-color: #000;
 	max-width: 50%;
 	widows: 100%;
 }
-#tab-button-register ion-label {
+ion-tab-button.register ion-label {
 	color: #fff;
 	font-size: 16px;
 	font-weight: 700;

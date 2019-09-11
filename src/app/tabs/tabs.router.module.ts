@@ -58,15 +58,35 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'category/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../category/category.module').then(m => m.CategoryPageModule)
+          }
+        ]
+      },
+      {
+        path: 'product-details/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../product-details/product-details.module').then(m => m.ProductDetailsPageModule)
+          }
+        ]
+      },
+      {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/shop',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/shop',
     pathMatch: 'full'
   }
 ];

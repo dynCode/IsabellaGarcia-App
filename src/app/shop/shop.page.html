@@ -33,10 +33,12 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col size="6" *ngFor="let product of productsService.allProducts">
-				<div class="prodImg"><img [src]="product.images[0].src" /></div>
-				<div class="prodTitle">{{product.name}}</div>
-				<div class="prodPrice">{{product.price | currency : "R "}}</div>
-				<!--<div [innerHtml]="product.description"></div>-->
+        <div class="prodWrap" (click)="getProdDet(product.id)">
+          <div class="prodImg"><img [src]="product.images[0].src" /></div>
+          <div class="prodTitle">{{product.name}}</div>
+          <div class="prodPrice">{{product.price | currency : "R "}}</div>
+          <!--<div [innerHtml]="product.description"></div>-->
+        </div>
 			</ion-col>
 		</ion-row>
 	</ion-grid>

@@ -67,6 +67,16 @@ const routes: Routes = [
                             loadChildren: '../category/category.module#CategoryPageModule'
                         }
                     ]
+            },
+            {
+                path: 'product-details/:id',
+                children:
+                    [
+                        {
+                            path: '',
+                            loadChildren: '../product-details/product-details.module#ProductDetailsPageModule'
+                        }
+                    ]
             }
         ]
     },

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { identifierModuleUrl } from '@angular/compiler';
 import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,8 +12,9 @@ export class ProductsService {
 	public allProducts: allProduct[] = [];
 	public products: Product[] = [];
 	public categories: Categories[] = [];
+	public productDetails: productDetail[] = [];
 	
-	constructor(public loadingController: LoadingController) {}
+	constructor(public loadingController: LoadingController, private router: Router) {}
 	
 	public async loadProducts() {
 
@@ -58,11 +60,6 @@ export class ProductsService {
 
 	public async loadCategories() {
 
-		let loading = await this.loadingController.create({
-			message: 'Loading Products...'
-		});
-		await loading.present();
-
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
 			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
@@ -80,7 +77,6 @@ export class ProductsService {
 		})
 		.then((response) => {
 			this.categories = response.data || [];
-			loading.dismiss();
 		})
 		.catch((error) => {
 			// Invalid request, for 4xx and 5xx statuses
@@ -128,8 +124,41 @@ export class ProductsService {
 			// Always executed.
 		});
 	}
+
+	public async ProductDetails(id) {
+		let loading = await this.loadingController.create({
+			message: 'Loading Product...'
+		});
+		await loading.present();
+
+		const api = new WooCommerceRestApi({
+			url: 'https://beta.isabellagarcia.co.za',
+			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
+			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			wpAPI: true,
+			version: 'wc/v2',
+			queryStringAuth: true
+		});
+
+		api.get("products/" + id)
+		.then((response) => {
+			this.productDetails = response.data || [];
+			loading.dismiss();
+			this.router.navigate(['/', 'tabs', 'product-details', id]);
+		})
+		.catch((error) => {
+			// Invalid request, for 4xx and 5xx statuses
+			console.log("Response Status:", error.response.status);
+			console.log("Response Headers:", error.response.headers);
+			console.log("Response Data:", error.response.data);
+		})
+		.finally(() => {
+			// Always executed.
+		});
+	}
 }
 
 class allProduct { data: any; }
 class Product { data: any; }
 class Categories { data: any; }
+class productDetail { data: any; }
