@@ -21,4 +21,9 @@ export class ShopPage implements OnInit {
 		console.log(this.productsService.productDetails);
   }
 
+  public replaceIMG(imgString) {
+    var newstr = imgString.replace("beta.", "");
+    return '<img src="' + newstr + '">';
+  }
+
 }

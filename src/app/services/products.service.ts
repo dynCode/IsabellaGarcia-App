@@ -112,6 +112,7 @@ export class ProductsService {
 		})
 		.then((response) => {
 			this.products = response.data || [];
+			this.router.navigate(['/', 'tabs', 'category', id]);
 			loading.dismiss();
 		})
 		.catch((error) => {

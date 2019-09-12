@@ -32,7 +32,7 @@
   <ion-content>
     <div class="ion-padding">
       <div class="sProdWrap">
-        <div class="sProdImg"><img [src]="productsService.productDetails.images[0].src" /></div>
+        <div class="sProdImg" [innerHtml]="replaceIMG(productsService.productDetails.images[0].src)"></div>
         <div class="sProdTitle">{{productsService.productDetails.name}}</div>
         <div class="sProdDesc">
           <div class="sProdDesc-Title">

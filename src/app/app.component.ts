@@ -31,4 +31,9 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
+  public getCatDet(id){
+    this.productsService.loadProductsCat(id);
+		console.log(this.productsService.products);
+  }
 }

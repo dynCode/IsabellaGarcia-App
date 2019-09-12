@@ -13,10 +13,20 @@ export class CategoryPage implements OnInit {
   constructor(public productsService: ProductsService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
+    //let id = this.route.snapshot.paramMap.get('id');
 
-    this.productsService.loadProductsCat(id);
-		console.log(this.productsService.products);
+    //this.productsService.loadProductsCat(id);
+		//console.log(this.productsService.products);
+  }
+
+  public getProdDet(id){
+    this.productsService.ProductDetails(id);
+		console.log(this.productsService.productDetails);
+  }
+
+  public replaceIMG(imgString) {
+    var newstr = imgString.replace("beta.", "");
+    return '<img src="' + newstr + '">';
   }
 
 }

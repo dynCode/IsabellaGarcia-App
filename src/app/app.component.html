@@ -12,7 +12,8 @@
         <ion-list *ngFor="let category of productsService.categories">
 
           <ion-menu-toggle autoHide="false">
-            <ion-item [routerLink]="['/', 'tabs', 'category', category.id]" >
+            <!--<ion-item [routerLink]="['/', 'tabs', 'category', category.id]" >-->
+            <ion-item (click)="getCatDet(category.id)" >
               <ion-label>
                 {{ category.name }}
               </ion-label>
