@@ -85,3 +85,38 @@ ion-searchbar {
     font-size: 20px;
     font-weight: 800;
 }
+.addCart ion-button {
+    --background: #040707;
+    --background-activated: #707070;
+    --background-focused: #707070;
+    --background-hover: #707070;
+    --border-radius: 0px;
+    --color: #ffffff;
+    margin: 0px !important;
+}
+.qtyGroup {
+    --ion-grid-padding: 0px;
+    --ion-grid-column-padding: 0px;
+}
+ion-input#qtyVal {
+    --padding-top: 0px;
+    --padding-end: 8px;
+    --padding-bottom: 0px;
+    --padding-start: 5px;
+    --background: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    line-height: 44.8px;
+    height: 44.8px;
+}
+.qtyGroup ion-button {
+    width: 100%;
+    height: 44.8px;
+    margin: 0px;
+    font-size: 20px;
+    font-weight: 700;
+    --background: #292c2f;
+    --background-activated: rgba(0, 0, 0, 0.3);
+    --background-focused: rgba(0, 0, 0, 0.3);
+    --background-hover: rgba(0, 0, 0, 0.3);
+    --border-radius: 0px;
+}

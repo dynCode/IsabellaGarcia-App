@@ -12,7 +12,11 @@ export class ProductDetailsPage implements OnInit {
 
   constructor(public productsService: ProductsService, private route: ActivatedRoute) { }
 
+  public item_qty:any;
+
   ngOnInit() {
+
+    this.item_qty = 1;
     //let id = this.route.snapshot.paramMap.get('id');
 
     //this.productsService.ProductDetails(id);
@@ -24,4 +28,14 @@ export class ProductDetailsPage implements OnInit {
     return '<img src="' + newstr + '">';
   }
 
+  public minQty() {
+    if (this.item_qty > 1) {
+      this.item_qty --;
+    }
+  }
+  public plusQty() {
+    this.item_qty ++;
+
+    console.log(this.item_qty);
+  }
 }

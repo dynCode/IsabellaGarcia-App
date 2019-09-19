@@ -3,6 +3,7 @@ import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { identifierModuleUrl } from '@angular/compiler';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,8 +12,10 @@ export class ProductsService {
 	
 	public allProducts: allProduct[] = [];
 	public products: Product[] = [];
+	public moreProducts: moreProduct[] = [];
 	public categories: Categories[] = [];
 	public productDetails: productDetail[] = [];
+	public useCat: number;
 	
 	constructor(public loadingController: LoadingController, private router: Router) {}
 	
@@ -36,6 +39,8 @@ export class ProductsService {
 			per_page: 20, // 20 products per page
 			status: 'publish',
 			category: 719,
+			order: 'asc',
+			orderby: 'title',
 		})
 		.then((response) => {
 			// Successful request
@@ -89,7 +94,9 @@ export class ProductsService {
 		});
 	}
 
-	public async loadProductsCat(id) {
+	public async loadProductsCat(id, page) {
+
+		this.useCat = id;
 
 		let loading = await this.loadingController.create({
 			message: 'Loading Products...'
@@ -106,13 +113,16 @@ export class ProductsService {
 		});
 
 		api.get("products", {
+			page: page,
 			per_page: 20, // 20 products per page
 			status: 'publish',
 			category: id,
+			order: 'asc',
+			orderby: 'title',
 		})
 		.then((response) => {
 			this.products = response.data || [];
-			this.router.navigate(['/', 'tabs', 'category', id]);
+			this.router.navigate(['/', 'tabs', 'category', id, page]);
 			loading.dismiss();
 		})
 		.catch((error) => {
@@ -157,9 +167,44 @@ export class ProductsService {
 			// Always executed.
 		});
 	}
+	public async loadMoreProductsCat(id, page) {
+
+		this.useCat = id;
+
+		const api = new WooCommerceRestApi({
+			url: 'https://beta.isabellagarcia.co.za',
+			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
+			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			wpAPI: true,
+			version: 'wc/v2',
+			queryStringAuth: true
+		});
+
+		api.get("products", {
+			page: page,
+			per_page: 20, // 20 products per page
+			status: 'publish',
+			category: id,
+			order: 'asc',
+			orderby: 'title',
+		})
+		.then((response) => {
+			this.moreProducts = response.data || [];
+		})
+		.catch((error) => {
+			// Invalid request, for 4xx and 5xx statuses
+			console.log("Response Status:", error.response.status);
+			console.log("Response Headers:", error.response.headers);
+			console.log("Response Data:", error.response.data);
+		})
+		.finally(() => {
+			// Always executed.
+		});
+	}
 }
 
 class allProduct { data: any; }
 class Product { data: any; }
+class moreProduct { data: any; }
 class Categories { data: any; }
 class productDetail { data: any; }

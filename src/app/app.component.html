@@ -10,8 +10,8 @@
       <ion-content>
 
       <ion-item button class="parent" (click)="openW = !openW" [class.parent-active]="openW" detail="false">
-        <ion-icon slot="end" name="arrow-dropright" *ngIf="!openW"></ion-icon>
-        <ion-icon slot="end" name="arrow-dropdown" *ngIf="openW"></ion-icon>
+        <ion-icon slot="end" name="arrow-forward" *ngIf="!openW"></ion-icon>
+        <ion-icon slot="end" name="arrow-down" *ngIf="openW"></ion-icon>
         <ion-label>Women's Products</ion-label>
       </ion-item>
 
@@ -26,8 +26,8 @@
 
         <!--Products By Range-->
         <ion-item button class="subParent" (click)="pbrOpen = !pbrOpen" [class.subparent-active]="pbrOpen" detail="false">
-          <ion-icon slot="end" name="arrow-dropright" *ngIf="!pbrOpen"></ion-icon>
-          <ion-icon slot="end" name="arrow-dropdown" *ngIf="pbrOpen"></ion-icon>
+          <ion-icon slot="end" name="arrow-forward" *ngIf="!pbrOpen"></ion-icon>
+          <ion-icon slot="end" name="arrow-down" *ngIf="pbrOpen"></ion-icon>
           <ion-label>Products By Range</ion-label>
         </ion-item>
 
@@ -64,8 +64,8 @@
         <!--Products By Concern-->
 
         <ion-item button class="subParent" (click)="pbcOpen = !pbcOpen" [class.subparent-active]="pbcOpen" detail="false">
-          <ion-icon slot="end" name="arrow-dropright" *ngIf="!pbcOpen"></ion-icon>
-          <ion-icon slot="end" name="arrow-dropdown" *ngIf="pbcOpen"></ion-icon>
+          <ion-icon slot="end" name="arrow-forward" *ngIf="!pbcOpen"></ion-icon>
+          <ion-icon slot="end" name="arrow-down" *ngIf="pbcOpen"></ion-icon>
           <ion-label>Products By Concern</ion-label>
         </ion-item>
 
@@ -102,8 +102,8 @@
           <!--Products By Collection-->
 
           <ion-item button class="subParent" (click)="pbcoOpen = !pbcoOpen" [class.subparent-active]="pbcoOpen" detail="false">
-            <ion-icon slot="end" name="arrow-dropright" *ngIf="!pbcoOpen"></ion-icon>
-            <ion-icon slot="end" name="arrow-dropdown" *ngIf="pbcoOpen"></ion-icon>
+            <ion-icon slot="end" name="arrow-forward" *ngIf="!pbcoOpen"></ion-icon>
+            <ion-icon slot="end" name="arrow-down" *ngIf="pbcoOpen"></ion-icon>
             <ion-label>Products By Collection</ion-label>
           </ion-item>
 
@@ -129,8 +129,8 @@
       </ion-list>
 
       <ion-item button class="parent" (click)="openM = !openM" [class.parent-active]="openM" detail="false">
-        <ion-icon slot="end" name="arrow-dropright" *ngIf="!openM"></ion-icon>
-        <ion-icon slot="end" name="arrow-dropdown" *ngIf="openM"></ion-icon>
+        <ion-icon slot="end" name="arrow-forward" *ngIf="!openM"></ion-icon>
+        <ion-icon slot="end" name="arrow-down" *ngIf="openM"></ion-icon>
         <ion-label>Men's Products</ion-label>
       </ion-item>
 
@@ -159,8 +159,8 @@
 
 
       <ion-item button class="parent" (click)="openMP = !openMP" [class.parent-active]="openMP" detail="false">
-        <ion-icon slot="end" name="arrow-dropright" *ngIf="!openMP"></ion-icon>
-        <ion-icon slot="end" name="arrow-dropdown" *ngIf="openMP"></ion-icon>
+        <ion-icon slot="end" name="arrow-forward" *ngIf="!openMP"></ion-icon>
+        <ion-icon slot="end" name="arrow-down" *ngIf="openMP"></ion-icon>
         <ion-label>Most Popular Products</ion-label>
       </ion-item>
 

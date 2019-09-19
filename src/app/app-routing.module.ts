@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: '', loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)},
   { path: 'landing-page', loadChildren: './landing-page/landing-page.module#LandingPagePageModule' },
+  
 
   /*TABS PAGES*/
   //{ path: 'shop', loadChildren: './shop/shop.module#ShopPageModule' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   //{ path: 'wishlist', loadChildren: './wishlist/wishlist.module#WishlistPageModule' },
   //{ path: 'category/:id', loadChildren: './category/category.module#CategoryPageModule' },
   //{ path: 'product-details', loadChildren: './product-details/product-details.module#ProductDetailsPageModule' }
+  //{ path: 'ts-cs', loadChildren: './ts-cs/ts-cs.module#TsCsPageModule' },
 ];
 
 @NgModule({

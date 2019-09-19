@@ -59,7 +59,7 @@ const routes: Routes = [
                     ]
             },
             {
-                path: 'category/:id',
+                path: 'category/:id/:page',
                 children:
                     [
                         {
@@ -75,6 +75,16 @@ const routes: Routes = [
                         {
                             path: '',
                             loadChildren: '../product-details/product-details.module#ProductDetailsPageModule'
+                        }
+                    ]
+            },
+            {
+                path: 'ts-cs',
+                children:
+                    [
+                        {
+                            path: '',
+                            loadChildren: '../ts-cs/ts-cs.module#TsCsPageModule'
                         }
                     ]
             }

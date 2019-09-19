@@ -58,7 +58,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'category/:id',
+        path: 'category/:id/:page',
         children: [
           {
             path: '',
@@ -74,6 +74,16 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../product-details/product-details.module').then(m => m.ProductDetailsPageModule)
+          }
+        ]
+      },
+      {
+        path: 'ts-cs',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../ts-cs/ts-cs.module').then(m => m.TsCsPageModule)
           }
         ]
       },
