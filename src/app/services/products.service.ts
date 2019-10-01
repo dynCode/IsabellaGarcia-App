@@ -13,6 +13,7 @@ export class ProductsService {
 	public allProducts: allProduct[] = [];
 	public products: Product[] = [];
 	public moreProducts: moreProduct[] = [];
+	public specialsProducts: specialProduct[] = [];
 	public categories: Categories[] = [];
 	public productDetails: productDetail[] = [];
 	public useCat: number;
@@ -201,6 +202,45 @@ export class ProductsService {
 			// Always executed.
 		});
 	}
+
+	public async loadSpecials(page) {
+
+		let loading = await this.loadingController.create({
+			message: 'Loading Specials...'
+		});
+		await loading.present();
+
+		const api = new WooCommerceRestApi({
+			url: 'https://beta.isabellagarcia.co.za',
+			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
+			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			wpAPI: true,
+			version: 'wc/v2',
+			queryStringAuth: true,
+		});
+
+		api.get("products", {
+			page: page,
+			per_page: 20, // 20 products per page
+			status: 'publish',
+			order: 'asc',
+			orderby: 'title',
+			on_sale: true,
+		})
+		.then((response) => {
+			this.specialsProducts = response.data || [];
+			loading.dismiss();
+		})
+		.catch((error) => {
+			// Invalid request, for 4xx and 5xx statuses
+			console.log("Response Status:", error.response.status);
+			console.log("Response Headers:", error.response.headers);
+			console.log("Response Data:", error.response.data);
+		})
+		.finally(() => {
+			// Always executed.
+		});
+	}
 }
 
 class allProduct { data: any; }
@@ -208,3 +248,4 @@ class Product { data: any; }
 class moreProduct { data: any; }
 class Categories { data: any; }
 class productDetail { data: any; }
+class specialProduct { data: any; }

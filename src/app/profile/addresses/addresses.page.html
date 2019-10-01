@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+      <ion-title>Addresses</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card>    
+      <ion-card-content>
+        <ion-card-subtitle>Billing Address</ion-card-subtitle>
+        <hr/>
+        <h2>{{authenticationService.customer.billing.first_name}} {{authenticationService.customer.billing.last_name}}</h2>
+        <p>
+        <ion-label>
+          <p position="stacked">Address</p>
+          <h3>{{authenticationService.customer.billing.address_1}}, {{authenticationService.customer.billing.address_2}}, {{authenticationService.customer.billing.city}}, {{authenticationService.customer.billing.state}}, {{authenticationService.customer.billing.postcode}}</h3>
+        </ion-label>
+        </p> 
+        <p>
+        <ion-label>
+          <p position="stacked">Company</p>
+          <h3>{{authenticationService.customer.billing.company}}</h3>
+        </ion-label>
+        </p> 
+        <p>
+        <ion-label>
+          <p position="stacked">Phone</p>
+          <h3>{{authenticationService.customer.billing.phone}}</h3>
+        </ion-label>
+        </p>
+        <ion-button size="small" class="editBtn"><ion-icon name="create" slot="start"></ion-icon>Edit</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>    
+        <ion-card-content>
+          <ion-card-subtitle>Shipping Address</ion-card-subtitle>
+          <hr/>
+          <h2>{{authenticationService.customer.shipping.first_name}} {{authenticationService.customer.shipping.last_name}}</h2>
+          <p>
+          <ion-label>
+            <p position="stacked">Address</p>
+            <h3>{{authenticationService.customer.shipping.address_1}}, {{authenticationService.customer.shipping.address_2}}, {{authenticationService.customer.shipping.city}}, {{authenticationService.customer.shipping.state}}, {{authenticationService.customer.shipping.postcode}}</h3>
+          </ion-label>
+          </p> 
+          <p>
+          <ion-label>
+            <p position="stacked">Company</p>
+            <h3>{{authenticationService.customer.shipping.company}}</h3>
+          </ion-label>
+          </p>
+          <ion-button size="small" class="editBtn"><ion-icon name="create" slot="start"></ion-icon>Edit</ion-button>
+        </ion-card-content>
+      </ion-card>
+        
+  </ion-content>
+  

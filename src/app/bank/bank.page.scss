@@ -1,29 +1,12 @@
 ion-title {
     text-align: center;
 }
-.title-small {
-    font-size: 60%;
-    width: 100%;
-    display: block;
-}
 .title-large {
-    position: relative;
-    width: 100%;
-    display: block;
-    padding-bottom: 3px;
-    margin-bottom: 3px;
-    font-size: 22px;
-    line-height: 20px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 .title-large::before {
-    content: "";
-    position: absolute;
-    width: 70%;
-    height: 1px;
-    bottom: 0px;
-    background-color: #ffffff;
-    left: 50%;
-    transform: translateX(-50%);
+    display: none !important;
 }
 ion-toolbar.main-toolbar {
     --color: #ffffff;

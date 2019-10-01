@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ProductsService } from '../services/products.service';
+import {AuthenticationService} from '../services/authenticate.service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePage implements OnInit {
 
-  constructor() { }
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService) {}
 
   ngOnInit() {
+    
   }
 
 }

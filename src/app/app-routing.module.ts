@@ -8,6 +8,11 @@ const routes: Routes = [
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: '', loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)},
   { path: 'landing-page', loadChildren: './landing-page/landing-page.module#LandingPagePageModule' },
+  { path: 'account', loadChildren: './profile/account/account.module#AccountPageModule' },
+  { path: 'orders', loadChildren: './profile/orders/orders.module#OrdersPageModule' },
+  { path: 'gift-cards', loadChildren: './profile/gift-cards/gift-cards.module#GiftCardsPageModule' },
+  { path: 'coupons', loadChildren: './profile/coupons/coupons.module#CouponsPageModule' },
+  { path: 'addresses', loadChildren: './profile/addresses/addresses.module#AddressesPageModule' },
   
 
   /*TABS PAGES*/

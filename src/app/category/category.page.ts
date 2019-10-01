@@ -11,7 +11,7 @@ import { ProductsService } from '../services/products.service';
 })
 export class CategoryPage implements OnInit {
 
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
   page: number;
   tPages: any;
@@ -22,14 +22,7 @@ export class CategoryPage implements OnInit {
 
   }
 
-  ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
-
-    //this.productsService.countCategory(id);
-    //console.log(this.productsService.catCount);
-
-    //this.displayPagination(this.productsService.catCount);
-  }
+  ngOnInit() {  }
 
   loadData(event) {
     setTimeout(() => {
@@ -50,9 +43,6 @@ export class CategoryPage implements OnInit {
         console.log('Done');
         event.target.complete();
       }, 10000);
-      
-      // App logic to determine if all data is loaded
-      // and disable the infinite scroll
       if (this.productsService.moreProducts.length == 1000) {
         event.target.disabled = true;
       }
@@ -72,11 +62,5 @@ export class CategoryPage implements OnInit {
     var newstr = imgString.replace("beta.", "");
     return '<img src="' + newstr + '">';
   }
-
-  //public displayPagination(tProducts) {
-    //this.tPages = (tProducts.count / 20);
-    //console.log("Pages: ", tProducts.count);
-    //console.log("Total pages: ", Math.ceil(this.tPages));
-  //}
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../services/authenticate.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingPagePage implements OnInit {
 
-  constructor() { }
+  constructor(public authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    //console.log(this.authenticationService.customer);
+    this.authenticationService.displayCustomer();
+
+    console.log("Show User: ", this.authenticationService.user);
   }
 
 }

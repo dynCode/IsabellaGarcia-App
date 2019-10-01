@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ProductsService } from '../services/products.service';
+import {AuthenticationService} from '../services/authenticate.service';
 
 @Component({
   selector: 'app-shop',
@@ -9,11 +10,13 @@ import { ProductsService } from '../services/products.service';
 })
 export class ShopPage implements OnInit {
 
-  constructor(public productsService: ProductsService) {}
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService) {}
 
   ngOnInit() {
 		this.productsService.loadProducts();
-		console.log(this.productsService.allProducts);
+    console.log(this.productsService.allProducts);
+    
+    this.authenticationService.displayCustomer();
   }
   
   public getProdDet(id){
