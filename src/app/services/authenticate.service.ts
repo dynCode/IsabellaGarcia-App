@@ -4,6 +4,8 @@ import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +17,8 @@ export class AuthenticationService {
     public customerDetails: customerDetail[] = [];
     private member: any;
     public userData: any;
+    public MemPoints: any;
+
 
     constructor(private http: HttpClient, public loadingController: LoadingController, private router: Router, private storage: Storage) {
     }
@@ -43,6 +47,7 @@ export class AuthenticationService {
 
     setUser(user) {
         this.user = user;
+        console.log("User Data", this.user);
         this.storage.set('user', this.user);
     }
 
@@ -71,16 +76,16 @@ export class AuthenticationService {
             loading.dismiss();
             //this.router.navigate(['/', 'tabs', 'shop']);
             
-            let memKey = '';
-            for (var i=0; i < response.data[0].meta_data.length; i++) {
-                if (response.data[0].meta_data[i].key === "membership_number") {
-                    memKey = response.data[0].meta_data[i].value;
-                }
-            }
-            let bps = this.getBP(memKey);
+            let memKey = response.data[0].id;
+            //for (var i=0; i < response.data[0].meta_data.length; i++) {
+            //    if (response.data[0].meta_data[i].key === "membership_number") {
+            //        memKey = response.data[0].meta_data[i].value;
+            //    }
+            //}
+            let bps = this.getMyPoints(memKey);
 
             console.log("Member Points:", bps);
-            this.router.navigate(['/', 'landing-page']);
+            this.router.navigate(['/', 'tabs', 'shop']);
 		})
 		.catch((error) => {
 			// Invalid request, for 4xx and 5xx statuses
@@ -147,21 +152,33 @@ export class AuthenticationService {
         console.log("Customer Data: ", this.customerDetails);
     }
 
-    getBP(memberdetails) {
-        console.log("Member Number:", memberdetails);
-        let headers = new HttpHeaders({
-            'Api-key': '784e1e4dd5cf10364b2ae5fb261b3944',
-            Accept: 'application/json' 
-        });
-        this.http.get('https://beta.isabellagarcia.co.za/wp-json/members/v1/point_balance?membership_number=' + memberdetails,{headers: headers}).subscribe(data => {
-            this.member = data;
-            return this.member;
-          },
-          error => {
-            // probably a bad url or 404
-            console.log(error);
-          });
+    getBP(memberdetails): Observable<MemPoint[]> {
+        let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.user.token});
+
+        let url = 'https://beta.isabellagarcia.co.za/wp-json/wp/v2/users/'+memberdetails;
+        //let customHeaders: HttpHeaders = new HttpHeaders().set('Api-key', '784e1e4dd5cf10364b2ae5fb261b3944');
+        //headers.append('Api-key', '784e1e4dd5cf10364b2ae5fb261b3944');
+        let httpOptions = {
+            headers: headers
+        };
+        return this.http.get(url,httpOptions).pipe(
+          map((res) => {
+            this.MemPoints = res;
+            return this.MemPoints;
+        }));
+    }
+
+    getMyPoints(memberdetails): void {
+        this.getBP(memberdetails).subscribe(
+            (res: MemPoint[]) => {
+                this.MemPoints = res;
+            },
+            (err) => {
+                this.MemPoints = err;
+            }
+        );
     }
 }
 
 class customerDetail { data: any; }
+class MemPoint { data: any }

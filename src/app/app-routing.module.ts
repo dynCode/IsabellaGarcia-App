@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'gift-cards', loadChildren: './profile/gift-cards/gift-cards.module#GiftCardsPageModule' },
   { path: 'coupons', loadChildren: './profile/coupons/coupons.module#CouponsPageModule' },
   { path: 'addresses', loadChildren: './profile/addresses/addresses.module#AddressesPageModule' },
+  { path: 'cart', loadChildren: './cart/cart.module#CartPageModule' },
   
 
   /*TABS PAGES*/

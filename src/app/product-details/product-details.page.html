@@ -59,7 +59,7 @@
               </ion-grid>
             </ion-col>
             <ion-col size="6" class="addCart">
-              <ion-button expand="full">ADD TO CART</ion-button>
+              <ion-button expand="full" (click)="addToCart(productsService.productDetails, item_qty)">ADD TO CART</ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
