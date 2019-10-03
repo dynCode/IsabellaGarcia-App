@@ -1,9 +1,53 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Shopping Cart</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-card [hidden]="!showEmptyCartMessage">
+    <ion-grid>
+      <ion-row>
+        <ion-col>Your cart is currently empty.</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+   
+  <ion-list id="cartList">
+    <ion-item *ngFor="let item of cartItems; let i = index">
+      <ion-thumbnail class="prodThumbImg" [innerHtml]="replaceIMG(item.product.images[0].src)" slot="start"></ion-thumbnail>
+      <ion-label>
+        <p class="cartTitle"><strong>{{ item.product.name }}</strong></p>
+        <p class="cartPrice">{{ item.product.price | currency : "R" }}</p>
+        <p class="cartQty">Quantity: {{ item.qty }}</p>
+      </ion-label>
+      <ion-button fill="clear" color="danger" (click)="removeFromCart(item, i)" slot="end">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  
+
 </ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-2>
+
+      </ion-col>
+      <ion-col col-4>
+        <b>TOTAL</b>
+      </ion-col>
+      <ion-col col-3 style="text-align: right;">
+        <b>{{ total | currency : "R"  }}</b>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button expand="full" color="dark">CHECKOUT</ion-button>
+</ion-footer>
