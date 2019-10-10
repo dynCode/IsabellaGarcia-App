@@ -16,7 +16,14 @@ export class ShopPage implements OnInit {
   showCartCount: boolean = false;
   userBR: any;
 
-  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage) {  }
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage) { 
+
+    this.storage.ready().then( (data)=>{
+      this.storage.get("availableBR").then( (data)=> {
+        this.userBR = data;
+      })
+    })
+  }
 
   ngOnInit() {
 		this.productsService.loadProducts();
@@ -34,10 +41,10 @@ export class ShopPage implements OnInit {
 
       });
 
-      this.storage.get("user").then( (data)=>{
+      /*this.storage.get("user").then( (data)=>{
         this.userDetails = data;
         this.userBR = this.userDetails[0].brPoints;
-      });
+      });*/
     });
   }
   

@@ -64,10 +64,9 @@ export class ProductDetailsPage implements OnInit {
 
       });
 
-      this.storage.get("user").then( (data)=>{
-        this.userDetails = data;
-        this.userBR = this.userDetails[0].brPoints;
-      });
+      this.storage.get("availableBR").then( (data)=> {
+        this.userBR = data;
+      })
 
     })
   }
@@ -107,6 +106,10 @@ export class ProductDetailsPage implements OnInit {
           "qty": pQty,
           "amount": parseFloat(product.price) * pQty
         });
+        this.storage.get("availableBR").then( (data)=> {
+          this.userBR = data - (parseFloat(product.price) * pQty);
+        })
+
       } else {
 
         let added = 0;
@@ -121,6 +124,10 @@ export class ProductDetailsPage implements OnInit {
             data[i].qty = qty + pQty;
             data[i].amount = parseFloat(data[i].amount) + (parseFloat(data[i].product.price) * pQty);
             added = 1;
+
+            this.storage.get("availableBR").then( (data)=> {
+              this.userBR = data - data[i].amount;
+            })
              
           }
         }
@@ -131,6 +138,10 @@ export class ProductDetailsPage implements OnInit {
             "qty": pQty,
             "amount": parseFloat(product.price) * pQty
           });
+
+          this.storage.get("availableBR").then( (data)=> {
+            this.userBR = data - (parseFloat(product.price) * pQty);
+          })
         }
 
       }
@@ -149,6 +160,7 @@ export class ProductDetailsPage implements OnInit {
   }
 
   async uSuccess() {
+
     const toast = await this.toastController.create({
       message: 'Cart Updated',
       color: "dark",

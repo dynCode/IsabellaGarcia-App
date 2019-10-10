@@ -1,18 +1,18 @@
 .lp-vip {
-    max-width: 55%;
+    max-width: 45%;
     margin: auto;
 }
 .lp-wlcm h2 {
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 5px;
     text-align: center;
 }
 .lp-wlcm h1 {
-    font-size: 36px;
+    font-size: 30px;
     text-align: center;
     margin-top: 0px;
-    line-height: 32px;
-    margin-bottom: 24px;
+    line-height: 30px;
+    margin-bottom: 20px;
     font-weight: 800;
 }
 ion-content {
@@ -63,4 +63,5 @@ ion-content {
 }
 .lp-btns ion-button {
     font-size: 14px;
+    letter-spacing: 0px;
 }

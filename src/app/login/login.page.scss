@@ -28,7 +28,7 @@
 }
 .login-field {
     --color: #b2b2b2;
-    font-size: 100%;
+    font-size: 14px;
 }
 ion-content {
     max-height: 100vh;
@@ -55,4 +55,12 @@ ion-card-content {
 }
 .loginBtn {
     padding: 20px 0px;
+}
+a.loginUnderSec {
+    color: #b41d24 !important;
+}
+.loginIcon {
+    color: #292c2f;
+    font-size: 25px;
+    margin-inline-end: 8px !important;
 }

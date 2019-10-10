@@ -25,6 +25,7 @@ const routes: Routes = [
   //{ path: 'category/:id', loadChildren: './category/category.module#CategoryPageModule' },
   //{ path: 'product-details', loadChildren: './product-details/product-details.module#ProductDetailsPageModule' }
   //{ path: 'ts-cs', loadChildren: './ts-cs/ts-cs.module#TsCsPageModule' },
+  //{ path: 'search-results', loadChildren: './search-results/search-results.module#SearchResultsPageModule' },
 ];
 
 @NgModule({

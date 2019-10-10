@@ -88,6 +88,16 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'search-results',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../search-results/search-results.module').then(m => m.SearchResultsPageModule)
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/shop',
         pathMatch: 'full'

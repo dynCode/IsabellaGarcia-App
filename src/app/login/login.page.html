@@ -15,12 +15,12 @@
       </ion-card>
       <form [formGroup]="login_form" (ngSubmit)="login(login_form.value)" class="ion-padding">
         <ion-item>
-          <ion-icon name="mail" slot="start"></ion-icon>
+          <ion-icon name="mail" slot="start" class="loginIcon"></ion-icon>
           <ion-label position="stacked" class="login-field">Username</ion-label>
           <ion-input required type="text" formControlName="username"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-icon name="lock" slot="start"></ion-icon>
+          <ion-icon name="lock" slot="start" class="loginIcon"></ion-icon>
           <ion-label position="stacked" class="login-field">Password</ion-label>
           <ion-input required [type]="passwordType" formControlName="password"></ion-input>
           <ion-icon [name]="passwordShown === true ? 'md-eye-off' : 'md-eye'" slot="end" (click)="togglePassword()"></ion-icon>
@@ -29,7 +29,7 @@
           <ion-button expand="block" type="submit" class="login-btn ion-no-margin">LOG IN</ion-button>
           <!--<ion-button expand="block" class="login-btn ion-no-margin" [routerLink]="['/', 'landing-page']">LOG IN</ion-button>-->
           <div class="newUser"><p><a class="loginUnder" href="https://isabellagarcia.co.za/my-account/lost-password/" target="_blank">Lost your password?</a></p></div>
-          <div class="newUser"><p>FIRST TIME IG APP USER: <a class="loginUnder" [routerLink]="['/', 'register']">REGISTER HERE</a></p></div>
+          <div class="newUser"><p>FIRST TIME IG APP USER: <a class="loginUnderSec" [routerLink]="['/', 'register']">REGISTER HERE</a></p></div>
         </div>
       <!--<ion-item>
         <ion-checkbox color="danger" slot="start"></ion-checkbox>

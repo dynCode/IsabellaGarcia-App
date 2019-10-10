@@ -7,11 +7,11 @@ import { ProductsService } from '../services/products.service';
 import {AuthenticationService} from '../services/authenticate.service';
 
 @Component({
-  selector: 'app-specials',
-  templateUrl: './specials.page.html',
-  styleUrls: ['./specials.page.scss'],
+  selector: 'app-search-results',
+  templateUrl: './search-results.page.html',
+  styleUrls: ['./search-results.page.scss'],
 })
-export class SpecialsPage implements OnInit {
+export class SearchResultsPage implements OnInit {
 
   @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
@@ -19,21 +19,15 @@ export class SpecialsPage implements OnInit {
   tPages: any;
   cartList: any[] = [];
   userDetails: any[] = [];
+  productResults: any[] = [];
   showCartCount: boolean = false;
+  noResults: boolean = false;
   userBR: any;
-  searchQuery: any;
+  keyword: string = '';
 
   constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, private route: ActivatedRoute, public storage: Storage) {
 
     this.page = 1;
-
-  }
-
-  ngOnInit() { 
-    this.productsService.loadSpecials(this.page);
-    console.log(this.productsService.specialsProducts);
-    
-    this.authenticationService.displayCustomer();
 
     this.storage.ready().then( (data)=>{
       this.storage.get("cart").then( (data)=>{
@@ -45,11 +39,30 @@ export class SpecialsPage implements OnInit {
 
       });
 
-      this.storage.ready().then( (data)=>{
-        this.storage.get("availableBR").then( (data)=> {
-          this.userBR = data;
-        })
+      this.storage.get("availableBR").then( (data)=> {
+        this.userBR = data;
       })
+      this.storage.get("searchKey").then( (data)=>{
+        this.keyword = data;
+      });
+    });
+
+  }
+
+  ngOnInit() { 
+    //this.authenticationService.displayCustomer();
+    this.productResults = [];
+
+    this.productResults = this.productsService.searchProducts;
+
+    if (this.productsService.searchProducts.length > 0 || this.productsService.searchProducts.length !== null) {
+      this.noResults = false;
+    } else {
+      this.noResults = true;
+    }
+
+    this.storage.get("searchKey").then( (data)=>{
+      this.keyword = data;
     });
   }
 
@@ -57,22 +70,22 @@ export class SpecialsPage implements OnInit {
     setTimeout(() => {
 
       let id = this.route.snapshot.paramMap.get('id');
-      this.productsService.loadMoreProductsCat(id, ++this.page);
+      this.productsService.searchMoreResults(this.keyword, ++this.page);
       
       setTimeout(() => {
 
-        var arrayLength = this.productsService.moreProducts.length;
+        var arrayLength = this.productsService.searchMoProducts.length;
 
         for (var i = 0; i < arrayLength; i++) {
 
-          this.productsService.products.push(this.productsService.moreProducts[i]);
-          console.log(this.productsService.moreProducts[i]);
+          this.productsService.searchProducts.push(this.productsService.searchMoProducts[i]);
+          console.log(this.productsService.searchMoProducts[i]);
         }
 
         console.log('Done');
         event.target.complete();
       }, 10000);
-      if (this.productsService.moreProducts.length == 1000) {
+      if (this.productsService.searchMoProducts.length == 1000) {
         event.target.disabled = true;
       }
     }, 500);
@@ -92,9 +105,12 @@ export class SpecialsPage implements OnInit {
     return '<img src="' + newstr + '">';
   }
 
-  public searchByKeyword() {
-    console.log("SEARCH", this.searchQuery);
-    this.productsService.searchResults(this.searchQuery, 1);
+  public getLatestKey() {
+    this.storage.get("searchKey").then( (data)=>{
+      this.keyword = data;
+    });
+
+    return '<span>Showing results for ' + this.keyword + '</span>';
   }
 
 }

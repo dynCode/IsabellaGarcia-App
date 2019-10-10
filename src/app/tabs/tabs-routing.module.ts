@@ -87,6 +87,16 @@ const routes: Routes = [
                             loadChildren: '../ts-cs/ts-cs.module#TsCsPageModule'
                         }
                     ]
+            },
+            {
+                path: 'search-results',
+                children:
+                    [
+                        {
+                            path: '',
+                            loadChildren: '../search-results/search-results.module#SearchResultsPageModule'
+                        }
+                    ]
             }
         ]
     },

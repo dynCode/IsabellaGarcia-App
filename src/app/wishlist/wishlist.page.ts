@@ -50,10 +50,11 @@ export class WishlistPage implements OnInit {
 
       });
 
-      this.storage.get("user").then( (data)=>{
-        this.userDetails = data;
-        this.userBR = this.userDetails[0].brPoints;
-      });
+      this.storage.ready().then( (data)=>{
+        this.storage.get("availableBR").then( (data)=> {
+          this.userBR = data;
+        })
+      })
 
     })
 

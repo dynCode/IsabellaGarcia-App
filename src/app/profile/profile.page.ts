@@ -36,7 +36,7 @@ export class ProfilePage implements OnInit {
           this.userDetails = data;
           this.userFirstName = this.userDetails[0].firstName;
           this.userSurname = this.userDetails[0].lastName;
-          this.userBR = this.userDetails[0].brPoints;
+          //this.userBR = this.userDetails[0].brPoints;
           this.userID = this.userDetails[0].id;
         })
 
@@ -48,6 +48,12 @@ export class ProfilePage implements OnInit {
           } 
 
         });
+
+        this.storage.ready().then( (data)=>{
+          this.storage.get("availableBR").then( (data)=> {
+            this.userBR = data;
+          })
+        })
 
       });
   }

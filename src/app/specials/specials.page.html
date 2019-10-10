@@ -22,7 +22,7 @@
       <ion-grid>
       <ion-row>
         <ion-col class="search-col">
-        <ion-searchbar></ion-searchbar>
+        <ion-searchbar [(ngModel)]="searchQuery" placeholder="Search" (search)="searchByKeyword($event)"></ion-searchbar>
         </ion-col>
         <ion-col class="br-col">
           <p><span class="br-currency">BR</span><span class="br-amount">{{ userBR | number : '1.2-2' }}</span></p>

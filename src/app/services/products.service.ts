@@ -4,6 +4,7 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,8 +19,10 @@ export class ProductsService {
 	public productDetails: productDetail[] = [];
 	public useCat: number;
 	public history: cusHistory[] = [];
+	public searchProducts: searchProd[] = [];
+	public searchMoProducts: searchMoProd[] = [];
 	
-	constructor(public loadingController: LoadingController, private router: Router) {}
+	constructor(public loadingController: LoadingController, private router: Router, public storage: Storage) {}
 	
 	public async loadProducts() {
 
@@ -282,6 +285,82 @@ export class ProductsService {
 			// Always executed.
 		});
 	}
+
+	public async searchResults(keyword, page) {
+		this.storage.set("searchKey", keyword).then( ()=>{
+			console.log(keyword);
+		});
+
+		let loading = await this.loadingController.create({
+			message: 'Searching...'
+		});
+		await loading.present();
+
+		const api = new WooCommerceRestApi({
+			url: 'https://beta.isabellagarcia.co.za',
+			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
+			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			wpAPI: true,
+			version: 'wc/v2',
+			queryStringAuth: true,
+		});
+
+		api.get("products", {
+			page: page,
+			per_page: 20, // 20 products per page
+			status: 'publish',
+			order: 'asc',
+			orderby: 'title',
+			search: keyword,
+		})
+		.then((response) => {
+			this.searchProducts = response.data || [];
+			this.router.navigate(['/', 'tabs', 'search-results']);
+			loading.dismiss();
+		})
+		.catch((error) => {
+			// Invalid request, for 4xx and 5xx statuses
+			console.log("Response Status:", error.response.status);
+			console.log("Response Headers:", error.response.headers);
+			console.log("Response Data:", error.response.data);
+		})
+		.finally(() => {
+			// Always executed.
+		});
+	}
+	public async searchMoreResults(keyword, page) {
+
+
+		const api = new WooCommerceRestApi({
+			url: 'https://beta.isabellagarcia.co.za',
+			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
+			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			wpAPI: true,
+			version: 'wc/v2',
+			queryStringAuth: true,
+		});
+
+		api.get("products", {
+			page: page,
+			per_page: 20, // 20 products per page
+			status: 'publish',
+			order: 'asc',
+			orderby: 'title',
+			search: keyword,
+		})
+		.then((response) => {
+			this.searchMoProducts = response.data || [];
+		})
+		.catch((error) => {
+			// Invalid request, for 4xx and 5xx statuses
+			console.log("Response Status:", error.response.status);
+			console.log("Response Headers:", error.response.headers);
+			console.log("Response Data:", error.response.data);
+		})
+		.finally(() => {
+			// Always executed.
+		});
+	}
 }
 
 class allProduct { data: any; }
@@ -291,3 +370,5 @@ class Categories { data: any; }
 class productDetail { data: any; }
 class specialProduct { data: any; }
 class cusHistory { data: any; }
+class searchProd { data: any; }
+class searchMoProd { data: any; }
