@@ -8,10 +8,13 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     
-    <ion-title><span class="title-large">REDEEM BR</span><span class="title-small">MY BEATY CLUB PRODUCTS</span></ion-title>
+    <ion-title><span class="title-large">WISHLIST</span></ion-title>
 
     <ion-button slot="end" class="toolbar-btn tb-btn2" [routerLink]="['/', 'cart']">
-      <img class="icon-cart" src="/assets/icon/cart.svg" alt="" />
+      <div class="cartBlock">
+        <img class="icon-cart" src="/assets/icon/cart.svg" alt="" />
+        <div class="cartBadge" *ngIf="cartList > 0"><ion-badge>{{ cartList }}</ion-badge></div>
+      </div>
     </ion-button>
 
   </ion-toolbar>
@@ -22,7 +25,7 @@
           <ion-searchbar></ion-searchbar>
         </ion-col>
         <ion-col class="br-col">
-          <p><span class="br-currency">BR</span><span class="br-amount">500.00</span></p>
+          <p><span class="br-currency">BR</span><span class="br-amount">{{ userBR | number : '1.2-2' }}</span></p>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -30,5 +33,27 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-card [hidden]="!showEmptyListMessage">
+    <ion-grid>
+      <ion-row>
+        <ion-col>Your wishlist is currently empty.</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+   
+  <ion-list id="cartList">
+    <ion-item *ngFor="let item of listItems; let i = index">
+      <ion-thumbnail (click)="getProdDet(item.product.id)" class="prodThumbImg" [innerHtml]="replaceIMG(item.product.images[0].src)" slot="start"></ion-thumbnail>
+      <ion-label (click)="getProdDet(item.product.id)">
+        <p class="cartTitle"><strong>{{ item.product.name }}</strong></p>
+      </ion-label>
+      <ion-button fill="clear" color="danger" (click)="removeFromList(item, i)" slot="end">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
   
+
 </ion-content>

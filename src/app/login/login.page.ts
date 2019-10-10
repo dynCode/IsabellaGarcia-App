@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {LoadingController} from '@ionic/angular';
 import {AuthenticationService} from '../services/authenticate.service';
 import { ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { delay } from 'q';
 
 @Component({
     selector: 'app-login',
@@ -16,24 +18,27 @@ export class LoginPage implements OnInit {
     error_message: string;
     passwordType: string = 'password';
     passwordShown: boolean = false;
+    username: string;
+    password: string;
+    loginFail: boolean = false;
 
-    constructor(
-      public formBuilder: FormBuilder,
-      public loadingController: LoadingController,
-      public authenticationService: AuthenticationService,
-      public modalController: ModalController,
-      private router: Router) {
-    }
+    constructor(public formBuilder: FormBuilder,
+                public loadingController: LoadingController,
+                public authenticationService: AuthenticationService,
+                public modalController: ModalController,
+                private router: Router,
+                public storage: Storage) {  }
 
     ngOnInit() {
-        this.login_form = this.formBuilder.group({
-            username: new FormControl('', Validators.compose([
-                Validators.required
-            ])),
-            password: new FormControl('', Validators.required)
-        });
+      
+      this.login_form = this.formBuilder.group({
+        username: new FormControl(this.username, Validators.compose([
+            Validators.required
+        ])),
+        password: new FormControl(this.password, Validators.required)
+      });    
     }
-	
+    
 	async login(value) {
 
       const loading = await this.loadingController.create({
@@ -50,10 +55,12 @@ export class LoginPage implements OnInit {
                 // reloaded for the newly authenticated user...
                 loading.dismiss();
                 this.authenticationService.doCustomer(res);
+                this.loginFail = false;
             },
             err => {
                 this.error_message = 'Invalid credentials.';
                 loading.dismiss();
+                this.loginFail = true;
                 console.log(err);
             });
   }

@@ -12,17 +12,71 @@ import { ProductsService } from '../services/products.service';
 })
 export class ProductDetailsPage implements OnInit {
 
-  constructor(public productsService: ProductsService, private route: ActivatedRoute, public storage: Storage, public toastController: ToastController) { }
-
   public item_qty:any;
+  wishListStatus: any;
+  prodID: any;
+  inWishlist: boolean = false;
+  wishlistItems: any[] = [];
+  wishlistIndex: any;
+  itemIn: any;
+  cartList: any[] = [];
+  userDetails: any[] = [];
+  showCartCount: boolean = false;
+  userBR: any;
+
+  constructor(public productsService: ProductsService, private route: ActivatedRoute, public storage: Storage, public toastController: ToastController) {
+
+    let itemId = parseInt(this.route.snapshot.paramMap.get('id'));
+    console.log("Page ID:" , itemId);
+
+    this.storage.ready().then( (data)=>{
+
+      this.storage.get("wishlist").then( (data)=>{
+
+        if ( data == null || data.length == 0 ) {
+          console.log("Wishlist Empty!");
+          this.inWishlist = false;
+
+        } else {
+
+          this.itemIn = data.findIndex(x => x.id === itemId);
+          console.log(this.itemIn);
+
+          for( let i = 0; i < data.length; i++ ) {
+            
+            if (itemId === data[i].id) {
+              this.inWishlist = true;
+              this.wishlistIndex = i;
+              console.log("Index:", this.wishlistIndex);
+            } 
+  
+          }
+        }
+
+      });
+
+      this.storage.get("cart").then( (data)=>{
+        this.cartList = data.length;
+
+        if (this.cartList.length > 0 || this.cartList.length !== null) {
+          this.showCartCount = true;
+        } 
+
+      });
+
+      this.storage.get("user").then( (data)=>{
+        this.userDetails = data;
+        this.userBR = this.userDetails[0].brPoints;
+      });
+
+    })
+  }
 
   ngOnInit() {
-
     this.item_qty = 1;
-    //let id = this.route.snapshot.paramMap.get('id');
 
-    //this.productsService.ProductDetails(id);
-		//console.log(this.productsService.productDetails);
+    
+
   }
 
   public replaceIMG(imgString) {
@@ -97,6 +151,75 @@ export class ProductDetailsPage implements OnInit {
   async uSuccess() {
     const toast = await this.toastController.create({
       message: 'Cart Updated',
+      color: "dark",
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  toggleWishlist(product) {
+    if (this.inWishlist === false) {
+      this.addWishItem(product);
+    } else if (this.inWishlist === true) {
+      this.removeWishItem(product, this.wishlistIndex);
+    }
+  }
+
+  async addWishItem(product) {
+    this.storage.get("wishlist").then((data) => {
+
+      if ( data == null || data.length == 0 ) {
+        data = [];
+
+        data.push({
+          "product": product,
+          "id": product.id
+        });
+      } else {
+        data.push({
+          "product": product,
+          "id": product.id
+        });
+      }
+
+      this.storage.set("wishlist", data).then( ()=>{
+
+        this.wishlistIndex = (data.length - 1);
+        console.log("Wishlist Updated");
+        console.log(data);
+
+        this.ySuccess();
+
+      })
+      
+    });
+
+    this.inWishlist = true;
+  }
+
+  async removeWishItem(item, i) {
+
+    this.storage.get("wishlist").then((data) => {
+
+      data.splice(i, 1);
+
+      this.storage.set("wishlist", data).then( ()=>{
+
+        console.log("Wishlist Updated (Remove)");
+        console.log(data);
+        this.inWishlist = false;
+
+        this.ySuccess();
+
+      })
+      
+    });
+    
+  }
+
+  async ySuccess() {
+    const toast = await this.toastController.create({
+      message: 'Wishlist Updated',
       color: "dark",
       duration: 3000
     });

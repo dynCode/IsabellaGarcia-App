@@ -8,22 +8,24 @@
   </div>
   <div class="login-bot">
     <div class="logBot-inner">
-      <ion-card id="loginError" color="danger">
+      <ion-card id="loginError" color="danger" [hidden]="!loginFail">
         <ion-card-content >
             <ion-icon name="warning" slot="start"></ion-icon><strong>ERROR:</strong> Invalid email or password.
         </ion-card-content>
       </ion-card>
-      <form [formGroup]="login_form" (ngSubmit)="login(login_form.value)">
+      <form [formGroup]="login_form" (ngSubmit)="login(login_form.value)" class="ion-padding">
         <ion-item>
+          <ion-icon name="mail" slot="start"></ion-icon>
           <ion-label position="stacked" class="login-field">Username</ion-label>
           <ion-input required type="text" formControlName="username"></ion-input>
         </ion-item>
         <ion-item>
+          <ion-icon name="lock" slot="start"></ion-icon>
           <ion-label position="stacked" class="login-field">Password</ion-label>
           <ion-input required [type]="passwordType" formControlName="password"></ion-input>
           <ion-icon [name]="passwordShown === true ? 'md-eye-off' : 'md-eye'" slot="end" (click)="togglePassword()"></ion-icon>
         </ion-item>
-        <div class="ion-padding">
+        <div class="loginBtn">
           <ion-button expand="block" type="submit" class="login-btn ion-no-margin">LOG IN</ion-button>
           <!--<ion-button expand="block" class="login-btn ion-no-margin" [routerLink]="['/', 'landing-page']">LOG IN</ion-button>-->
           <div class="newUser"><p><a class="loginUnder" href="https://isabellagarcia.co.za/my-account/lost-password/" target="_blank">Lost your password?</a></p></div>

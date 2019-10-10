@@ -20,17 +20,31 @@ export class AuthenticationService {
     public MemPoints: any;
 
 
-    constructor(private http: HttpClient, public loadingController: LoadingController, private router: Router, private storage: Storage) {
+    constructor(private http: HttpClient, public loadingController: LoadingController, private router: Router, public storage: Storage) {
     }
 
     doLogin(username, password) {
-        this.storage.set('username', username);
-        this.storage.set('password', password);
+        this.storage.get("authDetail").then((data) => {
+            if ( data == null || data.length == 0 ) {
+                data = [];
+                data.push({
+                    "username": username,
+                    "password": password
+                });
+            } else {
+                data[0].username = username;
+                data[0].password = password;
+            }
+            this.storage.set("authDetail", data).then( ()=>{
+                console.log("User Set");
+                console.log(data);
+            })
+        });
         
         return this.http.post('https://beta.isabellagarcia.co.za/wp-json/jwt-auth/v1/token', {
             username: username,
             password: password
-        });        
+        });
     }
 
     validateAuthToken(token) {
@@ -47,8 +61,6 @@ export class AuthenticationService {
 
     setUser(user) {
         this.user = user;
-        console.log("User Data", this.user);
-        this.storage.set('user', this.user);
     }
 
     async doCustomer(user) {
@@ -84,8 +96,7 @@ export class AuthenticationService {
             //}
             let bps = this.getMyPoints(memKey);
 
-            console.log("Member Points:", bps);
-            this.router.navigate(['/', 'tabs', 'shop']);
+            this.router.navigate(['/', 'landing-page']);
 		})
 		.catch((error) => {
 			// Invalid request, for 4xx and 5xx statuses
@@ -102,7 +113,6 @@ export class AuthenticationService {
 
     async getCustomer() {
         this.storage.get('user').then((val) => {
-            //console.log("userData: ", val);
             this.userData = val;
         });
 
@@ -172,6 +182,22 @@ export class AuthenticationService {
         this.getBP(memberdetails).subscribe(
             (res: MemPoint[]) => {
                 this.MemPoints = res;
+
+                this.storage.get("user").then((data) => {
+                    data = [];
+
+                    data.push({
+                        "id": this.MemPoints.id,
+                        "firstName": this.MemPoints.meta.first_name[0],
+                        "lastName": this.MemPoints.meta.last_name[0],
+                        "brPoints": this.MemPoints.meta.availible_beauty_rands
+                    });
+
+                    this.storage.set("user", data).then( ()=>{
+                        console.log("Uset Updated");
+                        console.log(data);                
+                    })
+                });
             },
             (err) => {
                 this.MemPoints = err;

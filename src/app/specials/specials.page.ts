@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 import { ProductsService } from '../services/products.service';
 import {AuthenticationService} from '../services/authenticate.service';
@@ -16,8 +17,12 @@ export class SpecialsPage implements OnInit {
 
   page: number;
   tPages: any;
+  cartList: any[] = [];
+  userDetails: any[] = [];
+  showCartCount: boolean = false;
+  userBR: any;
 
-  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, private route: ActivatedRoute) {
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, private route: ActivatedRoute, public storage: Storage) {
 
     this.page = 1;
 
@@ -28,6 +33,27 @@ export class SpecialsPage implements OnInit {
     console.log(this.productsService.specialsProducts);
     
     this.authenticationService.displayCustomer();
+
+    this.productsService.loadProducts();
+    console.log(this.productsService.allProducts);
+    
+    this.authenticationService.displayCustomer();
+
+    this.storage.ready().then( (data)=>{
+      this.storage.get("cart").then( (data)=>{
+        this.cartList = data.length;
+
+        if (this.cartList.length > 0 || this.cartList.length !== null) {
+          this.showCartCount = true;
+        } 
+
+      });
+
+      this.storage.get("user").then( (data)=>{
+        this.userDetails = data;
+        this.userBR = this.userDetails[0].brPoints;
+      });
+    });
   }
 
   loadData(event) {

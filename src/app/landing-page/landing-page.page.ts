@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../services/authenticate.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,13 +9,26 @@ import {AuthenticationService} from '../services/authenticate.service';
 })
 export class LandingPagePage implements OnInit {
 
-  constructor(public authenticationService: AuthenticationService) { }
+  userDetails: any[] = [];
+  userFirstName: any;
+  userSurname: any;
+  userBR: any;
 
-  ngOnInit() {
-    //console.log(this.authenticationService.customer);
-    this.authenticationService.displayCustomer();
+  constructor(public authenticationService: AuthenticationService, public storage: Storage) { 
 
-    console.log("Show User: ", this.authenticationService.user);
+    this.storage.ready().then( (data)=>{
+
+      this.storage.get("user").then( (data)=>{
+        this.userDetails = data;
+        this.userFirstName = this.userDetails[0].firstName;
+        this.userSurname = this.userDetails[0].lastName;
+        this.userBR = this.userDetails[0].brPoints;
+      })
+
+    });
+
   }
+
+  ngOnInit() {}
 
 }

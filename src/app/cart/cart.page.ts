@@ -15,7 +15,7 @@ export class CartPage implements OnInit {
   total: any;
   showEmptyCartMessage: boolean = false;
 
-  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, private storage: Storage) { 
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage) { 
 
     this.total = 0.0;
 
@@ -62,10 +62,15 @@ export class CartPage implements OnInit {
 
     });
 
-    if (this.cartItems.length == 0) {
+    if (this.cartItems.length == 0 || this.cartItems.length == null) {
       this.showEmptyCartMessage = true;
     }
 
+  }
+
+  public getProdDet(id){
+    this.productsService.ProductDetails(id);
+		console.log(this.productsService.productDetails);
   }
 
 }

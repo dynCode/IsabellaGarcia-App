@@ -11,7 +11,10 @@
       <ion-title><span class="title-large">SPECIALS</span></ion-title>
     
       <ion-button slot="end" class="toolbar-btn tb-btn2" [routerLink]="['/', 'cart']">
-      <img class="icon-cart" src="/assets/icon/cart.svg" alt="" />
+        <div class="cartBlock">
+          <img class="icon-cart" src="/assets/icon/cart.svg" alt="" />
+          <div class="cartBadge" *ngIf="cartList > 0"><ion-badge>{{ cartList }}</ion-badge></div>
+        </div>
       </ion-button>
     
     </ion-toolbar>
@@ -22,7 +25,7 @@
         <ion-searchbar></ion-searchbar>
         </ion-col>
         <ion-col class="br-col">
-        <p><span class="br-currency">BR</span><span class="br-amount">500.00</span></p>
+          <p><span class="br-currency">BR</span><span class="br-amount">{{ userBR | number : '1.2-2' }}</span></p>
         </ion-col>
       </ion-row>
       </ion-grid>
