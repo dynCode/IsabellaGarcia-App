@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 
 import { ProductsService } from '../services/products.service';
 import {AuthenticationService} from '../services/authenticate.service';
+import {PageDetailsService} from '../services/page-details.service';
 
 @Component({
   selector: 'app-cart',
@@ -14,8 +15,9 @@ export class CartPage implements OnInit {
   cartItems: any[] = [];
   total: any;
   showEmptyCartMessage: boolean = false;
+  userBR: any;
 
-  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage) { 
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService) { 
 
     this.total = 0.0;
 
@@ -51,6 +53,9 @@ export class CartPage implements OnInit {
 
   removeFromCart(item, i) {
 
+    this.pageDetail.subCartCount();
+    this.pageDetail.addBRPoints(item.product.price);
+
     let price = item.product.price;
     let qty = item.qty;
 
@@ -59,6 +64,14 @@ export class CartPage implements OnInit {
     this.storage.set("cart", this.cartItems).then( ()=> {
 
       this.total = this.total - (price * qty);
+
+      this.storage.get("availableBR").then( (data)=> {
+        this.userBR = data - this.total;
+  
+        this.storage.set("availableBR", this.userBR).then( ()=> {
+          console.log(this.userBR);
+        })
+      })
 
     });
 

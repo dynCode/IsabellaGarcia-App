@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { ToastController } from '@ionic/angular';
 
 import { ProductsService } from '../services/products.service';
+import {PageDetailsService} from '../services/page-details.service';
 
 @Component({
   selector: 'app-product-details',
@@ -24,7 +25,13 @@ export class ProductDetailsPage implements OnInit {
   showCartCount: boolean = false;
   userBR: any;
 
-  constructor(public productsService: ProductsService, private route: ActivatedRoute, public storage: Storage, public toastController: ToastController) {
+  constructor(public productsService: ProductsService, private route: ActivatedRoute, public storage: Storage, public toastController: ToastController, public pageDetail: PageDetailsService) {
+
+  }
+
+  ngOnInit() {
+    this.pageDetail.showCount();
+    this.pageDetail.showBRPoints();
 
     let itemId = parseInt(this.route.snapshot.paramMap.get('id'));
     console.log("Page ID:" , itemId);
@@ -54,28 +61,9 @@ export class ProductDetailsPage implements OnInit {
         }
 
       });
+    });
 
-      this.storage.get("cart").then( (data)=>{
-        this.cartList = data.length;
-
-        if (this.cartList.length > 0 || this.cartList.length !== null) {
-          this.showCartCount = true;
-        } 
-
-      });
-
-      this.storage.get("availableBR").then( (data)=> {
-        this.userBR = data;
-      })
-
-    })
-  }
-
-  ngOnInit() {
     this.item_qty = 1;
-
-    
-
   }
 
   public replaceIMG(imgString) {
@@ -96,6 +84,9 @@ export class ProductDetailsPage implements OnInit {
 
   addToCart(product, pQty) {
 
+    this.pageDetail.setCartCount(1);
+    this.pageDetail.setBRPoints(parseFloat(product.price) * pQty);
+
     this.storage.get("cart").then((data) => {
 
       if ( data == null || data.length == 0 ) {
@@ -106,9 +97,9 @@ export class ProductDetailsPage implements OnInit {
           "qty": pQty,
           "amount": parseFloat(product.price) * pQty
         });
-        this.storage.get("availableBR").then( (data)=> {
-          this.userBR = data - (parseFloat(product.price) * pQty);
-        })
+        /*this.storage.get("availableBR").then( (dataBR)=> {
+          this.userBR = dataBR - (parseFloat(product.price) * pQty);
+        })*/
 
       } else {
 
@@ -124,10 +115,6 @@ export class ProductDetailsPage implements OnInit {
             data[i].qty = qty + pQty;
             data[i].amount = parseFloat(data[i].amount) + (parseFloat(data[i].product.price) * pQty);
             added = 1;
-
-            this.storage.get("availableBR").then( (data)=> {
-              this.userBR = data - data[i].amount;
-            })
              
           }
         }
@@ -138,15 +125,12 @@ export class ProductDetailsPage implements OnInit {
             "qty": pQty,
             "amount": parseFloat(product.price) * pQty
           });
-
-          this.storage.get("availableBR").then( (data)=> {
-            this.userBR = data - (parseFloat(product.price) * pQty);
-          })
         }
 
       }
 
       this.storage.set("cart", data).then( ()=>{
+
 
         console.log("Cart Updated");
         console.log(data);

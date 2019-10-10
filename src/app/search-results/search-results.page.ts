@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { ProductsService } from '../services/products.service';
 import {AuthenticationService} from '../services/authenticate.service';
+import {PageDetailsService} from '../services/page-details.service';
 
 @Component({
   selector: 'app-search-results',
@@ -25,31 +26,21 @@ export class SearchResultsPage implements OnInit {
   userBR: any;
   keyword: string = '';
 
-  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, private route: ActivatedRoute, public storage: Storage) {
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, private route: ActivatedRoute, public storage: Storage, public pageDetail: PageDetailsService) {
+  }
+
+  ngOnInit() { 
+    this.pageDetail.showCount();
+    this.pageDetail.showBRPoints();
 
     this.page = 1;
 
     this.storage.ready().then( (data)=>{
-      this.storage.get("cart").then( (data)=>{
-        this.cartList = data.length;
-
-        if (this.cartList.length > 0 || this.cartList.length !== null) {
-          this.showCartCount = true;
-        } 
-
-      });
-
-      this.storage.get("availableBR").then( (data)=> {
-        this.userBR = data;
-      })
       this.storage.get("searchKey").then( (data)=>{
         this.keyword = data;
       });
     });
 
-  }
-
-  ngOnInit() { 
     //this.authenticationService.displayCustomer();
     this.productResults = [];
 
@@ -61,9 +52,6 @@ export class SearchResultsPage implements OnInit {
       this.noResults = true;
     }
 
-    this.storage.get("searchKey").then( (data)=>{
-      this.keyword = data;
-    });
   }
 
   loadData(event) {

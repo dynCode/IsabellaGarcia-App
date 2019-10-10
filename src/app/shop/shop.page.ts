@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 
 import { ProductsService } from '../services/products.service';
 import {AuthenticationService} from '../services/authenticate.service';
+import {PageDetailsService} from '../services/page-details.service';
 
 @Component({
   selector: 'app-shop',
@@ -16,36 +17,24 @@ export class ShopPage implements OnInit {
   showCartCount: boolean = false;
   userBR: any;
 
-  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage) { 
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService) { 
+  }
+
+  ngOnInit() {
 
     this.storage.ready().then( (data)=>{
       this.storage.get("availableBR").then( (data)=> {
         this.userBR = data;
       })
     })
-  }
 
-  ngOnInit() {
+    this.pageDetail.showCount();
+    this.pageDetail.showBRPoints();
+
 		this.productsService.loadProducts();
     console.log(this.productsService.allProducts);
     
     this.authenticationService.displayCustomer();
-
-    this.storage.ready().then( (data)=>{
-      this.storage.get("cart").then( (data)=>{
-        this.cartList = data.length;
-
-        if (this.cartList.length > 0 || this.cartList.length !== null) {
-          this.showCartCount = true;
-        } 
-
-      });
-
-      /*this.storage.get("user").then( (data)=>{
-        this.userDetails = data;
-        this.userBR = this.userDetails[0].brPoints;
-      });*/
-    });
   }
   
   public getProdDet(id){

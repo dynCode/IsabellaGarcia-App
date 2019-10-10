@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 
 import { ProductsService } from '../services/products.service';
 import {AuthenticationService} from '../services/authenticate.service';
+import {PageDetailsService} from '../services/page-details.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -19,9 +20,13 @@ export class WishlistPage implements OnInit {
   showCartCount: boolean = false;
   userBR: any;
 
-  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage) { 
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService) { }
 
+  ngOnInit() {
     this.total = 0.0;
+
+    this.pageDetail.showCount();
+    this.pageDetail.showBRPoints();
 
     this.storage.ready().then( (data)=>{
 
@@ -33,7 +38,7 @@ export class WishlistPage implements OnInit {
 
           this.listItems.forEach( (item, index)=>{
             this.total = this.total + (item.product.price * item.qty)
-          })
+          });
 
         } else {
           this.showEmptyListMessage = true;
@@ -41,26 +46,7 @@ export class WishlistPage implements OnInit {
 
       });
 
-      this.storage.get("cart").then( (data)=>{
-        this.cartList = data.length;
-
-        if (this.cartList.length > 0 || this.cartList.length !== null) {
-          this.showCartCount = true;
-        } 
-
-      });
-
-      this.storage.ready().then( (data)=>{
-        this.storage.get("availableBR").then( (data)=> {
-          this.userBR = data;
-        })
-      })
-
-    })
-
-  }
-
-  ngOnInit() {
+    });
   }
 
   public replaceIMG(imgString) {
@@ -91,5 +77,18 @@ export class WishlistPage implements OnInit {
     this.productsService.ProductDetails(id);
 		console.log(this.productsService.productDetails);
   }
+
+  /*getCartCount() {
+    this.storage.get("cart").then( (data)=>{
+      this.cartList = data.length;
+
+      if (this.cartList.length > 0 || this.cartList.length !== null) {
+        this.showCartCount = true;
+      } 
+
+    });
+
+    return '<ion-badge>' + this.cartList + '</ion-badge>';
+  }*/
 
 }

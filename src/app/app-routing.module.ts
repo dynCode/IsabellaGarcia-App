@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'coupons', loadChildren: './profile/coupons/coupons.module#CouponsPageModule' },
   { path: 'addresses', loadChildren: './profile/addresses/addresses.module#AddressesPageModule' },
   { path: 'cart', loadChildren: './cart/cart.module#CartPageModule' },
-  
+  { path: 'ts-cs', loadChildren: './ts-cs/ts-cs.module#TsCsPageModule' },
 
   /*TABS PAGES*/
   //{ path: 'shop', loadChildren: './shop/shop.module#ShopPageModule' },

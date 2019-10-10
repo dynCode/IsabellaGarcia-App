@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { ProductsService } from '../services/products.service';
 import {AuthenticationService} from '../services/authenticate.service';
+import {PageDetailsService} from '../services/page-details.service';
 
 @Component({
   selector: 'app-profile',
@@ -28,37 +29,26 @@ export class ProfilePage implements OnInit {
     public authenticationService: AuthenticationService, 
     public storage: Storage, 
     public alertController: AlertController, 
-    private router: Router) {
-
-      this.storage.ready().then( (data)=>{
-
-        this.storage.get("user").then( (data)=>{
-          this.userDetails = data;
-          this.userFirstName = this.userDetails[0].firstName;
-          this.userSurname = this.userDetails[0].lastName;
-          //this.userBR = this.userDetails[0].brPoints;
-          this.userID = this.userDetails[0].id;
-        })
-
-        this.storage.get("cart").then( (data)=>{
-          this.cartList = data.length;
-
-          if (this.cartList.length > 0 || this.cartList.length !== null) {
-            this.showCartCount = true;
-          } 
-
-        });
-
-        this.storage.ready().then( (data)=>{
-          this.storage.get("availableBR").then( (data)=> {
-            this.userBR = data;
-          })
-        })
-
-      });
+    private router: Router,
+    public pageDetail: PageDetailsService) {
   }
 
   ngOnInit() {
+
+    this.pageDetail.showCount();
+    this.pageDetail.showBRPoints();
+
+    this.storage.ready().then( (data)=>{
+
+      this.storage.get("user").then( (data)=>{
+        this.userDetails = data;
+        this.userFirstName = this.userDetails[0].firstName;
+        this.userSurname = this.userDetails[0].lastName;
+        //this.userBR = this.userDetails[0].brPoints;
+        this.userID = this.userDetails[0].id;
+      });
+
+    });
   }
 
   async presentAlertConfirm() {

@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { ProductsService } from '../services/products.service';
 import {AuthenticationService} from '../services/authenticate.service';
+import {PageDetailsService} from '../services/page-details.service';
 
 @Component({
   selector: 'app-specials',
@@ -23,34 +24,19 @@ export class SpecialsPage implements OnInit {
   userBR: any;
   searchQuery: any;
 
-  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, private route: ActivatedRoute, public storage: Storage) {
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, private route: ActivatedRoute, public storage: Storage, public pageDetail: PageDetailsService) {
 
     this.page = 1;
 
   }
 
   ngOnInit() { 
+
+    this.pageDetail.showCount();
+    this.pageDetail.showBRPoints();
     this.productsService.loadSpecials(this.page);
-    console.log(this.productsService.specialsProducts);
     
     this.authenticationService.displayCustomer();
-
-    this.storage.ready().then( (data)=>{
-      this.storage.get("cart").then( (data)=>{
-        this.cartList = data.length;
-
-        if (this.cartList.length > 0 || this.cartList.length !== null) {
-          this.showCartCount = true;
-        } 
-
-      });
-
-      this.storage.ready().then( (data)=>{
-        this.storage.get("availableBR").then( (data)=> {
-          this.userBR = data;
-        })
-      })
-    });
   }
 
   loadData(event) {

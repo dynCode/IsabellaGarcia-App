@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../services/authenticate.service';
+import {PageDetailsService} from '../services/page-details.service';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -16,7 +17,13 @@ export class LandingPagePage implements OnInit {
   userBR: any;
   finalBR: any;
 
-  constructor(public authenticationService: AuthenticationService, public storage: Storage) { 
+  constructor(public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService) { 
+  }
+
+  ngOnInit() {
+    
+    this.pageDetail.getCartCount();
+    this.pageDetail.getBRPoints();
 
     this.storage.ready().then( (data)=>{
 
@@ -25,24 +32,29 @@ export class LandingPagePage implements OnInit {
         this.userFirstName = this.userDetails[0].firstName;
         this.userSurname = this.userDetails[0].lastName;
         this.userBR = this.userDetails[0].brPoints;
-      })
-
-      this.storage.get("cart").then( (data)=> {
-        this.calcBR = data;
-
-        for( let i = 0; i < data.length; i++ ) {
-          this.finalBR = this.userBR - this.calcBR[i].amount;
-        }
-
-        this.storage.set("availableBR", this.finalBR).then( ()=> {
-          console.log(this.finalBR);
-        });
       });
 
     });
 
-  }
+    
 
-  ngOnInit() {}
+    /*this.storage.get("cart").then( (data)=> {
+      this.calcBR = data;
+
+      if ( data == null || data.length == 0 ) {
+
+        this.finalBR = this.userBR;
+        
+      } else {
+        for( let i = 0; i < data.length; i++ ) {
+          this.finalBR = this.userBR - this.calcBR[i].amount;
+        }
+      }
+
+      this.storage.set("availableBR", this.finalBR).then( ()=> {
+        console.log(this.finalBR);
+      });
+    });*/
+  }
 
 }

@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 
 import { ProductsService } from '../services/products.service';
+import {AuthenticationService} from '../services/authenticate.service';
+import {PageDetailsService} from '../services/page-details.service';
 
 @Component({
   selector: 'app-category',
@@ -16,13 +18,16 @@ export class CategoryPage implements OnInit {
   page: number;
   tPages: any;
 
-  constructor(public productsService: ProductsService, private route: ActivatedRoute) {
+  constructor(public productsService: ProductsService, private route: ActivatedRoute, public pageDetail: PageDetailsService) {
 
     this.page = 1;
 
   }
 
-  ngOnInit() {  }
+  ngOnInit() { 
+    this.pageDetail.showCount();
+    this.pageDetail.showBRPoints();
+  }
 
   loadData(event) {
     setTimeout(() => {

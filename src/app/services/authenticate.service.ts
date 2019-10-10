@@ -25,16 +25,13 @@ export class AuthenticationService {
 
     doLogin(username, password) {
         this.storage.get("authDetail").then((data) => {
-            if ( data == null || data.length == 0 ) {
-                data = [];
-                data.push({
-                    "username": username,
-                    "password": password
-                });
-            } else {
-                data[0].username = username;
-                data[0].password = password;
-            }
+            
+            data = [];
+            data.push({
+                "username": username,
+                "password": password
+            });
+
             this.storage.set("authDetail", data).then( ()=>{
                 console.log("User Set");
                 console.log(data);
@@ -112,8 +109,8 @@ export class AuthenticationService {
     }
 
     async getCustomer() {
-        this.storage.get('user').then((val) => {
-            this.userData = val;
+        this.storage.get('user').then( (data) => {
+            this.userData = data;
         });
 
         let loading = await this.loadingController.create({
@@ -131,7 +128,7 @@ export class AuthenticationService {
 		});
 
         const cusData = {
-            email: this.userData.user_email
+            email: this.userData[0].email,
         }
 
 		api.get("customers/", cusData)
@@ -190,11 +187,12 @@ export class AuthenticationService {
                         "id": this.MemPoints.id,
                         "firstName": this.MemPoints.meta.first_name[0],
                         "lastName": this.MemPoints.meta.last_name[0],
+                        "email": this.MemPoints.meta.billing_email[0],
                         "brPoints": this.MemPoints.meta.availible_beauty_rands
                     });
 
                     this.storage.set("user", data).then( ()=>{
-                        console.log("Uset Updated");
+                        console.log("User Updated");
                         console.log(data);                
                     })
                 });
