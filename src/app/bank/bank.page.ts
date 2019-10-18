@@ -22,7 +22,8 @@ export class BankPage implements OnInit {
   cartList: any[] = [];
   showCartCount: boolean = false;
   userID: number;
-  hasOrders: boolean = false;
+  hasHistory: boolean = false;
+  historyList: any[] = [];
 
   constructor(
     public productsService: ProductsService, 
@@ -46,6 +47,7 @@ export class BankPage implements OnInit {
         this.userSurname = this.userDetails[0].lastName;
         //this.userBR = this.userDetails[0].brPoints;
         this.userID = this.userDetails[0].id;
+        this.historyList = this.userDetails[0].history;
       });
 
     });

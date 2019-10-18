@@ -33,5 +33,29 @@
   </ion-header>
 
 <ion-content>
-  
+  <ion-card id="fullBRcard">
+    <ion-card-content>
+      <div class="brInner">You have {{ pageDetail.currentBR | number : '1.2-2' }} BR available</div>
+    </ion-card-content>
+  </ion-card>
+  <ion-grid class="brGrid">
+    <ion-row class="tblHeader">
+      <ion-col>Reward for</ion-col>
+      <ion-col>BR</ion-col>
+      <!--<ion-col>BR Expires On</ion-col>-->
+      <!--<ion-col>Redeemed BR</ion-col>-->
+      <ion-col>Total</ion-col>
+      <ion-col>Date</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let history of historyList" class="tblBody">
+      <ion-col>{{ history.reward_for }}</ion-col>
+      <ion-col>
+        <div *ngIf="history.earned_points != '0'">+ {{ history.earned_points | number : '1.2-2' }}</div>
+        <div *ngIf="history.redeem_points != '0'">- {{ history.redeem_points | number : '1.2-2' }}</div>
+      </ion-col>
+      <ion-col>{{ history.total_points | number : '1.2-2' }}</ion-col>
+      <ion-col>{{ history.earned_date | date: 'mediumDate'}}</ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

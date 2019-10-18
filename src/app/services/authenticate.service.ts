@@ -188,7 +188,8 @@ export class AuthenticationService {
                         "firstName": this.MemPoints.meta.first_name[0],
                         "lastName": this.MemPoints.meta.last_name[0],
                         "email": this.MemPoints.meta.billing_email[0],
-                        "brPoints": this.MemPoints.meta.availible_beauty_rands
+                        "brPoints": this.MemPoints.meta.availible_beauty_rands,
+                        "history": this.MemPoints.meta.beauty_bank_history
                     });
 
                     this.storage.set("user", data).then( ()=>{
