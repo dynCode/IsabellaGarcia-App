@@ -6,6 +6,7 @@ import {AuthenticationService} from '../services/authenticate.service';
 import { ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { delay } from 'q';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-login',
@@ -27,9 +28,12 @@ export class LoginPage implements OnInit {
                 public authenticationService: AuthenticationService,
                 public modalController: ModalController,
                 private router: Router,
-                public storage: Storage) {  }
+                public storage: Storage,
+                private menu: MenuController) {  }
 
     ngOnInit() {
+      
+      this.menu.enable(false, 'catMenu');
       
       this.login_form = this.formBuilder.group({
         username: new FormControl(this.username, Validators.compose([

@@ -80,8 +80,13 @@ ion-searchbar {
     font-size: 14px;
     color: #707070;
 }
-.sProdPrice {
+.randPrice .sProdPrice {
     color: #040707;
+    font-size: 20px;
+    font-weight: 800;
+}
+.brPrice .sProdPrice {
+    color: #ce3a57;
     font-size: 20px;
     font-weight: 800;
 }
@@ -136,4 +141,18 @@ ion-input#qtyVal {
     background-color: #fff;
     border-radius: 100%;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+}
+.soldOut {
+    background-color: rgba(4, 7, 7, 0.61);
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+}
+.randPrice .sProdPrice .oldPrice {
+    font-size: 16px;
+    color: #040707;
+}
+.brPrice .sProdPrice .oldPrice {
+    font-size: 16px;
+    color: #040707;
 }

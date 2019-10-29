@@ -63,7 +63,7 @@ export class ProfilePage implements OnInit {
           text: 'Log Out',
           handler: () => {
             console.log('Confirm Okay');
-            this.storage.remove("user").then(()=>{
+            this.storage.remove("authDetail").then(()=>{
               this.router.navigate(['/', 'home']);
             });
           }

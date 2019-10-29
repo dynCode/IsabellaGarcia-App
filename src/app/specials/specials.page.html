@@ -25,7 +25,8 @@
         <ion-searchbar [(ngModel)]="searchQuery" placeholder="Search" (search)="searchByKeyword($event)"></ion-searchbar>
         </ion-col>
         <ion-col class="br-col">
-          <p><span class="br-currency">BR</span><span class="br-amount">{{ pageDetail.finalBR | number : '1.2-2' }}</span></p>
+          <p *ngIf="pageDetail.finalBR > 0.00"><span class="br-currency">BR</span><span class="br-amount">{{ pageDetail.finalBR | number : '1.2-2' }}</span></p>
+          <p *ngIf="0.00 >= pageDetail.finalBR"><span class="br-currency">BR</span><span class="br-amount">0.00</span></p>
         </ion-col>
       </ion-row>
       </ion-grid>

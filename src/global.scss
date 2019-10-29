@@ -55,7 +55,12 @@
     font-size: 14px;
     font-weight: 600;
 }
-.prodPrice {
+.randPrice .prodPrice {
+    color: #000;
+    font-weight: 800;
+    font-size: 16px;
+}
+.brPrice .prodPrice {
     color: #ce3a57;
     font-weight: 800;
     font-size: 16px;

@@ -32,9 +32,9 @@ export class WishlistPage implements OnInit {
 
       this.storage.get("wishlist").then( (data)=>{
         this.listItems = data;
-        console.log(this.listItems);
+        console.log(this.listItems.length);
 
-        if (this.listItems.length > 0) {
+        if (this.listItems.length > 0 || this.listItems.length !== null) {
 
           this.listItems.forEach( (item, index)=>{
             this.total = this.total + (item.product.price * item.qty)

@@ -27,8 +27,8 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
 
-      this.productsService.loadCategories();
-		  console.log(this.productsService.categories);
+      //this.productsService.loadCategories();
+		  //console.log(this.productsService.categories);
 
       this.splashScreen.hide();
     });

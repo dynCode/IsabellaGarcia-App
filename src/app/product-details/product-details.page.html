@@ -25,7 +25,8 @@
             <ion-searchbar></ion-searchbar>
           </ion-col>
           <ion-col class="br-col">
-            <p><span class="br-currency">BR</span><span class="br-amount">{{ pageDetail.finalBR | number : '1.2-2' }}</span></p>
+            <p *ngIf="pageDetail.finalBR > 0.00"><span class="br-currency">BR</span><span class="br-amount">{{ pageDetail.finalBR | number : '1.2-2' }}</span></p>
+            <p *ngIf="0.00 >= pageDetail.finalBR"><span class="br-currency">BR</span><span class="br-amount">0.00</span></p>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -49,9 +50,24 @@
           </div>
           <div [innerHtml]="productsService.productDetails.description"></div>
         </div>
-        <div class="sProdPrice">{{productsService.productDetails.price | currency : "R"}}</div>
+        <div class="brPrice" *ngIf="pageDetail.finalBR > productsService.productDetails.price">
+          <div class="prodPrice" *ngIf="productsService.productDetails.price != productsService.productDetails.regular_price">
+            <div class="sProdPrice"><span class="oldPrice">{{productsService.productDetails.regular_price | currency : "BR"}}</span><span class="salePrice">{{productsService.productDetails.price | currency : "BR"}}</span></div>
+          </div>
+          <div class="prodPrice" *ngIf="productsService.productDetails.price === productsService.productDetails.regular_price">
+            <div class="sProdPrice"><span class="pPrice">{{productsService.productDetails.price | currency : "BR"}}</span></div>
+          </div>
+        </div>
+        <div class="randPrice" *ngIf="productsService.productDetails.price > pageDetail.finalBR">
+            <div class="prodPrice" *ngIf="productsService.productDetails.price != productsService.productDetails.regular_price">
+              <div class="sProdPrice"><span class="oldPrice">{{productsService.productDetails.regular_price | currency : "R"}}</span><span class="salePrice">{{productsService.productDetails.price | currency : "R"}}</span></div>
+            </div>
+            <div class="prodPrice" *ngIf="productsService.productDetails.price === productsService.productDetails.regular_price">
+                <div class="sProdPrice"><span class="pPrice">{{productsService.productDetails.price | currency : "R"}}</span></div>
+            </div>
+          </div>
         <ion-grid>
-          <ion-row>
+          <ion-row *ngIf="productsService.productDetails.in_stock">
             <ion-col size="6" class="inputQty">
               <ion-grid class="qtyGroup">
                 <ion-row>
@@ -69,6 +85,11 @@
             </ion-col>
             <ion-col size="6" class="addCart">
               <ion-button expand="full" (click)="addToCart(productsService.productDetails, item_qty)">ADD TO CART</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="!productsService.productDetails.in_stock">
+            <ion-col size="12" class="soldOut">
+              Currently sold out
             </ion-col>
           </ion-row>
         </ion-grid>

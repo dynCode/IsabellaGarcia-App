@@ -1,7 +1,13 @@
 ion-title {
     text-align: center;
 }
-
+.title-large {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+.title-large::before {
+    display: none !important;
+}
 ion-toolbar.main-toolbar {
     --color: #ffffff;
     --background: #000000;
@@ -58,9 +64,6 @@ ion-searchbar {
     padding: 5px;
     height: 44px;
 }
-/*.secondary-toolbar ion-col {
-    padding: 0px;
-}*/
 
 .prodImgWrap {
     position: relative;
