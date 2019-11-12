@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.isabellagarcia" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Isabella Garcia</name>
-    <description>An awesome Ionic/Cordova app.</description>
+    <description>The Isabella Garcia VIP Beuaty Club App, where you kan redeem your Beauty Rands on our products.</description>
     <author email="info@isabella-garcia.com" href="https://isabellagarcia.co.za/">Isabella Garcia</author>
     <content src="index.html" />
     <access origin="*" />
@@ -20,6 +20,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="Orientation" value="portrait" />
+	<preference name="phonegap-version" value="cli-9.0.0" />
     <platform name="android">
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />
