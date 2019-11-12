@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../services/authenticate.service';
 import {PageDetailsService} from '../services/page-details.service';
 import { Storage } from '@ionic/storage';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-landing-page',
@@ -17,7 +18,8 @@ export class LandingPagePage implements OnInit {
   userBR: any;
   finalBR: any;
 
-  constructor(public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService) { 
+  constructor(public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService,private menu: MenuController) { 
+    this.menu.enable(true, 'catMenu');
   }
 
   ngOnInit() {

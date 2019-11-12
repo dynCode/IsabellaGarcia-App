@@ -189,13 +189,17 @@ export class AuthenticationService {
                         "lastName": this.MemPoints.meta.last_name[0],
                         "email": this.MemPoints.meta.billing_email[0],
                         "brPoints": this.MemPoints.meta.availible_beauty_rands,
-                        "history": this.MemPoints.meta.beauty_bank_history
+                        "history": this.MemPoints.meta.beauty_bank_history,
+                        "loginKey": this.MemPoints.meta.auto_log_key[0],
+                        "authToken": this.user.token
                     });
 
                     this.storage.set("user", data).then( ()=>{
                         console.log("User Updated");
                         console.log(data);                
                     })
+
+                    //this.autoLoginIn(this.MemPoints.meta.auto_log_key[0]);
                 });
             },
             (err) => {
@@ -203,6 +207,19 @@ export class AuthenticationService {
             }
         );
     }
+
+    /*
+    autoLoginIn(alKey) {
+        let url = 'https://beta.isabellagarcia.co.za/?ig_k='+alKey;
+        let headers = new HttpHeaders({'Access-Control-Allow-Origin': '*','responseType': 'text'});
+        let httpOptions = {
+            headers: headers
+        };
+        this.http.get(url,httpOptions).subscribe((response) => {
+            console.log("Auto Login", response);
+        });
+    }
+    */
 }
 
 class customerDetail { data: any; }

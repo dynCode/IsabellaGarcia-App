@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { ToastController } from '@ionic/angular';
-
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { ProductsService } from '../services/products.service';
 import {PageDetailsService} from '../services/page-details.service';
 
@@ -24,9 +26,16 @@ export class ProductDetailsPage implements OnInit {
   userDetails: any[] = [];
   showCartCount: boolean = false;
   userBR: any;
+  userData: any;
+  public UCarts: any;
 
-  constructor(public productsService: ProductsService, private route: ActivatedRoute, public storage: Storage, public toastController: ToastController, public pageDetail: PageDetailsService) {
-
+  constructor(public productsService: ProductsService, private route: ActivatedRoute, public storage: Storage, public toastController: ToastController, public pageDetail: PageDetailsService,private http: HttpClient) {
+    this.storage.ready().then( (data)=>{
+      this.storage.get("user").then( (data)=>{
+        console.log("user data", data);
+        this.userData = data;
+      })
+    })
   }
 
   ngOnInit() {
@@ -90,17 +99,20 @@ export class ProductDetailsPage implements OnInit {
     this.storage.get("cart").then((data) => {
 
       if ( data == null || data.length == 0 ) {
+        let cartKey = this.adToUcart(product.id,pQty);
+        
         data = [];
 
         data.push({
           "product": product,
           "qty": pQty,
-          "amount": parseFloat(product.price) * pQty
+          "amount": parseFloat(product.price) * pQty,
+          "cartKey": cartKey
         });
         /*this.storage.get("availableBR").then( (dataBR)=> {
           this.userBR = dataBR - (parseFloat(product.price) * pQty);
         })*/
-
+        
       } else {
 
         let added = 0;
@@ -120,17 +132,19 @@ export class ProductDetailsPage implements OnInit {
         }
 
         if (added == 0) {
+          let cartKey = this.adToUcart(product.id,pQty);
+
           data.push({
             "product": product,
             "qty": pQty,
-            "amount": parseFloat(product.price) * pQty
+            "amount": parseFloat(product.price) * pQty,
+            "cartKey": cartKey
           });
         }
 
       }
 
       this.storage.set("cart", data).then( ()=>{
-
 
         console.log("Cart Updated");
         console.log(data);
@@ -221,5 +235,66 @@ export class ProductDetailsPage implements OnInit {
     });
     toast.present();
   }
+  
+  adToUcart(pid,cqty) {
+    console.log('I GOT funking here');
+    var headers = new HttpHeaders({'Authorization': 'Bearer ' + this.userData[0].authToken});
+    let httpOptions = {
+      headers: headers
+    };
+
+    let postData = {
+            "product_id": pid,
+            "quantity": cqty
+    }
+
+    this.http.post("https://beta.isabellagarcia.co.za/wp-json/cocart/v1/add-item", postData, httpOptions)
+      .subscribe(ucdata => {
+        console.log(ucdata);
+
+        this.storage.get("cart").then((data) => {
+
+          for( let i = 0; i < data.length; i++ ) {
+            
+            if (pid == data[i].product.id) {
+              console.log("cart key added");
+              data[i].cartKey = ucdata['key'];
+            }
+          }
+    
+          this.storage.set("cart", data).then( ()=>{
+    
+            console.log("Cart Updated");
+            console.log(data);
+    
+            this.uSuccess();
+    
+          })
+          
+        });
+       }, error => {
+        console.log(error);
+      });
+  }
+  
+  /*
+  adToUcart(pid,cqty): Observable<uCart[]> {
+    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.userData[0].authToken});
+
+    let url = 'https://beta.isabellagarcia.co.za/wp-json/cocart/v1/add-item?product_id='+pid+'&quantity='+cqty;
+    let httpOptions = {
+        headers: headers
+    };
+    return this.http.post(url,httpOptions).pipe(
+      map((res) => {
+        this.UCarts = res;
+        return this.UCarts;
+    }));
+  }
+  */
+
 
 }
+
+
+class uCart { data: any }

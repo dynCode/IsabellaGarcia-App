@@ -33,8 +33,8 @@ export class ProductsService {
 
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
-			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
+			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -72,8 +72,8 @@ export class ProductsService {
 
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
-			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
+			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -110,8 +110,8 @@ export class ProductsService {
 
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
-			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
+			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -149,8 +149,8 @@ export class ProductsService {
 
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
-			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
+			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -178,8 +178,8 @@ export class ProductsService {
 
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
-			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
+			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -216,8 +216,8 @@ export class ProductsService {
 
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
-			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
+			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true,
@@ -257,8 +257,8 @@ export class ProductsService {
 
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
-			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
+			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true,
@@ -298,8 +298,8 @@ export class ProductsService {
 
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
-			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
+			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true,
@@ -333,8 +333,8 @@ export class ProductsService {
 
 		const api = new WooCommerceRestApi({
 			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_9d642fe4a68e68eb5127fb9575f38167559d391c',
-			consumerSecret: 'cs_6ffa41a110581d78c9bcec7df4af890b98131708',
+			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
+			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true,

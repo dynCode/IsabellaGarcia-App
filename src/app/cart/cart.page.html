@@ -42,6 +42,17 @@
 
       </ion-col>
       <ion-col col-4>
+        <b>BR TOTAL</b>
+      </ion-col>
+      <ion-col col-3 style="text-align: right;">
+        <b>- {{ cartBr | number:'1.2-2'}}</b>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-2>
+
+      </ion-col>
+      <ion-col col-4>
         <b>TOTAL</b>
       </ion-col>
       <ion-col col-3 style="text-align: right;">
@@ -49,5 +60,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button expand="full" color="dark">CHECKOUT</ion-button>
+  <ion-button expand="full" color="dark" (click)="openWithInAppBrowser()">CHECKOUT</ion-button>
+  <!--<ion-button >Open with In App browser</ion-button>-->
 </ion-footer>
