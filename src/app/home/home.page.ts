@@ -7,8 +7,14 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  public get menu(): MenuController {
+    return this._menu;
+  }
+  public set menu(value: MenuController) {
+    this._menu = value;
+  }
 
-  constructor(private menu: MenuController) {
+  constructor(private _menu: MenuController) {
     this.menu.enable(false, 'catMenu');
   }
 

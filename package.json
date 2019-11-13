@@ -30,12 +30,10 @@
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "cordova-android": "8.1.0",
     "cordova-browser": "^6.0.0",
-    "cordova-ios": "^5.0.1",
     "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-sqlite-storage": "^3.4.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.5.1",
-    "stream": "0.0.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },
