@@ -1,7 +1,0 @@
-{
-  "name": "egApp",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}
