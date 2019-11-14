@@ -34,7 +34,7 @@ export class AppComponent {
     });
   }
 
-  public getCatDet(id, page){
+  public getCatDet({ id, page }: { id; page; }){
     page = 1;
 
     this.productsService.loadProductsCat(id, page);
