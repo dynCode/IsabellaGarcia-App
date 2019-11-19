@@ -597,7 +597,7 @@ let AppComponent = class AppComponent {
             this.splashScreen.hide();
         });
     }
-    getCatDet({ id, page }) {
+    getCatDet(id, page) {
         page = 1;
         this.productsService.loadProductsCat(id, page);
         console.log(this.productsService.products);

@@ -607,8 +607,7 @@ var AppComponent = /** @class */ (function () {
             _this.splashScreen.hide();
         });
     };
-    AppComponent.prototype.getCatDet = function (_a) {
-        var id = _a.id, page = _a.page;
+    AppComponent.prototype.getCatDet = function (id, page) {
         page = 1;
         this.productsService.loadProductsCat(id, page);
         console.log(this.productsService.products);
