@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Orders History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card [hidden]="hasOrders">
+    <ion-grid>
+      <ion-row>
+        <ion-col>No order has been made yet.</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-list [hidden]="!hasOrders">
+    <ion-item>
+      <ion-grid class="oHeadGrid">
+        <ion-row>
+          <ion-col class="col1-Head">
+            Order
+          </ion-col>
+          <ion-col class="col2-Head">
+            Date
+          </ion-col>
+          <ion-col class="col3-Head">
+            Status
+          </ion-col>
+          <ion-col class="col4-Head">
+            Total
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item *ngFor="let order of userOrders; let i = index">
+      <ion-grid class="orderGrid">
+        <ion-row>
+          <ion-col class="col1-Order">
+            #{{order.number}}
+          </ion-col>
+          <ion-col class="col2-Order">
+            {{order.date_created | date : "mediumDate"}}
+          </ion-col>
+          <ion-col class="col3-Order">
+            {{order.status}}
+          </ion-col>
+          <ion-col class="col4-Order">
+            {{order.total | currency : "R"}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

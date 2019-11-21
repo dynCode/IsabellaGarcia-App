@@ -1,0 +1,128 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+.title-small {
+    font-size: 60%;
+    width: 100%;
+    display: block;
+}
+.title-large {
+    position: relative;
+    width: 100%;
+    display: block;
+    padding-bottom: 3px;
+    margin-bottom: 3px;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 800;
+}
+.title-large::before {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 1px;
+    bottom: 0px;
+    background-color: #ffffff;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.prodTitle {
+    font-size: 14px;
+    font-weight: 600;
+}
+.randPrice .prodPrice {
+    color: #000;
+    font-weight: 800;
+    font-size: 16px;
+}
+.brPrice .prodPrice {
+    color: #ce3a57;
+    font-weight: 800;
+    font-size: 16px;
+}
+.prodImg {
+    border: 1px solid #818181;
+}
+.searchbar-input.sc-ion-searchbar-md {
+    padding-left: 5px;
+    padding-right: 5px;
+    -webkit-padding-start: 55px;
+    padding-inline-start: 55px;
+    -webkit-padding-end: 0px;
+    padding-inline-end: 0px;
+}
+.search-col {
+    background-color: #cccccc;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.br-col {
+    background-color: #ce3a57;
+    text-align: right;
+    line-height: 44px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.br-col p {
+    padding: 0px 5px;
+    margin: 0px;
+    color: #ffffff;
+}
+.br-currency {
+    font-size: 14px;
+    font-weight: 700;
+}
+.br-amount {
+    font-size: 18px;
+    font-weight: 100;
+}
+.oldPrice {
+    font-size: 12px;
+    margin-right: 5px;
+    color: #000;
+    font-weight: 500;
+    text-decoration: line-through;
+}
+.cartBadge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.cartBadge ion-badge {
+    --background: #ce3a57;
+    --color: #fff;
+    --padding-bottom: 3px;
+    --padding-end: 3px;
+    --padding-start: 3px;
+    --padding-top: 3px;
+    width: 20px;
+    height: 20px;
+    line-height: 14px;
+}

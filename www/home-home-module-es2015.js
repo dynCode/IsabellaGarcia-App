@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n\t<!--<ion-toolbar>\n\t\t<ion-title>\n\t\tIonic Blank\n\t\t</ion-title>\n\t</ion-toolbar>-->\n</ion-header>\n\n<ion-content>\n\t<div class=\"content-wrap\">\n\t\t<div class=\"half-top\">\n\t\t\t<img src=\"/assets/white-logo.png\"/>\n\t\t</div>\n\t\t<div class=\"half-bot\">\n\t\t\t<img src=\"/assets/vip-beauty-club-logo.png\"/>\n\t\t</div>\n\t</div>\n</ion-content>\n\n<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\" class=\"login-tabs tabs-section\">\n    <ion-tab-button class=\"login\" [routerLink]=\"['/', 'login']\" >\n      <ion-label>LOG IN</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button class=\"register\" [routerLink]=\"['/', 'register']\" >\n      <ion-label>REGISTER</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>"
+module.exports = "<ion-header>\n\t<!--<ion-toolbar>\n\t\t<ion-title>\n\t\tIonic Blank\n\t\t</ion-title>\n\t</ion-toolbar>-->\n</ion-header>\n\n<ion-content>\n\t<div class=\"content-wrap\">\n\t\t<div class=\"half-top\">\n\t\t\t<img src=\"/assets/white-logo.png\"/>\n\t\t</div>\n\t\t<div class=\"half-bot\">\n\t\t\t<img src=\"/assets/vip-beauty-club-logo.png\"/>\n\t\t</div>\n\t</div>\n</ion-content>\n\n<ion-tabs>\n\n  <ion-tab-bar slot=\"bottom\" class=\"login-tabs tabs-section\">\n    <ion-tab-button class=\"login\" [routerLink]=\"['/', 'login']\" >\n      <ion-label>LOG IN</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button class=\"register\" (click)=\"openWithInAppBrowser()\" >\n      <ion-label>REGISTER</ion-label>\n    </ion-tab-button>\n  </ion-tab-bar>\n\n</ion-tabs>"
 
 /***/ }),
 
@@ -82,12 +82,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "./node_modules/@ionic-native/in-app-browser/ngx/index.js");
+
 
 
 
 let HomePage = class HomePage {
-    constructor(_menu) {
+    constructor(_menu, iab) {
         this._menu = _menu;
+        this.iab = iab;
         this.menu.enable(false, 'catMenu');
     }
     get menu() {
@@ -96,9 +99,14 @@ let HomePage = class HomePage {
     set menu(value) {
         this._menu = value;
     }
+    openWithInAppBrowser() {
+        let target = "_system";
+        const browser = this.iab.create("https://beta.isabellagarcia.co.za/register/", target);
+    }
 };
 HomePage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
+    { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_3__["InAppBrowser"] }
 ];
 HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -106,7 +114,7 @@ HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./home.page.html */ "./node_modules/raw-loader/index.js!./src/app/home/home.page.html"),
         styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_3__["InAppBrowser"]])
 ], HomePage);
 
 

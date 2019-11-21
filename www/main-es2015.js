@@ -30,9 +30,17 @@ var map = {
 		"./src/app/profile/addresses/addresses.module.ts",
 		"profile-addresses-addresses-module"
 	],
+	"./profile/contact-us/contact-us.module": [
+		"./src/app/profile/contact-us/contact-us.module.ts",
+		"profile-contact-us-contact-us-module"
+	],
 	"./profile/coupons/coupons.module": [
 		"./src/app/profile/coupons/coupons.module.ts",
 		"profile-coupons-coupons-module"
+	],
+	"./profile/faq/faq.module": [
+		"./src/app/profile/faq/faq.module.ts",
+		"profile-faq-faq-module"
 	],
 	"./profile/gift-cards/gift-cards.module": [
 		"./src/app/profile/gift-cards/gift-cards.module.ts",
@@ -49,6 +57,10 @@ var map = {
 	"./ts-cs/ts-cs.module": [
 		"./src/app/ts-cs/ts-cs.module.ts",
 		"ts-cs-ts-cs-module"
+	],
+	"./video-tour/video-tour.module": [
+		"./src/app/video-tour/video-tour.module.ts",
+		"video-tour-video-tour-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -529,6 +541,9 @@ const routes = [
     { path: 'addresses', loadChildren: './profile/addresses/addresses.module#AddressesPageModule' },
     { path: 'cart', loadChildren: './cart/cart.module#CartPageModule' },
     { path: 'ts-cs', loadChildren: './ts-cs/ts-cs.module#TsCsPageModule' },
+    { path: 'faq', loadChildren: './profile/faq/faq.module#FaqPageModule' },
+    { path: 'contact-us', loadChildren: './profile/contact-us/contact-us.module#ContactUsPageModule' },
+    { path: 'video-tour', loadChildren: './video-tour/video-tour.module#VideoTourPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -650,6 +665,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "./node_modules/@ionic-native/in-app-browser/ngx/index.js");
+/* harmony import */ var _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/spinner-dialog/ngx */ "./node_modules/@ionic-native/spinner-dialog/ngx/index.js");
+
 
 
 
@@ -688,7 +705,8 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
                 useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"]
             },
-            _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_12__["InAppBrowser"]
+            _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_12__["InAppBrowser"],
+            _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_13__["SpinnerDialog"]
         ],
         bootstrap: [
             _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]
@@ -1179,6 +1197,7 @@ let ProductsService = class ProductsService {
                 per_page: 20,
                 order: 'desc',
                 orderby: 'date',
+                customer: cusId,
             })
                 .then((response) => {
                 this.history = response.data || [];

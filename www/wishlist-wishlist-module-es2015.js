@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar class=\"main-toolbar\">\n\n    <!--<ion-button slot=\"start\" expand=\"block\" onclick=\"openMenu()\" class=\"toolbar-btn tb-btn1\">\n      <img class=\"icon-menu\" src=\"/assets/icon/menu.svg\" alt=\"\" />\n    </ion-button>-->\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    \n    <ion-title><span class=\"title-large\">WISHLIST</span></ion-title>\n\n    <ion-button slot=\"end\" class=\"toolbar-btn tb-btn2\" [routerLink]=\"['/', 'cart']\">\n      <div class=\"cartBlock\">\n        <img class=\"icon-cart\" src=\"/assets/icon/cart.svg\" alt=\"\" />\n        <div class=\"cartBadge\" *ngIf=\"pageDetail.cartCount > 0\"><ion-badge>{{ pageDetail.cartCount }}</ion-badge></div>\n      </div>\n    </ion-button>\n\n  </ion-toolbar>\n  <ion-toolbar class=\"secondary-toolbar\">\n    <ion-grid>\n      <ion-row>\n        <ion-col class=\"search-col\">\n          <ion-searchbar></ion-searchbar>\n        </ion-col>\n        <ion-col class=\"br-col\">\n          <p *ngIf=\"pageDetail.finalBR > 0.00\"><span class=\"br-currency\">BR</span><span class=\"br-amount\">{{ pageDetail.finalBR | number : '1.2-2' }}</span></p>\n          <p *ngIf=\"0.00 >= pageDetail.finalBR\"><span class=\"br-currency\">BR</span><span class=\"br-amount\">0.00</span></p>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card [hidden]=\"!showEmptyListMessage\">\n    <ion-grid>\n      <ion-row>\n        <ion-col>Your wishlist is currently empty.</ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-card>\n   \n  <ion-list id=\"cartList\">\n    <ion-item *ngFor=\"let item of listItems; let i = index\">\n      <ion-thumbnail (click)=\"getProdDet(item.product.id)\" class=\"prodThumbImg\" [innerHtml]=\"replaceIMG(item.product.images[0].src)\" slot=\"start\"></ion-thumbnail>\n      <ion-label (click)=\"getProdDet(item.product.id)\">\n        <p class=\"cartTitle\"><strong>{{ item.product.name }}</strong></p>\n      </ion-label>\n      <ion-button fill=\"clear\" color=\"danger\" (click)=\"removeFromList(item, i)\" slot=\"end\">\n        <ion-icon name=\"trash\"></ion-icon>\n      </ion-button>\n    </ion-item>\n  </ion-list>\n\n  \n\n</ion-content>"
+module.exports = "<ion-header>\n  <ion-toolbar class=\"main-toolbar\">\n\n    <!--<ion-button slot=\"start\" expand=\"block\" onclick=\"openMenu()\" class=\"toolbar-btn tb-btn1\">\n      <img class=\"icon-menu\" src=\"/assets/icon/menu.svg\" alt=\"\" />\n    </ion-button>-->\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    \n    <ion-title><span class=\"title-large\">WISHLIST</span></ion-title>\n\n    <ion-button slot=\"end\" class=\"toolbar-btn tb-btn2\" [routerLink]=\"['/', 'cart']\">\n      <div class=\"cartBlock\">\n        <img class=\"icon-cart\" src=\"/assets/icon/cart.svg\" alt=\"\" />\n        <div class=\"cartBadge\" *ngIf=\"pageDetail.cartCount > 0\"><ion-badge>{{ pageDetail.cartCount }}</ion-badge></div>\n      </div>\n    </ion-button>\n\n  </ion-toolbar>\n  <ion-toolbar class=\"secondary-toolbar\">\n    <ion-grid>\n      <ion-row>\n        <ion-col class=\"search-col\">\n          <ion-searchbar [(ngModel)]=\"searchQuery\" placeholder=\"Search\" (search)=\"searchByKeyword($event)\"></ion-searchbar>\n        </ion-col>\n        <ion-col class=\"br-col\">\n          <p *ngIf=\"pageDetail.finalBR > 0.00\"><span class=\"br-currency\">BR</span><span class=\"br-amount\">{{ pageDetail.finalBR | number : '1.2-2' }}</span></p>\n          <p *ngIf=\"0.00 >= pageDetail.finalBR\"><span class=\"br-currency\">BR</span><span class=\"br-amount\">0.00</span></p>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-card [hidden]=\"!showEmptyListMessage\">\n    <ion-grid>\n      <ion-row>\n        <ion-col>Your wishlist is currently empty.</ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-card>\n   \n  <ion-list id=\"cartList\">\n    <ion-item *ngFor=\"let item of listItems; let i = index\">\n      <ion-thumbnail (click)=\"getProdDet(item.product.id)\" class=\"prodThumbImg\" [innerHtml]=\"replaceIMG(item.product.images[0].src)\" slot=\"start\"></ion-thumbnail>\n      <ion-label (click)=\"getProdDet(item.product.id)\">\n        <p class=\"cartTitle\"><strong>{{ item.product.name }}</strong></p>\n      </ion-label>\n      <ion-button fill=\"clear\" color=\"danger\" (click)=\"removeFromList(item, i)\" slot=\"end\">\n        <ion-icon name=\"trash\"></ion-icon>\n      </ion-button>\n    </ion-item>\n  </ion-list>\n\n  \n\n</ion-content>"
 
 /***/ }),
 
@@ -111,7 +111,7 @@ let WishlistPage = class WishlistPage {
         this.storage.ready().then((data) => {
             this.storage.get("wishlist").then((data) => {
                 this.listItems = data;
-                console.log(this.listItems.length);
+                console.log("Wishlist Items", this.listItems);
                 if (this.listItems.length > 0 || this.listItems.length !== null) {
                     this.listItems.forEach((item, index) => {
                         this.total = this.total + (item.product.price * item.qty);
@@ -141,6 +141,10 @@ let WishlistPage = class WishlistPage {
     getProdDet(id) {
         this.productsService.ProductDetails(id);
         console.log(this.productsService.productDetails);
+    }
+    searchByKeyword() {
+        console.log("SEARCH", this.searchQuery);
+        this.productsService.searchResults(this.searchQuery, 1);
     }
 };
 WishlistPage.ctorParameters = () => [

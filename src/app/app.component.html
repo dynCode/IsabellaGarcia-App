@@ -1,0 +1,221 @@
+<ion-app>
+  <ion-split-pane>
+
+    <ion-menu menuId="catMenu">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>CATEGORIES</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+
+      <ion-item button class="parent" (click)="openW = !openW" [class.parent-active]="openW" detail="false">
+        <ion-icon slot="end" name="arrow-forward" *ngIf="!openW"></ion-icon>
+        <ion-icon slot="end" name="arrow-down" *ngIf="openW"></ion-icon>
+        <ion-label>Women's Products</ion-label>
+      </ion-item>
+
+      <ion-list *ngIf="openW">
+        <ion-menu-toggle>
+          <ion-item class="sub-item" (click)="getCatDet(18)" routerDirection="root" routerLinkActive="active">
+            <ion-label>
+              View All
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <!--Products By Range-->
+        <ion-item button class="subParent" (click)="pbrOpen = !pbrOpen" [class.subparent-active]="pbrOpen" detail="false">
+          <ion-icon slot="end" name="arrow-forward" *ngIf="!pbrOpen"></ion-icon>
+          <ion-icon slot="end" name="arrow-down" *ngIf="pbrOpen"></ion-icon>
+          <ion-label>Products By Range</ion-label>
+        </ion-item>
+
+        <ion-list *ngIf="pbrOpen">
+          <ion-menu-toggle>
+            <ion-item class="sub-item" (click)="getCatDet(526)" routerDirection="root" routerLinkActive="active">
+              <ion-thumbnail slot="start"><img src="/assets/cat/Placeholder.jpg" alt="All"/></ion-thumbnail>
+              <ion-label>View All</ion-label>
+            </ion-item>
+            <ion-item class="sub-item" (click)="getCatDet(577)" routerDirection="root" routerLinkActive="active">
+              <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Essential.jpg" alt="Essential Skincare Products"/></ion-thumbnail>
+              <ion-label>Essential Skincare Products</ion-label>
+            </ion-item>
+            <ion-item class="sub-item" (click)="getCatDet(602)" routerDirection="root" routerLinkActive="active">
+              <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Specialised.jpg" alt="Specialised Skincare Products"/></ion-thumbnail>
+              <ion-label>Specialised Skincare Products</ion-label>
+            </ion-item>
+            <ion-item class="sub-item" (click)="getCatDet(732)" routerDirection="root" routerLinkActive="active">
+              <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Preview Set.jpg" alt="Travel Size Skincare Products"/></ion-thumbnail>
+              <ion-label>Travel Size Skincare Products</ion-label>
+            </ion-item>
+            <ion-item class="sub-item" (click)="getCatDet(592)" routerDirection="root" routerLinkActive="active">
+              <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Make-up.jpg" alt="Make-up"/></ion-thumbnail>
+              <ion-label>Make-up</ion-label>
+            </ion-item>
+            <ion-item class="sub-item" (click)="getCatDet(24)" routerDirection="root" routerLinkActive="active">
+              <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Fragrance.jpg" alt="Fine Fragrances"/></ion-thumbnail>
+              <ion-label>Fine Fragrances</ion-label>
+            </ion-item>
+            <ion-item class="sub-item" (click)="getCatDet(586)" routerDirection="root" routerLinkActive="active">
+              <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Hand&Body.jpg" alt="Luxurious Hand & Body"/></ion-thumbnail>
+              <ion-label>Luxurious Hand & Body</ion-label>
+            </ion-item>
+            <ion-item class="sub-item" (click)="getCatDet(635)" routerDirection="root" routerLinkActive="active">
+              <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Haircare.jpg" alt="Luxurious Hand & Body"/></ion-thumbnail>
+              <ion-label>Haircare</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <!--END PBR-->
+        <!--Products By Concern-->
+
+        <ion-item button class="subParent" (click)="pbcOpen = !pbcOpen" [class.subparent-active]="pbcOpen" detail="false">
+          <ion-icon slot="end" name="arrow-forward" *ngIf="!pbcOpen"></ion-icon>
+          <ion-icon slot="end" name="arrow-down" *ngIf="pbcOpen"></ion-icon>
+          <ion-label>Products By Concern</ion-label>
+        </ion-item>
+
+        <ion-list *ngIf="pbcOpen">
+            <ion-menu-toggle>
+              <ion-item class="sub-item" (click)="getCatDet(561)" routerDirection="root" routerLinkActive="active">
+                <ion-label>View All</ion-label>
+              </ion-item>
+              <ion-item class="sub-item" (click)="getCatDet(563)" routerDirection="root" routerLinkActive="active">
+                <ion-label>Dehydrated Skin</ion-label>
+              </ion-item>
+              <ion-item class="sub-item" (click)="getCatDet(557)" routerDirection="root" routerLinkActive="active">
+                <ion-label>Oily/Problematic Skin</ion-label>
+              </ion-item>
+              <ion-item class="sub-item" (click)="getCatDet(603)" routerDirection="root" routerLinkActive="active">
+                <ion-label>Pigmentation/Age Spots</ion-label>
+              </ion-item>
+              <ion-item class="sub-item" (click)="getCatDet(565)" routerDirection="root" routerLinkActive="active">
+                <ion-label>Loss of Radiance</ion-label>
+              </ion-item>
+              <ion-item class="sub-item" (click)="getCatDet(566)" routerDirection="root" routerLinkActive="active">
+                <ion-label>Wrinkles</ion-label>
+              </ion-item>
+              <ion-item class="sub-item" (click)="getCatDet(564)" routerDirection="root" routerLinkActive="active">
+                <ion-label>Blemishes</ion-label>
+              </ion-item>
+              <ion-item class="sub-item" (click)="getCatDet(604)" routerDirection="root" routerLinkActive="active">
+                <ion-label>Redness</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+
+          <!--END PBC-->
+          <!--Products By Collection-->
+
+          <ion-item button class="subParent" (click)="pbcoOpen = !pbcoOpen" [class.subparent-active]="pbcoOpen" detail="false">
+            <ion-icon slot="end" name="arrow-forward" *ngIf="!pbcoOpen"></ion-icon>
+            <ion-icon slot="end" name="arrow-down" *ngIf="pbcoOpen"></ion-icon>
+            <ion-label>Products By Collection</ion-label>
+          </ion-item>
+
+          <ion-list *ngIf="pbcoOpen">
+              <ion-menu-toggle>
+                <ion-item class="sub-item" (click)="getCatDet(526)" routerDirection="root" routerLinkActive="active">
+                  <ion-thumbnail slot="start"><img src="/assets/cat/Placeholder.jpg" alt="All"/></ion-thumbnail>
+                  <ion-label>View All</ion-label>
+                </ion-item>
+                <ion-item class="sub-item" (click)="getCatDet(605)" routerDirection="root" routerLinkActive="active">
+                  <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Essential.jpg" alt="Essential Skincare Collections"/></ion-thumbnail>
+                  <ion-label>Essential Skincare Collections</ion-label>
+                </ion-item>
+                <ion-item class="sub-item" (click)="getCatDet(707)" routerDirection="root" routerLinkActive="active">
+                  <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Make-up.jpg" alt="Make-up Collections"/></ion-thumbnail>
+                  <ion-label>Make-up Collections</ion-label>
+                </ion-item>
+                <ion-item class="sub-item" (click)="getCatDet(701)" routerDirection="root" routerLinkActive="active">
+                  <ion-thumbnail slot="start"><img src="/assets/cat/Womens-Specialised.jpg" alt="Specialised Skincare Collection"/></ion-thumbnail>
+                  <ion-label>Specialised Skincare Collection</ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </ion-list>
+
+            <!--END PBCO-->
+
+      </ion-list>
+
+      <ion-item button class="parent" (click)="openM = !openM" [class.parent-active]="openM" detail="false">
+        <ion-icon slot="end" name="arrow-forward" *ngIf="!openM"></ion-icon>
+        <ion-icon slot="end" name="arrow-down" *ngIf="openM"></ion-icon>
+        <ion-label>Men's Products</ion-label>
+      </ion-item>
+
+      <ion-list *ngIf="openM">
+        <ion-menu-toggle>
+          <ion-item class="sub-item" (click)="getCatDet(19)" routerDirection="root" routerLinkActive="active">
+            <ion-thumbnail slot="start"><img src="/assets/cat/Placeholder.jpg" alt="All"/></ion-thumbnail>
+            <ion-label>View All</ion-label>
+          </ion-item>
+          <ion-item class="sub-item" (click)="getCatDet(477)" routerDirection="root" routerLinkActive="active">
+            <ion-thumbnail slot="start"><img src="/assets/cat/Mens-Skincare.jpg" alt="Skincare"/></ion-thumbnail>
+            <ion-label>Skincare</ion-label>
+          </ion-item>
+          <ion-item class="sub-item" (click)="getCatDet(636)" routerDirection="root" routerLinkActive="active">
+            <ion-thumbnail slot="start"><img src="/assets/cat/Mens-Preview Set.jpg" alt="Trial Size Preview Set"/></ion-thumbnail>
+            <ion-label>Trial Size Preview Set</ion-label>
+          </ion-item>
+          <ion-item class="sub-item" (click)="getCatDet(34)" routerDirection="root" routerLinkActive="active">
+            <ion-thumbnail slot="start"><img src="/assets/cat/mens-Haircare.jpg" alt="Haircare"/></ion-thumbnail>
+            <ion-label>Haircare</ion-label>
+          </ion-item>
+          <ion-item class="sub-item" (click)="getCatDet(32)" routerDirection="root" routerLinkActive="active">
+            <ion-thumbnail slot="start"><img src="/assets/cat/Mens-Fragrance.jpg" alt="Magnetic Fragrance"/></ion-thumbnail>
+            <ion-label>Magnetic Fragrance</ion-label>
+          </ion-item>
+          <ion-item class="sub-item" (click)="getCatDet(33)" routerDirection="root" routerLinkActive="active">
+            <ion-thumbnail slot="start"><img src="/assets/cat/Mens-Accessories.jpg" alt="Accessories"/></ion-thumbnail>
+            <ion-label>Accessories</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+
+      <ion-item button class="parent" (click)="openMP = !openMP" [class.parent-active]="openMP" detail="false">
+        <ion-icon slot="end" name="arrow-forward" *ngIf="!openMP"></ion-icon>
+        <ion-icon slot="end" name="arrow-down" *ngIf="openMP"></ion-icon>
+        <ion-label>Most Popular Products</ion-label>
+      </ion-item>
+
+      <ion-list *ngIf="openMP">
+        <ion-menu-toggle>
+          <ion-item class="sub-item" (click)="getCatDet(706)" routerDirection="root" routerLinkActive="active">
+            <ion-label>View All</ion-label>
+          </ion-item>
+          <ion-item class="sub-item" (click)="getCatDet(692)" routerDirection="root" routerLinkActive="active">
+            <ion-label>Women’s Most Popular</ion-label>
+          </ion-item>
+          <ion-item class="sub-item" (click)="getCatDet(696)" routerDirection="root" routerLinkActive="active">
+            <ion-label>Men’s Most Popular</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+
+      <ion-menu-toggle>
+        <ion-item class="parent" (click)="getCatDet(719)" routerDirection="root" routerLinkActive="active">
+          <ion-label>Pick of the Month</ion-label>
+        </ion-item>
+        <ion-item class="parent" (click)="getCatDet(748)" routerDirection="root" routerLinkActive="active">
+          <ion-label>Advanced Skincare Products</ion-label>
+        </ion-item>
+        <ion-item class="parent" (click)="getCatDet(743)" routerDirection="root" routerLinkActive="active">
+          <ion-label>#BeautyBoxes</ion-label>
+        </ion-item>
+        <ion-item class="parent" (click)="getCatDet(18175)" routerDirection="root" routerLinkActive="active">
+          <ion-label>IG Gift Cards</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet main></ion-router-outlet>
+
+  </ion-split-pane>
+
+</ion-app>

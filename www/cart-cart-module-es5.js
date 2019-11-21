@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_authenticate_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/authenticate.service */ "./src/app/services/authenticate.service.ts");
 /* harmony import */ var _services_page_details_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/page-details.service */ "./src/app/services/page-details.service.ts");
 /* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "./node_modules/@ionic-native/in-app-browser/ngx/index.js");
+/* harmony import */ var _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/spinner-dialog/ngx */ "./node_modules/@ionic-native/spinner-dialog/ngx/index.js");
+
 
 
 
@@ -100,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CartPage = /** @class */ (function () {
-    function CartPage(productsService, authenticationService, storage, pageDetail, iab, http) {
+    function CartPage(productsService, authenticationService, storage, pageDetail, iab, http, spinnerDialog) {
         var _this = this;
         this.productsService = productsService;
         this.authenticationService = authenticationService;
@@ -108,25 +110,19 @@ var CartPage = /** @class */ (function () {
         this.pageDetail = pageDetail;
         this.iab = iab;
         this.http = http;
+        this.spinnerDialog = spinnerDialog;
         this.cartItems = [];
         this.showEmptyCartMessage = false;
         this.options = {
-            location: 'no',
+            location: 'yes',
+            hideurlbar: "yes",
             presentationstyle: 'pagesheet',
         };
-        this.loggedInWeb = false;
         this.total = 0.0;
         this.storage.ready().then(function (data) {
             _this.storage.get("user").then(function (data) {
                 _this.userData = data;
                 _this.totalBr = data[0].brPoints;
-                console.log("User Data", _this.userData);
-                if (!_this.loggedInWeb) {
-                    var browser = _this.iab.create("https://beta.isabellagarcia.co.za/?ig_k=" + _this.userData[0].loginKey, '_blank', _this.options);
-                    browser.hide();
-                    browser.close();
-                    _this.loggedInWeb = true;
-                }
             });
             _this.storage.get("cart").then(function (data) {
                 _this.cartItems = data;
@@ -164,7 +160,7 @@ var CartPage = /** @class */ (function () {
     CartPage.prototype.removeFromCart = function (item, i) {
         var _this = this;
         this.pageDetail.subCartCount();
-        this.pageDetail.addBRPoints(item.product.price);
+        //this.pageDetail.addBRPoints(item.product.price);
         var price = item.product.price;
         var qty = item.qty;
         this.cartItems.splice(i, 1);
@@ -178,6 +174,7 @@ var CartPage = /** @class */ (function () {
         });
         this.removeUcart(item.cartKey);
         this.recalCart();
+        this.pageDetail.getBRPoints();
     };
     CartPage.prototype.removeUcart = function (ckey) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Authorization': 'Bearer ' + this.userData[0].authToken });
@@ -196,8 +193,47 @@ var CartPage = /** @class */ (function () {
         console.log(this.productsService.productDetails);
     };
     CartPage.prototype.openWithInAppBrowser = function () {
+        var _this = this;
         var target = "_blank";
         var browser = this.iab.create("https://beta.isabellagarcia.co.za/cart/", target, this.options);
+        browser.on('loadstart').subscribe(function (eve) {
+            _this.spinnerDialog.show(null, null, true);
+        }, function (err) {
+            _this.spinnerDialog.hide();
+        });
+        browser.on('loadstop').subscribe(function () {
+            _this.spinnerDialog.hide();
+        }, function (err) {
+            _this.spinnerDialog.hide();
+        });
+        browser.on('loaderror').subscribe(function () {
+            _this.spinnerDialog.hide();
+        }, function (err) {
+            _this.spinnerDialog.hide();
+        });
+        browser.on('exit').subscribe(function () {
+            _this.spinnerDialog.hide();
+            var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Authorization': 'Bearer ' + _this.userData[0].authToken });
+            var httpOptions = {
+                headers: headers
+            };
+            _this.http.get("https://beta.isabellagarcia.co.za/wp-json/cocart/v1/get-cart/" + _this.userData[0].id, httpOptions)
+                .subscribe(function (data) {
+                console.log(data);
+                console.log('sting data output:', JSON.stringify(data));
+                if (typeof data !== 'object' || JSON.stringify(data) == "[]") {
+                    _this.storage.ready().then(function (data) {
+                        _this.storage.set('cart', '');
+                        _this.cartItems = [];
+                        _this.recalCart();
+                    });
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        }, function (err) {
+            _this.spinnerDialog.hide();
+        });
     };
     CartPage.prototype.recalCart = function () {
         var _this = this;
@@ -220,10 +256,14 @@ var CartPage = /** @class */ (function () {
                 }
                 else {
                     _this.showEmptyCartMessage = true;
+                    _this.cartBr = 0.00;
+                    _this.total = 0.00;
                 }
             }
             else {
                 _this.showEmptyCartMessage = true;
+                _this.cartBr = 0.00;
+                _this.total = 0.00;
             }
         });
     };
@@ -233,7 +273,8 @@ var CartPage = /** @class */ (function () {
         { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"] },
         { type: _services_page_details_service__WEBPACK_IMPORTED_MODULE_6__["PageDetailsService"] },
         { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__["InAppBrowser"] },
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
+        { type: _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_8__["SpinnerDialog"] }
     ]; };
     CartPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -241,7 +282,7 @@ var CartPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./cart.page.html */ "./node_modules/raw-loader/index.js!./src/app/cart/cart.page.html"),
             styles: [__webpack_require__(/*! ./cart.page.scss */ "./src/app/cart/cart.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_products_service__WEBPACK_IMPORTED_MODULE_4__["ProductsService"], _services_authenticate_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"], _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"], _services_page_details_service__WEBPACK_IMPORTED_MODULE_6__["PageDetailsService"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__["InAppBrowser"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_products_service__WEBPACK_IMPORTED_MODULE_4__["ProductsService"], _services_authenticate_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"], _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"], _services_page_details_service__WEBPACK_IMPORTED_MODULE_6__["PageDetailsService"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__["InAppBrowser"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_8__["SpinnerDialog"]])
     ], CartPage);
     return CartPage;
 }());

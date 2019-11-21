@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-buttons slot=\"start\">\n          <ion-back-button></ion-back-button>\n        </ion-buttons>\n      <ion-title>Addresses</ion-title>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-card>    \n      <ion-card-content>\n        <ion-card-subtitle>Billing Address</ion-card-subtitle>\n        <hr/>\n        <h2>{{authenticationService.customer.billing.first_name}} {{authenticationService.customer.billing.last_name}}</h2>\n        <p>\n        <ion-label>\n          <p position=\"stacked\">Address</p>\n          <h3>{{authenticationService.customer.billing.address_1}}, {{authenticationService.customer.billing.address_2}}, {{authenticationService.customer.billing.city}}, {{authenticationService.customer.billing.state}}, {{authenticationService.customer.billing.postcode}}</h3>\n        </ion-label>\n        </p> \n        <p>\n        <ion-label>\n          <p position=\"stacked\">Company</p>\n          <h3>{{authenticationService.customer.billing.company}}</h3>\n        </ion-label>\n        </p> \n        <p>\n        <ion-label>\n          <p position=\"stacked\">Phone</p>\n          <h3>{{authenticationService.customer.billing.phone}}</h3>\n        </ion-label>\n        </p>\n        <ion-button size=\"small\" class=\"editBtn\"><ion-icon name=\"create\" slot=\"start\"></ion-icon>Edit</ion-button>\n      </ion-card-content>\n    </ion-card>\n\n    <ion-card>    \n        <ion-card-content>\n          <ion-card-subtitle>Shipping Address</ion-card-subtitle>\n          <hr/>\n          <h2>{{authenticationService.customer.shipping.first_name}} {{authenticationService.customer.shipping.last_name}}</h2>\n          <p>\n          <ion-label>\n            <p position=\"stacked\">Address</p>\n            <h3>{{authenticationService.customer.shipping.address_1}}, {{authenticationService.customer.shipping.address_2}}, {{authenticationService.customer.shipping.city}}, {{authenticationService.customer.shipping.state}}, {{authenticationService.customer.shipping.postcode}}</h3>\n          </ion-label>\n          </p> \n          <p>\n          <ion-label>\n            <p position=\"stacked\">Company</p>\n            <h3>{{authenticationService.customer.shipping.company}}</h3>\n          </ion-label>\n          </p>\n          <ion-button size=\"small\" class=\"editBtn\"><ion-icon name=\"create\" slot=\"start\"></ion-icon>Edit</ion-button>\n        </ion-card-content>\n      </ion-card>\n        \n  </ion-content>\n  "
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-buttons slot=\"start\">\n          <ion-back-button></ion-back-button>\n        </ion-buttons>\n      <ion-title>Addresses</ion-title>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-card>    \n      <ion-card-content>\n        <ion-card-subtitle>Billing Address</ion-card-subtitle>\n        <hr/>\n        <h2>{{authenticationService.customer.billing.first_name}} {{authenticationService.customer.billing.last_name}}</h2>\n        <p>\n        <ion-label>\n          <p position=\"stacked\">Address</p>\n          <h3>{{authenticationService.customer.billing.address_1}}, {{authenticationService.customer.billing.address_2}}, {{authenticationService.customer.billing.city}}, {{authenticationService.customer.billing.state}}, {{authenticationService.customer.billing.postcode}}</h3>\n        </ion-label>\n        </p> \n        <p>\n        <ion-label>\n          <p position=\"stacked\">Company</p>\n          <h3>{{authenticationService.customer.billing.company}}</h3>\n        </ion-label>\n        </p> \n        <p>\n        <ion-label>\n          <p position=\"stacked\">Phone</p>\n          <h3>{{authenticationService.customer.billing.phone}}</h3>\n        </ion-label>\n        </p>\n        <ion-button size=\"small\" class=\"editBtn\" (click)=\"openWithInAppBrowser()\"><ion-icon name=\"create\" slot=\"start\"></ion-icon>Edit</ion-button>\n      </ion-card-content>\n    </ion-card>\n\n    <ion-card>    \n        <ion-card-content>\n          <ion-card-subtitle>Shipping Address</ion-card-subtitle>\n          <hr/>\n          <h2>{{authenticationService.customer.shipping.first_name}} {{authenticationService.customer.shipping.last_name}}</h2>\n          <p>\n          <ion-label>\n            <p position=\"stacked\">Address</p>\n            <h3>{{authenticationService.customer.shipping.address_1}}, {{authenticationService.customer.shipping.address_2}}, {{authenticationService.customer.shipping.city}}, {{authenticationService.customer.shipping.state}}, {{authenticationService.customer.shipping.postcode}}</h3>\n          </ion-label>\n          </p> \n          <p>\n          <ion-label>\n            <p position=\"stacked\">Company</p>\n            <h3>{{authenticationService.customer.shipping.company}}</h3>\n          </ion-label>\n          </p>\n          <ion-button size=\"small\" class=\"editBtn\" (click)=\"openWithInAppBrowser()\"><ion-icon name=\"create\" slot=\"start\"></ion-icon>Edit</ion-button>\n        </ion-card-content>\n      </ion-card>\n        \n  </ion-content>\n  "
 
 /***/ }),
 
@@ -83,27 +83,64 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
-/* harmony import */ var _services_products_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/products.service */ "./src/app/services/products.service.ts");
-/* harmony import */ var _services_authenticate_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/authenticate.service */ "./src/app/services/authenticate.service.ts");
+/* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "./node_modules/@ionic-native/in-app-browser/ngx/index.js");
+/* harmony import */ var _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/spinner-dialog/ngx */ "./node_modules/@ionic-native/spinner-dialog/ngx/index.js");
+/* harmony import */ var _services_products_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/products.service */ "./src/app/services/products.service.ts");
+/* harmony import */ var _services_authenticate_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/authenticate.service */ "./src/app/services/authenticate.service.ts");
+
+
 
 
 
 
 
 let AddressesPage = class AddressesPage {
-    constructor(productsService, authenticationService, storage) {
+    constructor(productsService, authenticationService, storage, iab, spinnerDialog) {
         this.productsService = productsService;
         this.authenticationService = authenticationService;
         this.storage = storage;
+        this.iab = iab;
+        this.spinnerDialog = spinnerDialog;
+        this.options = {
+            location: 'yes',
+            hideurlbar: "yes",
+            presentationstyle: 'pagesheet',
+        };
     }
     ngOnInit() {
         this.authenticationService.getCustomer();
     }
+    openWithInAppBrowser() {
+        let target = "_blank";
+        const browser = this.iab.create("https://beta.isabellagarcia.co.za/my-account/edit-account/", target, this.options);
+        browser.on('loadstart').subscribe((eve) => {
+            this.spinnerDialog.show(null, null, true);
+        }, err => {
+            this.spinnerDialog.hide();
+        });
+        browser.on('loadstop').subscribe(() => {
+            this.spinnerDialog.hide();
+        }, err => {
+            this.spinnerDialog.hide();
+        });
+        browser.on('loaderror').subscribe(() => {
+            this.spinnerDialog.hide();
+        }, err => {
+            this.spinnerDialog.hide();
+        });
+        browser.on('exit').subscribe(() => {
+            this.spinnerDialog.hide();
+        }, err => {
+            this.spinnerDialog.hide();
+        });
+    }
 };
 AddressesPage.ctorParameters = () => [
-    { type: _services_products_service__WEBPACK_IMPORTED_MODULE_3__["ProductsService"] },
-    { type: _services_authenticate_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"] },
-    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"] }
+    { type: _services_products_service__WEBPACK_IMPORTED_MODULE_5__["ProductsService"] },
+    { type: _services_authenticate_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"] },
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"] },
+    { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_3__["InAppBrowser"] },
+    { type: _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_4__["SpinnerDialog"] }
 ];
 AddressesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -111,7 +148,7 @@ AddressesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./addresses.page.html */ "./node_modules/raw-loader/index.js!./src/app/profile/addresses/addresses.page.html"),
         styles: [__webpack_require__(/*! ./addresses.page.scss */ "./src/app/profile/addresses/addresses.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_products_service__WEBPACK_IMPORTED_MODULE_3__["ProductsService"], _services_authenticate_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"], _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_products_service__WEBPACK_IMPORTED_MODULE_5__["ProductsService"], _services_authenticate_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"], _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_3__["InAppBrowser"], _ionic_native_spinner_dialog_ngx__WEBPACK_IMPORTED_MODULE_4__["SpinnerDialog"]])
 ], AddressesPage);
 
 

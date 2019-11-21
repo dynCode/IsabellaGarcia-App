@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  \n</ion-header>\n\n<ion-content>\n  <div class=\"login-top\">\n    <div class=\"login-logo\"><img src=\"/assets/login-top.jpg\" alt=\"Isabella Garcia\"></div>\n  </div>\n  <div class=\"login-bot\">\n    <div class=\"logBot-inner\">\n      <ion-card id=\"loginError\" color=\"danger\" [hidden]=\"!loginFail\">\n        <ion-card-content >\n            <ion-icon name=\"warning\" slot=\"start\"></ion-icon><strong>ERROR:</strong> Invalid email or password.\n        </ion-card-content>\n      </ion-card>\n      <form [formGroup]=\"login_form\" (ngSubmit)=\"login(login_form.value)\" class=\"ion-padding\">\n        <ion-item>\n          <ion-icon name=\"mail\" slot=\"start\" class=\"loginIcon\"></ion-icon>\n          <ion-label position=\"stacked\" class=\"login-field\">Username</ion-label>\n          <ion-input required type=\"text\" formControlName=\"username\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-icon name=\"lock\" slot=\"start\" class=\"loginIcon\"></ion-icon>\n          <ion-label position=\"stacked\" class=\"login-field\">Password</ion-label>\n          <ion-input required [type]=\"passwordType\" formControlName=\"password\"></ion-input>\n          <ion-icon [name]=\"passwordShown === true ? 'md-eye-off' : 'md-eye'\" slot=\"end\" (click)=\"togglePassword()\"></ion-icon>\n        </ion-item>\n        <div class=\"loginBtn\">\n          <ion-button expand=\"block\" type=\"submit\" class=\"login-btn ion-no-margin\">LOG IN</ion-button>\n          <!--<ion-button expand=\"block\" class=\"login-btn ion-no-margin\" [routerLink]=\"['/', 'landing-page']\">LOG IN</ion-button>-->\n          <div class=\"newUser\"><p><a class=\"loginUnder\" href=\"https://isabellagarcia.co.za/my-account/lost-password/\" target=\"_blank\">Lost your password?</a></p></div>\n          <div class=\"newUser\"><p>FIRST TIME IG APP USER: <a class=\"loginUnderSec\" [routerLink]=\"['/', 'register']\">REGISTER HERE</a></p></div>\n        </div>\n      <!--<ion-item>\n        <ion-checkbox color=\"danger\" slot=\"start\"></ion-checkbox>\n        <ion-label >ACCEPT <strong>TERMS & CONDITIONS</strong></ion-label>\n      </ion-item>-->\n    </form>\n    </div>\n  </div>\n</ion-content>\n"
+module.exports = "<ion-header>\n  \n</ion-header>\n\n<ion-content>\n  <div class=\"login-top\">\n    <div class=\"login-logo\"><img src=\"/assets/login-top.jpg\" alt=\"Isabella Garcia\"></div>\n  </div>\n  <div class=\"login-bot\">\n    <div class=\"logBot-inner\">\n      <ion-card id=\"loginError\" color=\"danger\" [hidden]=\"!loginFail\">\n        <ion-card-content >\n            <ion-icon name=\"warning\" slot=\"start\"></ion-icon><strong>ERROR:</strong> Invalid email or password.\n        </ion-card-content>\n      </ion-card>\n      <form [formGroup]=\"login_form\" (ngSubmit)=\"login(login_form.value)\" class=\"ion-padding\">\n        <ion-item>\n          <ion-icon name=\"mail\" slot=\"start\" class=\"loginIcon\"></ion-icon>\n          <ion-label position=\"stacked\" class=\"login-field\">Username</ion-label>\n          <ion-input required type=\"text\" formControlName=\"username\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-icon name=\"lock\" slot=\"start\" class=\"loginIcon\"></ion-icon>\n          <ion-label position=\"stacked\" class=\"login-field\">Password</ion-label>\n          <ion-input required [type]=\"passwordType\" formControlName=\"password\"></ion-input>\n          <ion-icon [name]=\"passwordShown === true ? 'md-eye-off' : 'md-eye'\" slot=\"end\" (click)=\"togglePassword()\"></ion-icon>\n        </ion-item>\n        <div class=\"loginBtn\">\n          <ion-button expand=\"block\" type=\"submit\" class=\"login-btn ion-no-margin\">LOG IN</ion-button>\n          <!--<ion-button expand=\"block\" class=\"login-btn ion-no-margin\" [routerLink]=\"['/', 'landing-page']\">LOG IN</ion-button>-->\n          <div class=\"newUser\"><p><a class=\"loginUnder\" href=\"https://isabellagarcia.co.za/my-account/lost-password/\" target=\"_blank\">Lost your password?</a></p></div>\n          <div class=\"newUser\"><p>FIRST TIME IG APP USER: <a class=\"loginUnderSec\" (click)=\"openWithInAppBrowser()\">REGISTER HERE</a></p></div>\n        </div>\n      <!--<ion-item>\n        <ion-checkbox color=\"danger\" slot=\"start\"></ion-checkbox>\n        <ion-label >ACCEPT <strong>TERMS & CONDITIONS</strong></ion-label>\n      </ion-item>-->\n    </form>\n    </div>\n  </div>\n</ion-content>\n"
 
 /***/ }),
 
@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_authenticate_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/authenticate.service */ "./src/app/services/authenticate.service.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+/* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "./node_modules/@ionic-native/in-app-browser/ngx/index.js");
+
 
 
 
@@ -101,7 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginPage = /** @class */ (function () {
-    function LoginPage(formBuilder, loadingController, authenticationService, modalController, router, storage, menu) {
+    function LoginPage(formBuilder, loadingController, authenticationService, modalController, router, storage, menu, iab) {
         this.formBuilder = formBuilder;
         this.loadingController = loadingController;
         this.authenticationService = authenticationService;
@@ -109,12 +111,30 @@ var LoginPage = /** @class */ (function () {
         this.router = router;
         this.storage = storage;
         this.menu = menu;
+        this.iab = iab;
         this.passwordType = 'password';
         this.passwordShown = false;
         this.loginFail = false;
     }
     LoginPage.prototype.ngOnInit = function () {
+        var _this = this;
         this.menu.enable(false, 'catMenu');
+        this.storage.ready().then(function (data) {
+            _this.storage.get("authDetail").then(function (data) {
+                _this.authDetail = data;
+                console.log("Auth Data", _this.authDetail);
+                if (_this.authDetail) {
+                    if (_this.authDetail[0].username && _this.authDetail[0].password) {
+                        //this.username = this.authDetail[0].username;
+                        //this.password = this.authDetail[0].password;
+                        var autoLog = [];
+                        autoLog['username'] = _this.authDetail[0].username;
+                        autoLog['password'] = _this.authDetail[0].password;
+                        _this.login(autoLog);
+                    }
+                }
+            });
+        });
         this.login_form = this.formBuilder.group({
             username: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](this.username, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required
@@ -164,6 +184,10 @@ var LoginPage = /** @class */ (function () {
             this.passwordType = 'text';
         }
     };
+    LoginPage.prototype.openWithInAppBrowser = function () {
+        var target = "_system";
+        var browser = this.iab.create("https://beta.isabellagarcia.co.za/register/", target);
+    };
     LoginPage.ctorParameters = function () { return [
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
@@ -171,7 +195,8 @@ var LoginPage = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
         { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
+        { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__["InAppBrowser"] }
     ]; };
     LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -185,7 +210,8 @@ var LoginPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
             _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"],
+            _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__["InAppBrowser"]])
     ], LoginPage);
     return LoginPage;
 }());

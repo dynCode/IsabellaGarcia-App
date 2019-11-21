@@ -817,16 +817,16 @@ let PageDetailsService = class PageDetailsService {
                     this.cartCount = data.length;
                     this.newCount = this.cartCount;
                     this.subCount = this.cartCount;
-                    console.log(this.cartCount);
+                    console.log("cart count", this.cartCount);
                 });
             });
         });
     }
     setCartCount(amount) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            this.cartCount = this.newCount + amount;
+            this.cartCount = this.cartCount + amount;
             //this.subCount = this.cartCount;
-            console.log(this.cartCount);
+            console.log("newcart count", this.cartCount);
             return this.cartCount;
         });
     }

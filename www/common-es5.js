@@ -565,7 +565,7 @@ var PageDetailsService = /** @class */ (function () {
                         _this.cartCount = data.length;
                         _this.newCount = _this.cartCount;
                         _this.subCount = _this.cartCount;
-                        console.log(_this.cartCount);
+                        console.log("cart count", _this.cartCount);
                     });
                 });
                 return [2 /*return*/];
@@ -575,9 +575,9 @@ var PageDetailsService = /** @class */ (function () {
     PageDetailsService.prototype.setCartCount = function (amount) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                this.cartCount = this.newCount + amount;
+                this.cartCount = this.cartCount + amount;
                 //this.subCount = this.cartCount;
-                console.log(this.cartCount);
+                console.log("newcart count", this.cartCount);
                 return [2 /*return*/, this.cartCount];
             });
         });

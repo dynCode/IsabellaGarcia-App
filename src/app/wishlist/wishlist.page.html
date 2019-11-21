@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar class="main-toolbar">
+
+    <!--<ion-button slot="start" expand="block" onclick="openMenu()" class="toolbar-btn tb-btn1">
+      <img class="icon-menu" src="/assets/icon/menu.svg" alt="" />
+    </ion-button>-->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    
+    <ion-title><span class="title-large">WISHLIST</span></ion-title>
+
+    <ion-button slot="end" class="toolbar-btn tb-btn2" [routerLink]="['/', 'cart']">
+      <div class="cartBlock">
+        <img class="icon-cart" src="/assets/icon/cart.svg" alt="" />
+        <div class="cartBadge" *ngIf="pageDetail.cartCount > 0"><ion-badge>{{ pageDetail.cartCount }}</ion-badge></div>
+      </div>
+    </ion-button>
+
+  </ion-toolbar>
+  <ion-toolbar class="secondary-toolbar">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="search-col">
+          <ion-searchbar [(ngModel)]="searchQuery" placeholder="Search" (search)="searchByKeyword($event)"></ion-searchbar>
+        </ion-col>
+        <ion-col class="br-col">
+          <p *ngIf="pageDetail.finalBR > 0.00"><span class="br-currency">BR</span><span class="br-amount">{{ pageDetail.finalBR | number : '1.2-2' }}</span></p>
+          <p *ngIf="0.00 >= pageDetail.finalBR"><span class="br-currency">BR</span><span class="br-amount">0.00</span></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card [hidden]="!showEmptyListMessage">
+    <ion-grid>
+      <ion-row>
+        <ion-col>Your wishlist is currently empty.</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+   
+  <ion-list id="cartList">
+    <ion-item *ngFor="let item of listItems; let i = index">
+      <ion-thumbnail (click)="getProdDet(item.product.id)" class="prodThumbImg" [innerHtml]="replaceIMG(item.product.images[0].src)" slot="start"></ion-thumbnail>
+      <ion-label (click)="getProdDet(item.product.id)">
+        <p class="cartTitle"><strong>{{ item.product.name }}</strong></p>
+      </ion-label>
+      <ion-button fill="clear" color="danger" (click)="removeFromList(item, i)" slot="end">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  
+
+</ion-content>

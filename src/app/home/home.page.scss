@@ -1,0 +1,59 @@
+.content-wrap {
+	background-image: url("/assets/login-bg.jpg");
+	max-height: 100vh;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+.half-top {
+	position: relative;
+    height: 50vh;
+	width: 100%;
+	margin: auto;
+}
+.half-bot {
+	position: relative;
+    height: 50vh;
+	width: 100%;
+	margin: auto;
+}
+.half-top img {
+    position: absolute;
+	width: 65%;
+    top: 35%;
+	left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
+.half-bot img {
+	position: absolute;
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+	width: 35%;
+}
+ion-tab-button.login ion-label {
+	color: #000;
+	font-size: 16px;
+	font-weight: 700;
+}
+ion-tab-button.login {
+	background-color: #ece0d6;
+	max-width: 50%;
+	width: 100%;
+}
+ion-tab-button.register {
+	background-color: #000;
+	max-width: 50%;
+	widows: 100%;
+}
+ion-tab-button.register ion-label {
+	color: #fff;
+	font-size: 16px;
+	font-weight: 700;
+}
+.login-tabs {
+	border: 0px solid rgba(0, 0, 0, 0);
+}
