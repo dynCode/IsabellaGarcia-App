@@ -8,28 +8,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <form [formGroup]="update_form" (ngSubmit)="updatedetails(update_form.value)">
     <ion-item>
-      <ion-label>
-          <p position="stacked">Your Name</p>
-          <h2>{{authenticationService.customer.first_name}} {{authenticationService.customer.last_name}}</h2>
-        </ion-label>
-        <ion-icon name="create" slot="end" (click)="openWithInAppBrowser()"></ion-icon>
+      <ion-label position="stacked" class="login-field">First Name</ion-label>
+      <ion-input required type="text" formControlName="first_name" value="{{first_name}}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>
-          <p position="stacked">Email Address</p>
-          <h2>{{authenticationService.customer.email}}</h2>
-        </ion-label>
-        <ion-icon name="create" slot="end" (click)="openWithInAppBrowser()"></ion-icon>
+      <ion-label position="stacked" class="login-field">Last Name</ion-label>
+      <ion-input required type="text" formControlName="last_name" value="{{last_name}}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>
-        <p position="stacked">Password</p>
-        <h2>*********</h2>
-      </ion-label>
-      <ion-icon name="create" slot="end" (click)="openWithInAppBrowser()"></ion-icon>
+      <ion-label position="stacked" class="login-field">Email</ion-label>
+      <ion-input required type="email" formControlName="email" value="{{email}}"></ion-input>
     </ion-item>
-  </ion-list>
-      
+    <ion-item>
+      <ion-label position="stacked" class="login-field">Password</ion-label>
+      <ion-input required type="password" formControlName="password" value="{{password}}"></ion-input>
+    </ion-item>
+    <br>
+    <ion-button expand="full" color="dark" type="submit" class="login-btn ion-no-margin">Update</ion-button>
+  </form>
 </ion-content>

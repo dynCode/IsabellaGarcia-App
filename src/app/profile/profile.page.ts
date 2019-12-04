@@ -53,14 +53,14 @@ export class ProfilePage implements OnInit {
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
-      header: 'Log out',
-      message: 'Are you sure you want to log out?',
+      header: 'Sign Out',
+      message: 'Are you sure you want to Sign Out?',
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel'
         }, {
-          text: 'Log Out',
+          text: 'Sign Out',
           handler: () => {
             console.log('Confirm Okay');
             this.storage.remove("authDetail").then(()=>{

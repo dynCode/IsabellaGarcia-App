@@ -8,7 +8,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     
-    <ion-title><span class="title-large">WISHLIST</span></ion-title>
+    <ion-title><span class="title-large">MOST LOVED</span></ion-title>
 
     <ion-button slot="end" class="toolbar-btn tb-btn2" [routerLink]="['/', 'cart']">
       <div class="cartBlock">
@@ -38,7 +38,7 @@
   <ion-card [hidden]="!showEmptyListMessage">
     <ion-grid>
       <ion-row>
-        <ion-col>Your wishlist is currently empty.</ion-col>
+        <ion-col>You are currently not in <strong>LOVE</strong> with any products.</ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
@@ -49,12 +49,16 @@
       <ion-label (click)="getProdDet(item.product.id)">
         <p class="cartTitle"><strong>{{ item.product.name }}</strong></p>
       </ion-label>
+      <ion-button color="dark" (click)="addToCart(item.product, 1)">
+        <img class="icon-cart" src="/assets/icon/cart.svg" alt="" style="width: 15px;" />
+      </ion-button>
       <ion-button fill="clear" color="danger" (click)="removeFromList(item, i)" slot="end">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
+
     </ion-item>
   </ion-list>
 
-  
+  <ion-button expand="block" color="medium" [routerLink]="['/', 'tabs', 'shop']">Continue Shopping</ion-button>
 
 </ion-content>

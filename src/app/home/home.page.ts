@@ -21,7 +21,7 @@ export class HomePage {
 
   public openWithInAppBrowser(){
     let target = "_system";
-    const browser =this.iab.create("https://beta.isabellagarcia.co.za/register/",target);
+    const browser =this.iab.create("https://isabellagarcia.co.za/register/",target);
   }
 
 }

@@ -20,10 +20,30 @@
   <ion-list id="cartList">
     <ion-item *ngFor="let item of cartItems; let i = index">
       <ion-thumbnail (click)="getProdDet(item.product.id)" class="prodThumbImg" [innerHtml]="replaceIMG(item.product.images[0].src)" slot="start"></ion-thumbnail>
-      <ion-label (click)="getProdDet(item.product.id)">
-        <p class="cartTitle"><strong>{{ item.product.name }}</strong></p>
+      <ion-label>
+        <p class="cartTitle" (click)="getProdDet(item.product.id)"><strong>{{ item.product.name }}</strong></p>
         <p class="cartPrice">{{ item.product.price | currency : "R" }}</p>
         <p class="cartQty">Quantity: {{ item.qty }}</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">Qty: </ion-col>
+            <ion-col size="7" class="inputQty">
+              <ion-grid class="qtyGroup">
+                <ion-row>
+                  <ion-col size="3">
+                    <ion-button size="small" (click)="minQty(item, i)">-</ion-button>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-input id="qtyVal" type="number" value="{{ item.qty }}" min="1" readonly></ion-input>
+                  </ion-col>
+                  <ion-col size="3">
+                    <ion-button size="small" (click)="plusQty(item, i)">+</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-label>
       <ion-button fill="clear" color="danger" (click)="removeFromCart(item, i)" slot="end">
         <ion-icon name="trash"></ion-icon>
@@ -31,7 +51,7 @@
     </ion-item>
   </ion-list>
 
-  
+  <ion-button expand="block" color="medium" [routerLink]="['/', 'tabs', 'shop']">Continue Shopping</ion-button>
 
 </ion-content>
 

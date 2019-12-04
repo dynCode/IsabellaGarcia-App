@@ -8,51 +8,33 @@
   </ion-header>
   
   <ion-content>
-    <ion-card>    
-      <ion-card-content>
-        <ion-card-subtitle>Billing Address</ion-card-subtitle>
-        <hr/>
-        <h2>{{authenticationService.customer.billing.first_name}} {{authenticationService.customer.billing.last_name}}</h2>
-        <p>
-        <ion-label>
-          <p position="stacked">Address</p>
-          <h3>{{authenticationService.customer.billing.address_1}}, {{authenticationService.customer.billing.address_2}}, {{authenticationService.customer.billing.city}}, {{authenticationService.customer.billing.state}}, {{authenticationService.customer.billing.postcode}}</h3>
-        </ion-label>
-        </p> 
-        <p>
-        <ion-label>
-          <p position="stacked">Company</p>
-          <h3>{{authenticationService.customer.billing.company}}</h3>
-        </ion-label>
-        </p> 
-        <p>
-        <ion-label>
-          <p position="stacked">Phone</p>
-          <h3>{{authenticationService.customer.billing.phone}}</h3>
-        </ion-label>
-        </p>
-        <ion-button size="small" class="editBtn" (click)="openWithInAppBrowser()"><ion-icon name="create" slot="start"></ion-icon>Edit</ion-button>
-      </ion-card-content>
-    </ion-card>
-
+    
     <ion-card>    
         <ion-card-content>
-          <ion-card-subtitle>Shipping Address</ion-card-subtitle>
-          <hr/>
-          <h2>{{authenticationService.customer.shipping.first_name}} {{authenticationService.customer.shipping.last_name}}</h2>
-          <p>
-          <ion-label>
-            <p position="stacked">Address</p>
-            <h3>{{authenticationService.customer.shipping.address_1}}, {{authenticationService.customer.shipping.address_2}}, {{authenticationService.customer.shipping.city}}, {{authenticationService.customer.shipping.state}}, {{authenticationService.customer.shipping.postcode}}</h3>
-          </ion-label>
-          </p> 
-          <p>
-          <ion-label>
-            <p position="stacked">Company</p>
-            <h3>{{authenticationService.customer.shipping.company}}</h3>
-          </ion-label>
-          </p>
-          <ion-button size="small" class="editBtn" (click)="openWithInAppBrowser()"><ion-icon name="create" slot="start"></ion-icon>Edit</ion-button>
+          <form [formGroup]="update_form" (ngSubmit)="updatedetails(update_form.value)">
+            <ion-item>
+              <ion-label position="stacked" class="login-field">First Name</ion-label>
+              <ion-input required type="text" formControlName="first_name" value="{{first_name}}"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" class="login-field">Last Name</ion-label>
+              <ion-input required type="text" formControlName="last_name" value="{{last_name}}"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked" class="login-field">Address</ion-label>
+              <ion-input required type="text" formControlName="address_1" value="{{address_1}}"></ion-input>
+              <ion-input required type="text" formControlName="address_2" value="{{address_2}}"></ion-input>
+              <ion-input required type="text" formControlName="city" value="{{city}}"></ion-input>
+              <ion-input required type="text" formControlName="state" value="{{state}}"></ion-input>
+              <ion-input required type="text" formControlName="postcode" value="{{postcode}}"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked" class="login-field">Company</ion-label>
+                <ion-input required type="text" formControlName="company" value="{{company}}"></ion-input>
+              </ion-item>
+            <br>
+            <ion-button expand="full" color="dark" type="submit" class="login-btn ion-no-margin">Update</ion-button>
+          </form>
         </ion-card-content>
       </ion-card>
         

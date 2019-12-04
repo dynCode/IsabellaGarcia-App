@@ -34,10 +34,9 @@ export class AppComponent {
     });
   }
 
-  public getCatDet(id, page){
-    page = 1;
+  public getCatDet(id, catName='', page=1){
 
-    this.productsService.loadProductsCat(id, page);
+    this.productsService.loadProductsCat(id, page, catName);
 		console.log(this.productsService.products);
   }
 }

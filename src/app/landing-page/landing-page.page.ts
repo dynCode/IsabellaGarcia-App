@@ -41,7 +41,7 @@ export class LandingPagePage implements OnInit {
         this.userFirstName = this.userDetails[0].firstName;
         this.userSurname = this.userDetails[0].lastName;
         this.userBR = this.userDetails[0].brPoints;
-        const browser =this.iab.create("https://beta.isabellagarcia.co.za/?ig_k="+this.userDetails[0].loginKey,'_blank',this.options);
+        const browser =this.iab.create("https://isabellagarcia.co.za/?ig_k="+this.userDetails[0].loginKey,'_blank',this.options);
         browser.hide();
         this.loggedInWeb = true;
       });

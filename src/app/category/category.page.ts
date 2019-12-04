@@ -17,7 +17,7 @@ export class CategoryPage implements OnInit {
 
   page: number;
   tPages: any;
-  searchQuery: any;
+  searchQuery: any; 
 
   constructor(public productsService: ProductsService, private route: ActivatedRoute, public pageDetail: PageDetailsService) {
 

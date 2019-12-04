@@ -18,12 +18,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'specials',
+        path: 'contact-us',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../specials/specials.module').then(m => m.SpecialsPageModule)
+              import('../profile/contact-us/contact-us.module').then(m => m.ContactUsPageModule)
           }
         ]
       },

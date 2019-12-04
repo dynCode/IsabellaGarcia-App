@@ -23,7 +23,14 @@ export class PageDetailsService {
     this.storage.ready().then( (data)=>{
 
       this.storage.get("cart").then( (data)=>{
-        this.cartCount = data.length;
+        let ccount = 0;
+        if (data && data.length > 0) { 
+          data.forEach( (item, index)=>{
+            ccount = ccount + item.qty;
+          });
+        }
+        this.cartCount = ccount;
+
         this.newCount = this.cartCount;
         this.subCount = this.cartCount;
         console.log("cart count",this.cartCount);

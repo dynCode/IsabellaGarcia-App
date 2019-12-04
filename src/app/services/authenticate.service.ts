@@ -38,7 +38,7 @@ export class AuthenticationService {
             })
         });
         
-        return this.http.post('https://beta.isabellagarcia.co.za/wp-json/jwt-auth/v1/token', {
+        return this.http.post('https://isabellagarcia.co.za/wp-json/jwt-auth/v1/token', {
             username: username,
             password: password
         });
@@ -47,7 +47,7 @@ export class AuthenticationService {
     validateAuthToken(token) {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Basic ' + token);
-        return this.http.post('https://beta.isabellagarcia.co.za/wp-json/jwt-auth/v1/token/validate?token=' + token,
+        return this.http.post('https://isabellagarcia.co.za/wp-json/jwt-auth/v1/token/validate?token=' + token,
             {}, {headers: headers});
     }
 
@@ -67,9 +67,9 @@ export class AuthenticationService {
 		await loading.present();
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -119,9 +119,9 @@ export class AuthenticationService {
 		await loading.present();
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -162,7 +162,7 @@ export class AuthenticationService {
     getBP(memberdetails): Observable<MemPoint[]> {
         let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.user.token});
 
-        let url = 'https://beta.isabellagarcia.co.za/wp-json/wp/v2/users/'+memberdetails;
+        let url = 'https://isabellagarcia.co.za/wp-json/wp/v2/users/'+memberdetails;
         //let customHeaders: HttpHeaders = new HttpHeaders().set('Api-key', '784e1e4dd5cf10364b2ae5fb261b3944');
         //headers.append('Api-key', '784e1e4dd5cf10364b2ae5fb261b3944');
         let httpOptions = {
@@ -210,7 +210,7 @@ export class AuthenticationService {
 
     /*
     autoLoginIn(alKey) {
-        let url = 'https://beta.isabellagarcia.co.za/?ig_k='+alKey;
+        let url = 'https://isabellagarcia.co.za/?ig_k='+alKey;
         let headers = new HttpHeaders({'Access-Control-Allow-Origin': '*','responseType': 'text'});
         let httpOptions = {
             headers: headers

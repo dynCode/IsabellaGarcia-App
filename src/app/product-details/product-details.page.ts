@@ -230,7 +230,7 @@ export class ProductDetailsPage implements OnInit {
 
   async ySuccess() {
     const toast = await this.toastController.create({
-      message: 'Wishlist Updated',
+      message: 'Most loved list updated',
       color: "dark",
       duration: 3000
     });
@@ -249,7 +249,7 @@ export class ProductDetailsPage implements OnInit {
             "quantity": cqty
     }
 
-    this.http.post("https://beta.isabellagarcia.co.za/wp-json/cocart/v1/add-item", postData, httpOptions)
+    this.http.post("https://isabellagarcia.co.za/wp-json/cocart/v1/add-item", postData, httpOptions)
       .subscribe(ucdata => {
         console.log(ucdata);
 
@@ -286,7 +286,7 @@ export class ProductDetailsPage implements OnInit {
   adToUcart(pid,cqty): Observable<uCart[]> {
     let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.userData[0].authToken});
 
-    let url = 'https://beta.isabellagarcia.co.za/wp-json/cocart/v1/add-item?product_id='+pid+'&quantity='+cqty;
+    let url = 'https://isabellagarcia.co.za/wp-json/cocart/v1/add-item?product_id='+pid+'&quantity='+cqty;
     let httpOptions = {
         headers: headers
     };

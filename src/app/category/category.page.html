@@ -6,9 +6,10 @@
 	  </ion-button>-->
 	  <ion-buttons slot="start">
 		<ion-menu-button></ion-menu-button>
+		<ion-back-button text="" color="light"></ion-back-button>
 	  </ion-buttons>
-	  
-	  <ion-title><span class="title-large">REDEEM BR</span><span class="title-small">MY BEATY CLUB PRODUCTS</span></ion-title>
+	  <ion-title *ngIf="productsService.products.category == ''"><span class="title-large">REDEEM BR</span><span class="title-small">MY BEATY CLUB PRODUCTS</span></ion-title>
+	  <ion-title *ngIf="productsService.products.category != ''"><span class="title-large">{{ productsService.products.category }}</span></ion-title>
   
 	  <ion-button slot="end" class="toolbar-btn tb-btn2" [routerLink]="['/', 'cart']">
         <div class="cartBlock">

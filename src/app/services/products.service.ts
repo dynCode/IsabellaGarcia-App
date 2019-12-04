@@ -32,9 +32,9 @@ export class ProductsService {
 		await loading.present();
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -71,9 +71,9 @@ export class ProductsService {
 	public async loadCategories() {
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -99,7 +99,7 @@ export class ProductsService {
 		});
 	}
 
-	public async loadProductsCat(id, page) {
+	public async loadProductsCat(id, page, catName) {
 
 		this.useCat = id;
 
@@ -109,9 +109,9 @@ export class ProductsService {
 		await loading.present();
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -127,6 +127,8 @@ export class ProductsService {
 		})
 		.then((response) => {
 			this.products = response.data || [];
+			this.products['category'] = catName; 
+			console.log("Product Cat Data", this.products);
 			this.router.navigate(['/', 'tabs', 'category', id, page]);
 			loading.dismiss();
 		})
@@ -148,9 +150,9 @@ export class ProductsService {
 		await loading.present();
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -177,9 +179,9 @@ export class ProductsService {
 		this.useCat = id;
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true
@@ -215,9 +217,9 @@ export class ProductsService {
 		await loading.present();
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true,
@@ -256,9 +258,9 @@ export class ProductsService {
 		await loading.present();
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true,
@@ -297,9 +299,9 @@ export class ProductsService {
 		await loading.present();
 
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true,
@@ -309,9 +311,10 @@ export class ProductsService {
 			page: page,
 			per_page: 20, // 20 products per page
 			status: 'publish',
-			order: 'asc',
-			orderby: 'title',
+			//order: 'asc',
+			//orderby: 'title',
 			search: keyword,
+			stock_status: 'instock'
 		})
 		.then((response) => {
 			this.searchProducts = response.data || [];
@@ -329,12 +332,10 @@ export class ProductsService {
 		});
 	}
 	public async searchMoreResults(keyword, page) {
-
-
 		const api = new WooCommerceRestApi({
-			url: 'https://beta.isabellagarcia.co.za',
-			consumerKey: 'ck_76224271c59720c638575ce0c570ddd329b70ada',
-			consumerSecret: 'cs_f5b1888a2bb9cf2055b4a79ba60e7a053f0f6633',
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
 			wpAPI: true,
 			version: 'wc/v2',
 			queryStringAuth: true,

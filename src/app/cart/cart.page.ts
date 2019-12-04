@@ -6,6 +6,7 @@ import {AuthenticationService} from '../services/authenticate.service';
 import {PageDetailsService} from '../services/page-details.service';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cart',
@@ -27,7 +28,7 @@ export class CartPage implements OnInit {
   cartBr: any;
   totalBr: any;
 
-  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService,private iab: InAppBrowser,private http: HttpClient,private spinnerDialog: SpinnerDialog) { 
+  constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService,private iab: InAppBrowser,private http: HttpClient,private spinnerDialog: SpinnerDialog, public loadingController: LoadingController) { 
     this.total = 0.0;
 
     this.storage.ready().then( (data)=>{
@@ -73,6 +74,119 @@ export class CartPage implements OnInit {
     return '<img src="' + newstr + '">';
   }
 
+  async minQty(item, i) {
+
+    let loading = await this.loadingController.create({
+			message: 'Updating cart totals...'
+		});
+		await loading.present();
+
+    let nqty = item.qty;
+
+    if (nqty > 1) {
+      nqty --;
+    }
+    this.cartItems[i].qty = nqty;
+
+    this.storage.get("cart").then((data) => {
+
+      for( let p = 0; p < data.length; p++ ) {
+        
+        if (item.product.id == data[p].product.id) {
+          console.log("Product is already in the cart");
+
+          let qty = data[p].qty;
+
+          data[p].qty = nqty;
+          data[p].amount = parseFloat(data[p].amount) + (parseFloat(data[p].product.price) * nqty);
+        }
+      }
+
+      this.storage.set("cart", data).then( ()=>{
+
+        console.log("Cart Updated");
+        console.log(data);
+
+      })
+    });
+
+    var headers = new HttpHeaders({'Authorization': 'Bearer ' + this.userData[0].authToken});
+    let httpOptions = {
+      headers: headers
+    };
+
+    let postData = {
+      "cart_item_key": item.cartKey,
+      "quantity": nqty
+    }
+
+    this.http.post("https://isabellagarcia.co.za/wp-json/cocart/v1/item", postData, httpOptions)
+      .subscribe(data => {
+        console.log(data);
+        loading.dismiss();
+        this.recalCart();
+        this.pageDetail.getBRPoints();
+      }, error => {
+        console.log(error);
+        loading.dismiss();
+    });
+  }
+
+  async plusQty(item, i) {
+
+    let loading = await this.loadingController.create({
+			message: 'Updating cart totals...'
+		});
+		await loading.present();
+    let nqty = item.qty;
+
+    nqty ++;
+
+    this.cartItems[i].qty = nqty;
+    this.storage.get("cart").then((data) => {
+
+      for( let p = 0; p < data.length; p++ ) {
+        
+        if (item.product.id == data[p].product.id) {
+          console.log("Product is already in the cart");
+
+          let qty = data[p].qty;
+
+          data[p].qty = nqty;
+          data[p].amount = parseFloat(data[p].amount) + (parseFloat(data[p].product.price) * nqty);
+        }
+      }
+
+      this.storage.set("cart", data).then( ()=>{
+
+        console.log("Cart Updated");
+        console.log(data);
+
+      })
+    });
+
+    var headers = new HttpHeaders({'Authorization': 'Bearer ' + this.userData[0].authToken});
+    let httpOptions = {
+      headers: headers
+    };
+
+    let postData = {
+      "cart_item_key": item.cartKey,
+      "quantity": nqty
+    }
+
+    this.http.post("https://isabellagarcia.co.za/wp-json/cocart/v1/item", postData, httpOptions)
+    .subscribe(data => {
+      console.log(data);
+      loading.dismiss();
+      this.recalCart();
+      this.pageDetail.getBRPoints();
+    }, error => {
+      console.log(error);
+      loading.dismiss();
+    });
+  }
+
   removeFromCart(item, i) {
 
     this.pageDetail.subCartCount();
@@ -107,12 +221,12 @@ export class CartPage implements OnInit {
       headers: headers
     };
 
-    this.http.delete("https://beta.isabellagarcia.co.za/wp-json/cocart/v1/item?cart_item_key="+ckey, httpOptions)
-      .subscribe(data => {
-        console.log(data);
-       }, error => {
-        console.log(error);
-      });
+    this.http.delete("https://isabellagarcia.co.za/wp-json/cocart/v1/item?cart_item_key="+ckey, httpOptions)
+    .subscribe(data => {
+      console.log(data);
+      }, error => {
+      console.log(error);
+    });
   }
 
   public getProdDet(id){
@@ -122,7 +236,7 @@ export class CartPage implements OnInit {
 
   public openWithInAppBrowser(){
     let target = "_blank";
-    const browser = this.iab.create("https://beta.isabellagarcia.co.za/cart/",target,this.options);
+    const browser = this.iab.create("https://isabellagarcia.co.za/cart/",target,this.options);
     browser.on('loadstart').subscribe((eve) => {
       this.spinnerDialog.show(null, null, true);     
     }, err => {
@@ -149,7 +263,7 @@ export class CartPage implements OnInit {
         headers: headers
       };
 
-      this.http.get("https://beta.isabellagarcia.co.za/wp-json/cocart/v1/get-cart/"+this.userData[0].id, httpOptions)
+      this.http.get("https://isabellagarcia.co.za/wp-json/cocart/v1/get-cart/"+this.userData[0].id, httpOptions)
       .subscribe(data => {
         console.log(data);
         console.log('sting data output:', JSON.stringify(data));
@@ -193,7 +307,7 @@ export class CartPage implements OnInit {
           this.cartBr = 0.00;
           this.total = 0.00;
         }
-      }else {
+      } else {
         this.showEmptyCartMessage = true;
         this.cartBr = 0.00;
         this.total = 0.00;

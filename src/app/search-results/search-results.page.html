@@ -53,13 +53,29 @@
               <div class="prodImg" [innerHtml]="replaceIMG(product.images[0].src)"></div>
             </div>
             <div class="prodTitle">{{product.name}}</div>
-            <div class="prodPrice" *ngIf="product.price != product.regular_price">
+            <div class="brPrice" *ngIf="pageDetail.finalBR > product.price">
+              <div class="prodPrice" *ngIf="product.price != product.regular_price">
+                <span class="oldPrice">{{product.regular_price | currency : "BR"}}</span><span class="salePrice">{{product.price | currency : "BR"}}</span>
+              </div>
+              <div class="prodPrice" *ngIf="product.price === product.regular_price">
+                <span class="pPrice">{{product.price | currency : "BR"}}</span>
+              </div>
+              </div>
+              <div class="randPrice" *ngIf="product.price > pageDetail.finalBR">
+              <div class="prodPrice" *ngIf="product.price != product.regular_price">
+                <span class="oldPrice">{{product.regular_price | currency : "R"}}</span><span class="salePrice">{{product.price | currency : "R"}}</span>
+              </div>
+              <div class="prodPrice" *ngIf="product.price === product.regular_price">
+                <span class="pPrice">{{product.price | currency : "R"}}</span>
+              </div>
+            </div>
+            <!--<div class="prodPrice" *ngIf="product.price != product.regular_price">
                 <span class="oldPrice">{{product.regular_price | currency : "R"}}</span><span class="salePrice">{{product.price | currency : "R"}}</span>
             </div>
             <div class="prodPrice" *ngIf="product.price === product.regular_price">
                 <span class="pPrice">{{product.price | currency : "R"}}</span>
             </div>
-            <!--<div [innerHtml]="product.description"></div>-->
+            <div [innerHtml]="product.description"></div>-->
           </div>
         </ion-col>
     </ion-row>
