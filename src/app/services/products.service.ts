@@ -5,6 +5,7 @@ import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Storage } from '@ionic/storage';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
 	providedIn: 'root'
@@ -22,7 +23,7 @@ export class ProductsService {
 	public searchProducts: searchProd[] = [];
 	public searchMoProducts: searchMoProd[] = [];
 	
-	constructor(public loadingController: LoadingController, private router: Router, public storage: Storage) {}
+	constructor(public loadingController: LoadingController, private router: Router, public storage: Storage, public alertController: AlertController) {}
 	
 	public async loadProducts() {
 
@@ -58,6 +59,8 @@ export class ProductsService {
 			loading.dismiss();
 		})
 		.catch((error) => {
+			loading.dismiss();
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -89,6 +92,7 @@ export class ProductsService {
 			this.categories = response.data || [];
 		})
 		.catch((error) => {
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -133,6 +137,8 @@ export class ProductsService {
 			loading.dismiss();
 		})
 		.catch((error) => {
+			loading.dismiss();
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -165,6 +171,8 @@ export class ProductsService {
 			this.router.navigate(['/', 'tabs', 'product-details', id]);
 		})
 		.catch((error) => {
+			loading.dismiss();
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -199,6 +207,7 @@ export class ProductsService {
 			this.moreProducts = response.data || [];
 		})
 		.catch((error) => {
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -238,6 +247,8 @@ export class ProductsService {
 			loading.dismiss();
 		})
 		.catch((error) => {
+			loading.dismiss();
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -278,6 +289,8 @@ export class ProductsService {
 			loading.dismiss();
 		})
 		.catch((error) => {
+			loading.dismiss();
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -322,6 +335,8 @@ export class ProductsService {
 			loading.dismiss();
 		})
 		.catch((error) => {
+			loading.dismiss();
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -353,6 +368,7 @@ export class ProductsService {
 			this.searchMoProducts = response.data || [];
 		})
 		.catch((error) => {
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -362,6 +378,15 @@ export class ProductsService {
 			// Always executed.
 		});
 	}
+	public async presentAlert(msgHeader, msgMsg) {
+        const alert = await this.alertController.create({
+            header: msgHeader,
+            message: msgMsg,
+            buttons: ['OK']
+        });
+
+        await alert.present();
+    }
 }
 
 class allProduct { data: any; }

@@ -5,6 +5,7 @@ import {AuthenticationService} from '../../services/authenticate.service';
 import { Storage } from '@ionic/storage';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
@@ -20,7 +21,7 @@ export class AccountPage implements OnInit {
   userData: any;
   authDetail: any;
 
-  constructor(public formBuilder: FormBuilder,public productsService: ProductsService, public authenticationService: AuthenticationService,public storage: Storage,public loadingController: LoadingController) {}
+  constructor(public formBuilder: FormBuilder,public productsService: ProductsService, public authenticationService: AuthenticationService,public storage: Storage,public loadingController: LoadingController, public alertController: AlertController) {}
 
   ngOnInit() {
     
@@ -85,9 +86,31 @@ export class AccountPage implements OnInit {
     })
     .then((response) => {
       console.log("Customer Update", response);
+
+      this.storage.ready().then( (data)=>{
+
+        this.storage.get("user").then( (data)=>{
+          let userDetails = data;
+          userDetails[0].firstName = value.first_name;
+          userDetails[0].lastName = value.last_name;
+          userDetails[0].email = value.email;
+          this.storage.set("user", userDetails);
+        });
+  
+        this.storage.get("authDetail").then( (data)=>{
+          let authDeatils = data;
+          authDeatils[0].password = value.password;
+          this.storage.set("authDetail", authDeatils);
+        });
+      });
+
       loading.dismiss();
     })
     .catch((error) => {
+      loading.dismiss();
+
+      this.presentAlert('There was a Problem!',error.response.data.message);
+
       // Invalid request, for 4xx and 5xx statuses
       console.log("Response Status:", error.response.status);
       console.log("Response Headers:", error.response.headers);
@@ -97,5 +120,16 @@ export class AccountPage implements OnInit {
       // Always executed.
     });
   }
+
+  public async presentAlert(msgHeader, msgMsg) {
+    const alert = await this.alertController.create({
+      header: msgHeader,
+      message: msgMsg,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 }
 

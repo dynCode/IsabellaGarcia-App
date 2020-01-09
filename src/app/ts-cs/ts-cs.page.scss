@@ -58,3 +58,26 @@ ion-searchbar {
     padding: 5px;
     height: 44px;
 }
+
+#fullBRcard {
+    --background: linear-gradient(135deg, #c0967B, #ece0d6 22%, #b3856a 41%, #c0967B 63%, #ece0d6 86%);
+    --color: #454545;
+    text-align: center;
+    text-shadow: -1px 1px 2px rgba(255,255,255,0.9);
+    font-weight: 900;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.faqheader {
+    font-size: 15px;
+    font-weight: 700;
+    background-color: #e3d9d3;
+    border-bottom: 1px solid #e0dede;
+    padding: 5px;
+}
+.faqcontent{
+    font-size: 13px;
+    border-bottom: 1px solid #e0dede;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

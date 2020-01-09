@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthenticationService {
     public MemPoints: any;
 
 
-    constructor(private http: HttpClient, public loadingController: LoadingController, private router: Router, public storage: Storage) {
+    constructor(private http: HttpClient, public loadingController: LoadingController, private router: Router, public storage: Storage, public alertController: AlertController) {
     }
 
     doLogin(username, password) {
@@ -96,6 +97,9 @@ export class AuthenticationService {
             this.router.navigate(['/', 'landing-page']);
 		})
 		.catch((error) => {
+            loading.dismiss();
+
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -138,6 +142,8 @@ export class AuthenticationService {
             loading.dismiss();
 		})
 		.catch((error) => {
+            loading.dismiss();
+            this.presentAlert('There was a Problem!',error.response.data.message);
 			// Invalid request, for 4xx and 5xx statuses
 			console.log("Response Status:", error.response.status);
 			console.log("Response Headers:", error.response.headers);
@@ -206,6 +212,16 @@ export class AuthenticationService {
                 this.MemPoints = err;
             }
         );
+    }
+
+    public async presentAlert(msgHeader, msgMsg) {
+        const alert = await this.alertController.create({
+            header: msgHeader,
+            message: msgMsg,
+            buttons: ['OK']
+        });
+
+        await alert.present();
     }
 
     /*

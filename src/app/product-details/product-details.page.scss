@@ -156,3 +156,30 @@ ion-input#qtyVal {
     font-size: 16px;
     color: #040707;
 }
+
+.imgBRImgBlock {
+    top: 0;
+    right: 0;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    background-color: #ce3a57;
+    text-align: center;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.imgPerImgBlock {
+    top: 30px;
+    right: 0;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    background-color: #000;
+    text-align: center;
+    font-size: 12px;
+    line-height: 12px;
+    padding-top: 4px;
+}

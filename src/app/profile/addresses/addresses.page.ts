@@ -6,6 +6,7 @@ import { ProductsService } from '../../services/products.service';
 import {AuthenticationService} from '../../services/authenticate.service';
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 import { LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-addresses',
@@ -29,7 +30,8 @@ export class AddressesPage implements OnInit {
     public productsService: ProductsService, 
     public authenticationService: AuthenticationService, 
     public loadingController: LoadingController,
-    private storage: Storage) { }
+    private storage: Storage,
+    public alertController: AlertController) { }
 
   ngOnInit() {
 
@@ -105,6 +107,10 @@ export class AddressesPage implements OnInit {
       loading.dismiss();
     })
     .catch((error) => {
+      loading.dismiss();
+
+      this.presentAlert('There was a Problem!',error.response.data.message);
+
       // Invalid request, for 4xx and 5xx statuses
       console.log("Response Status:", error.response.status);
       console.log("Response Headers:", error.response.headers);
@@ -113,5 +119,15 @@ export class AddressesPage implements OnInit {
     .finally(() => {
       // Always executed.
     });
+  }
+
+  public async presentAlert(msgHeader, msgMsg) {
+    const alert = await this.alertController.create({
+      header: msgHeader,
+      message: msgMsg,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }
