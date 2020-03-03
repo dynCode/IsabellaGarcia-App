@@ -13,6 +13,8 @@ import { AlertController } from '@ionic/angular';
 export class ProductsService {
 	
 	public allProducts: allProduct[] = [];
+	public allWMProducts: allWMProduct[] = [];
+	public allMMProducts: allMMProduct[] = [];
 	public products: Product[] = [];
 	public moreProducts: moreProduct[] = [];
 	public specialsProducts: specialProduct[] = [];
@@ -42,7 +44,7 @@ export class ProductsService {
 		});
 
 		api.get("products", {
-			per_page: 20, // 20 products per page
+			per_page: 10, // 20 products per page
 			status: 'publish',
 			category: 719,
 			order: 'asc',
@@ -56,6 +58,98 @@ export class ProductsService {
 			//console.log("Total of pages:", response.headers['x-wp-totalpages']);
 			//console.log("Total of items:", response.headers['x-wp-total']);
 			this.allProducts = response.data || [];
+			loading.dismiss();
+		})
+		.catch((error) => {
+			loading.dismiss();
+            this.presentAlert('There was a Problem!',error.response.data.message);
+			// Invalid request, for 4xx and 5xx statuses
+			console.log("Response Status:", error.response.status);
+			console.log("Response Headers:", error.response.headers);
+			console.log("Response Data:", error.response.data);
+		})
+		.finally(() => {
+			// Always executed.
+		});
+	}
+
+	public async loadWMProducts() {
+
+		let loading = await this.loadingController.create({
+			message: 'Loading Products...'
+		});
+		await loading.present();
+
+		const api = new WooCommerceRestApi({
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
+			wpAPI: true,
+			version: 'wc/v2',
+			queryStringAuth: true
+		});
+
+		api.get("products", {
+			per_page: 10, // 20 products per page
+			status: 'publish',
+			category: 692,
+			order: 'asc',
+			orderby: 'title',
+		})
+		.then((response) => {
+			// Successful request
+			//console.log("Response Status:", response.status);
+			//console.log("Response Headers:", response.headers);
+			//console.log("Response Data:", response.data);
+			//console.log("Total of pages:", response.headers['x-wp-totalpages']);
+			//console.log("Total of items:", response.headers['x-wp-total']);
+			this.allWMProducts = response.data || [];
+			loading.dismiss();
+		})
+		.catch((error) => {
+			loading.dismiss();
+            this.presentAlert('There was a Problem!',error.response.data.message);
+			// Invalid request, for 4xx and 5xx statuses
+			console.log("Response Status:", error.response.status);
+			console.log("Response Headers:", error.response.headers);
+			console.log("Response Data:", error.response.data);
+		})
+		.finally(() => {
+			// Always executed.
+		});
+	}
+
+	public async loadMMProducts() {
+
+		let loading = await this.loadingController.create({
+			message: 'Loading Products...'
+		});
+		await loading.present();
+
+		const api = new WooCommerceRestApi({
+			url: 'https://isabellagarcia.co.za',
+			consumerKey: 'ck_f4cc6475041b8787c77a2b76e65959dc626cd41f',
+			consumerSecret: 'cs_5a447523f8e5e4b5c953a206614534304ae9c031',
+			wpAPI: true,
+			version: 'wc/v2',
+			queryStringAuth: true
+		});
+
+		api.get("products", {
+			per_page: 10, // 20 products per page
+			status: 'publish',
+			category: 696,
+			order: 'asc',
+			orderby: 'title',
+		})
+		.then((response) => {
+			// Successful request
+			//console.log("Response Status:", response.status);
+			//console.log("Response Headers:", response.headers);
+			//console.log("Response Data:", response.data);
+			//console.log("Total of pages:", response.headers['x-wp-totalpages']);
+			//console.log("Total of items:", response.headers['x-wp-total']);
+			this.allMMProducts = response.data || [];
 			loading.dismiss();
 		})
 		.catch((error) => {
@@ -166,6 +260,7 @@ export class ProductsService {
 
 		api.get("products/" + id)
 		.then((response) => {
+			console.log("Product details:",response.data);
 			this.productDetails = response.data || [];
 			loading.dismiss();
 			this.router.navigate(['/', 'tabs', 'product-details', id]);
@@ -390,6 +485,8 @@ export class ProductsService {
 }
 
 class allProduct { data: any; }
+class allWMProduct { data: any; }
+class allMMProduct { data: any; }
 class Product { data: any; }
 class moreProduct { data: any; }
 class Categories { data: any; }

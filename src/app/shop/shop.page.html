@@ -8,7 +8,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     
-    <ion-title><span class="title-large">This Months Most Loved Products</span></ion-title>
+    <ion-title><span class="title-large">SHOP</span></ion-title>
 
     <ion-button slot="end" class="toolbar-btn tb-btn2" [routerLink]="['/', 'cart']">
       <div class="cartBlock">
@@ -34,7 +34,109 @@
 </ion-header>
 
 <ion-content>
-	<ion-grid>
+  <div class="ion-padding">
+    <h4>This Month's Most LOVED Products</h4>
+    <ion-slides [options]="slideOpts">
+
+      <ion-slide *ngFor="let product of productsService.allProducts">
+        <div class="prodWrap" (click)="getProdDet(product.id)">
+          <div class="prodImgWrap">
+            <div class="prodStock" *ngIf="!product.in_stock">Sold out</div>
+            <div class="prodImg" [innerHtml]="replaceIMG(product.images[0].src)"></div>
+            <div class="imgBRImgBlock">BR</div>
+            <div class="imgPerImgBlock">25%<br><small>OFF</small></div>
+          </div>
+          <div class="prodTitle" [innerHTML]="toHTML(product.name)"></div>
+          
+          <div class="brPrice" *ngIf="pageDetail.finalBR > product.price">
+            <div class="prodPrice" *ngIf="product.price === product.regular_price">
+                <span class="pPrice">{{product.price | currency : "BR"}}</span>
+            </div>
+            <div class="prodPrice" *ngIf="product.price != product.regular_price">
+              <span class="oldPrice">{{product.regular_price | currency : "BR"}}</span><br><span class="salePrice">{{product.price | currency : "BR"}}</span>
+            </div>
+          </div>
+          <div class="randPrice" *ngIf="product.price > pageDetail.finalBR">
+            <div class="prodPrice" *ngIf="product.price === product.regular_price">
+                <span class="pPrice">{{product.price | currency : "R"}}</span>
+            </div>
+            <div class="prodPrice" *ngIf="product.price != product.regular_price">
+              <span class="oldPrice">{{product.regular_price | currency : "R"}}</span><br><span class="salePrice">{{product.price | currency : "R"}}</span>
+          </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides> 
+  </div>
+  <div class="ion-padding">
+    <h4>Women's Most Popular Products</h4>
+    <ion-slides [options]="slideOpts">
+
+      <ion-slide *ngFor="let product of productsService.allWMProducts">
+        <div class="prodWrap" (click)="getProdDet(product.id)">
+          <div class="prodImgWrap">
+            <div class="prodStock" *ngIf="!product.in_stock">Sold out</div>
+            <div class="prodImg" [innerHtml]="replaceIMG(product.images[0].src)"></div>
+            <div class="imgBRImgBlock">BR</div>
+            <div class="imgPerImgBlock">25%<br><small>OFF</small></div>
+          </div>
+          <div class="prodTitle">{{product.name}}</div>
+          
+          <div class="brPrice" *ngIf="pageDetail.finalBR > product.price">
+            <div class="prodPrice" *ngIf="product.price === product.regular_price">
+                <span class="pPrice">{{product.price | currency : "BR"}}</span>
+            </div>
+            <div class="prodPrice" *ngIf="product.price != product.regular_price">
+              <span class="oldPrice">{{product.regular_price | currency : "BR"}}</span><br><span class="salePrice">{{product.price | currency : "BR"}}</span>
+          </div>
+          </div>
+          <div class="randPrice" *ngIf="product.price > pageDetail.finalBR">
+            <div class="prodPrice" *ngIf="product.price === product.regular_price">
+                <span class="pPrice">{{product.price | currency : "R"}}</span>
+            </div>
+            <div class="prodPrice" *ngIf="product.price != product.regular_price">
+              <span class="oldPrice">{{product.regular_price | currency : "R"}}</span><br><span class="salePrice">{{product.price | currency : "R"}}</span>
+          </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides> 
+  </div>
+  <div class="ion-padding">
+    <h4>Men's Most Popular Products</h4>
+    <ion-slides [options]="slideOpts">
+
+      <ion-slide *ngFor="let product of productsService.allMMProducts">
+        <div class="prodWrap" (click)="getProdDet(product.id)">
+          <div class="prodImgWrap">
+            <div class="prodStock" *ngIf="!product.in_stock">Sold out</div>
+            <div class="prodImg" [innerHtml]="replaceIMG(product.images[0].src)"></div>
+            <div class="imgBRImgBlock">BR</div>
+            <div class="imgPerImgBlock">25%<br><small>OFF</small></div>
+          </div>
+          <div class="prodTitle">{{product.name}}</div>
+          
+          <div class="brPrice" *ngIf="pageDetail.finalBR > product.price">
+            <div class="prodPrice" *ngIf="product.price === product.regular_price">
+                <span class="pPrice">{{product.price | currency : "BR"}}</span>
+            </div>
+            <div class="prodPrice" *ngIf="product.price != product.regular_price">
+              <span class="oldPrice">{{product.regular_price | currency : "BR"}}</span><br><span class="salePrice">{{product.price | currency : "BR"}}</span>
+          </div>
+          </div>
+          <div class="randPrice" *ngIf="product.price > pageDetail.finalBR">
+            <div class="prodPrice" *ngIf="product.price === product.regular_price">
+                <span class="pPrice">{{product.price | currency : "R"}}</span>
+            </div>
+            <div class="prodPrice" *ngIf="product.price != product.regular_price">
+              <span class="oldPrice">{{product.regular_price | currency : "R"}}</span><br><span class="salePrice">{{product.price | currency : "R"}}</span>
+          </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides> 
+  </div>
+	<!--<ion-grid>
 		<ion-row>
 			<ion-col size="6" *ngFor="let product of productsService.allProducts">
         <div class="prodWrap" (click)="getProdDet(product.id)">
@@ -62,9 +164,8 @@
                 <span class="pPrice">{{product.price | currency : "R"}}</span>
             </div>
           </div>
-          <!--<div [innerHtml]="product.description"></div>-->
         </div>
 			</ion-col>
 		</ion-row>
-	</ion-grid>
+	</ion-grid>-->
 </ion-content>

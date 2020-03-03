@@ -105,6 +105,7 @@ export class AccountPage implements OnInit {
       });
 
       loading.dismiss();
+      this.presentAlert('Success','Account details updated successfully!');
     })
     .catch((error) => {
       loading.dismiss();

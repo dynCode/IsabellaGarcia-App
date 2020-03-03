@@ -51,6 +51,8 @@
             <div class="prodImgWrap">
               <div class="prodStock" *ngIf="!product.in_stock">Sold out</div>
               <div class="prodImg" [innerHtml]="replaceIMG(product.images[0].src)"></div>
+              <div class="imgBRImgBlock">BR</div>
+              <div class="imgPerImgBlock">25%<br><small>OFF</small></div>
             </div>
             <div class="prodTitle">{{product.name}}</div>
             <div class="brPrice" *ngIf="pageDetail.finalBR > product.price">

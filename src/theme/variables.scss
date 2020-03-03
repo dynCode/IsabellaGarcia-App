@@ -1,7 +1,7 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
-@import url('https://fonts.googleapis.com/css?family=Muli:300,400,600,700,800&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Muli:300,400,600,700,800&display=swap');
 
 /** Ionic CSS Variables **/
 :root {
@@ -78,5 +78,34 @@
   --ion-color-light-tint: #f5f6f9;
 
   /** Font **/
-  --ion-font-family: 'Muli', sans-serif !important;
+  @font-face {
+    font-family: 'Century Gothic';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../assets/fonts/GOTHIC.TTF');
+  }
+  
+  @font-face {
+    font-family: 'Century Gothic';
+    font-style: normal;
+    font-weight: bold;
+    src: url('../assets/fonts/GOTHICB.TTF');
+  }
+  
+  @font-face {
+    font-family: 'Century Gothic';
+    font-style: italic;
+    font-weight: normal;
+    src: url('../assets/fonts/GOTHICI.TTF');
+  }
+  
+  @font-face {
+    font-family: 'Century Gothic';
+    font-style: italic;
+    font-weight: bold;
+    src: url('../assets/fonts/GOTHICBI.TTF');
+  }
+
+
+  --ion-font-family: 'Century Gothic', sans-serif !important;
 }

@@ -19,6 +19,10 @@ export class CategoryPage implements OnInit {
   tPages: any;
   searchQuery: any; 
 
+  toHTML(input) : any {
+    return new DOMParser().parseFromString(input, "text/html").documentElement.textContent;
+  }
+
   constructor(public productsService: ProductsService, private route: ActivatedRoute, public pageDetail: PageDetailsService) {
 
     this.page = 1;

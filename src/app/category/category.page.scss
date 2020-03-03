@@ -1,7 +1,13 @@
 ion-title {
     text-align: center;
 }
-
+.title-large {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+.title-large::before {
+    display: none !important;
+}
 ion-toolbar.main-toolbar {
     --color: #ffffff;
     --background: #000000;
@@ -78,7 +84,7 @@ ion-searchbar {
 }
 
 .imgBRImgBlock {
-    top: 0;
+    bottom: 30px;
     right: 0;
     position: absolute;
     width: 30px;
@@ -91,7 +97,7 @@ ion-searchbar {
 }
 
 .imgPerImgBlock {
-    top: 30px;
+    bottom: 0;
     right: 0;
     position: absolute;
     width: 30px;

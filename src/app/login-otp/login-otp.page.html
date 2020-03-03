@@ -1,0 +1,28 @@
+<ion-header>
+  
+</ion-header>
+
+<ion-content>
+  <div class="login-top">
+    <div class="login-logo"><img src="/assets/login-top.jpg" alt="Isabella Garcia"></div>
+  </div>
+  <div class="login-bot">
+    <div class="logBot-inner">
+      <ion-card id="loginError" color="danger" [hidden]="!loginFail">
+        <ion-card-content >
+            <ion-icon name="warning" slot="start"></ion-icon><strong>ERROR:</strong> Invalid login pin.
+        </ion-card-content>
+      </ion-card>
+      <form [formGroup]="loginotp_form" (ngSubmit)="loginotp(loginotp_form.value)" class="ion-padding">
+        <ion-item>
+          <ion-icon name="text" slot="start" class="loginIcon"></ion-icon>
+          <ion-label position="stacked" class="login-field">Login Pin</ion-label>
+          <ion-input required type="text" formControlName="loginPin"></ion-input>
+        </ion-item>
+        <div class="loginBtn">
+          <ion-button expand="block" type="submit" class="login-btn ion-no-margin">LOG IN</ion-button>
+        </div>
+    </form>
+    </div>
+  </div>
+</ion-content>

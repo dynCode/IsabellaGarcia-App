@@ -46,12 +46,12 @@
             <ion-icon [name]="inWishlist === true ? 'heart' : 'heart-empty'" (click)="toggleWishlist(productsService.productDetails)"></ion-icon>
           </div>
         </div>
-        <div class="sProdTitle">{{productsService.productDetails.name}}</div>
+        <div class="sProdTitle" [innerHTML]="toHTML(productsService.productDetails.name)"></div>
         <div class="sProdDesc">
           <div class="sProdDesc-Title">
             <span>PRODUCT DETAILS</span>
           </div>
-          <div [innerHtml]="productsService.productDetails.description"></div>
+          <div [innerHtml]="toHTML(productsService.productDetails.description)"></div>
         </div>
         <div class="brPrice" *ngIf="pageDetail.finalBR > productsService.productDetails.price">
           <div class="prodPrice" *ngIf="productsService.productDetails.price != productsService.productDetails.regular_price">

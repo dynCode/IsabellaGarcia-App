@@ -56,30 +56,66 @@
 </ion-content>
 
 <ion-footer>
+  <h4>CART TOTALS</h4>
   <ion-grid>
     <ion-row>
-      <ion-col col-2>
+      <ion-col col-1>
 
       </ion-col>
-      <ion-col col-4>
-        <b>BR TOTAL</b>
+      <ion-col col-5>
+        Subtotal
       </ion-col>
       <ion-col col-3 style="text-align: right;">
-        <b>- {{ cartBr | number:'1.2-2'}}</b>
+        <b>{{ subtotal | currency : "R"  }}</b>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-2>
+      <ion-col col-1>
 
       </ion-col>
-      <ion-col col-4>
-        <b>TOTAL</b>
+      <ion-col col-5>
+        Beauty Rands Value
+      </ion-col>
+      <ion-col col-3 style="text-align: right;">
+        <b>- {{ cartBr | number:'1.2-2'}} BR</b>
+      </ion-col>
+    </ion-row>
+    <hr>
+    <ion-row *ngIf="totalDis > 0">
+      <ion-col col-1>
+
+      </ion-col>
+      <ion-col col-5>
+        Membership Discount @ {{memDisPer}}%
+      </ion-col>
+      <ion-col col-3 style="text-align: right;">
+        <b>- {{ totalDis | currency : "R"  }}</b>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-1>
+
+      </ion-col>
+      <ion-col col-5>
+        Shipping
+      </ion-col>
+      <ion-col col-3 style="text-align: right;">
+        <b>N/A</b>
+      </ion-col>
+    </ion-row>
+    <hr>
+    <ion-row>
+      <ion-col col-1>
+
+      </ion-col>
+      <ion-col col-5>
+        TOTAL
       </ion-col>
       <ion-col col-3 style="text-align: right;">
         <b>{{ total | currency : "R"  }}</b>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button expand="full" color="dark" (click)="openWithInAppBrowser()">CHECKOUT</ion-button>
+  <ion-button expand="full" color="dark" (click)="openWithInAppBrowser()">APPLY VOUCHERS or CHECKOUT</ion-button>
   <!--<ion-button >Open with In App browser</ion-button>-->
 </ion-footer>

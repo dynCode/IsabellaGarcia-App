@@ -18,6 +18,17 @@ export class ShopPage implements OnInit {
   userBR: any;
   searchQuery: any;
 
+  slideOpts = {
+    slidesPerView: 3,
+    spaceBetween: 10,
+    slidesOffsetBefore: 20,
+    slidesOffsetAfter: 10,
+  };
+
+  toHTML(input) : any {
+    return new DOMParser().parseFromString(input, "text/html").documentElement.textContent;
+  }
+
   constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService) { 
   }
 
@@ -34,6 +45,12 @@ export class ShopPage implements OnInit {
 
 		this.productsService.loadProducts();
     console.log(this.productsService.allProducts);
+
+    this.productsService.loadWMProducts();
+    console.log(this.productsService.allWMProducts);
+
+    this.productsService.loadMMProducts();
+    console.log(this.productsService.allMMProducts);
     
     this.authenticationService.displayCustomer();
   }

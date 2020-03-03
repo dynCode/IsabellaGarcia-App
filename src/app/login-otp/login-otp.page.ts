@@ -10,13 +10,13 @@ import { MenuController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.page.html',
-    styleUrls: ['./login.page.scss'],
+  selector: 'app-login-otp',
+  templateUrl: './login-otp.page.html',
+  styleUrls: ['./login-otp.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginOTPPage implements OnInit {
 
-    login_form: FormGroup;
+    loginotp_form: FormGroup;
     error_message: string;
     passwordType: string = 'password';
     passwordShown: boolean = false;
@@ -24,6 +24,7 @@ export class LoginPage implements OnInit {
     password: string;
     loginFail: boolean = false;
     authDetail: any;
+    loginPin: string;
 
     constructor(public formBuilder: FormBuilder,
                 public loadingController: LoadingController,
@@ -55,15 +56,14 @@ export class LoginPage implements OnInit {
         });
       });
 
-      this.login_form = this.formBuilder.group({
-        username: new FormControl(this.username, Validators.compose([
+      this.loginotp_form = this.formBuilder.group({
+        loginPin: new FormControl(this.loginPin, Validators.compose([
             Validators.required
-        ])),
-        password: new FormControl(this.password, Validators.required)
+        ]))
       });    
     }
     
-	  async login(value) {
+    async login(value) {
 
       const loading = await this.loadingController.create({
           duration: 5000,
@@ -73,6 +73,32 @@ export class LoginPage implements OnInit {
       loading.present();
 
       this.authenticationService.doLogin(value.username, value.password)
+        .subscribe(res => {
+                this.authenticationService.setUser(res);
+                // Reset the post items so that next time, they are completely
+                // reloaded for the newly authenticated user...
+                loading.dismiss();
+                this.authenticationService.doCustomer(res);
+                this.loginFail = false;
+            },
+            err => {
+                this.error_message = 'Invalid credentials.';
+                loading.dismiss();
+                this.loginFail = true;
+                console.log(err);
+            });
+    }
+
+	  async loginotp(value) {
+
+      const loading = await this.loadingController.create({
+          duration: 5000,
+          message: 'Please wait...'
+      });
+
+      loading.present();
+
+      this.authenticationService.doOTPLogin(value.loginPin)
         .subscribe(res => {
                 this.authenticationService.setUser(res);
                 // Reset the post items so that next time, they are completely

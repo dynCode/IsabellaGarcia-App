@@ -46,10 +46,10 @@ export class PageDetailsService {
     return this.cartCount;
   }
 
-  public subCartCount() {
+  public subCartCount(cnt = 1) {
     let oldCount = this.cartCount;
     
-    this.cartCount = oldCount - 1;
+    this.cartCount = oldCount - cnt;
     
     console.log(this.cartCount);
     return this.cartCount;

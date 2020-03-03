@@ -17,8 +17,11 @@ export class CartPage implements OnInit {
 
   cartItems: any[] = [];
   total: any;
+  subtotal: any;
+  totalDis: any;
   showEmptyCartMessage: boolean = false;
   userBR: any;
+  memDisPer: any;
   options : InAppBrowserOptions = {
     location : 'yes',
     hideurlbar: "yes",
@@ -30,11 +33,16 @@ export class CartPage implements OnInit {
 
   constructor(public productsService: ProductsService, public authenticationService: AuthenticationService, public storage: Storage, public pageDetail: PageDetailsService,private iab: InAppBrowser,private http: HttpClient,private spinnerDialog: SpinnerDialog, public loadingController: LoadingController) { 
     this.total = 0.0;
+    this.subtotal = 0.0;
+    this.totalDis = 0;
 
     this.storage.ready().then( (data)=>{
       this.storage.get("user").then( (data)=>{
         this.userData = data;
         this.totalBr = data[0].brPoints;
+        this.memDisPer = parseInt(data[0].discount.member);
+
+        console.log("Member Discount:",this.userData);
       })
 
       this.storage.get("cart").then( (data)=>{
@@ -46,6 +54,7 @@ export class CartPage implements OnInit {
 
             this.cartItems.forEach( (item, index)=>{
               this.total = this.total + (item.product.price * item.qty);
+              this.subtotal = this.subtotal + (item.product.price * item.qty);
             });
 
             if (this.total <= this.totalBr) { 
@@ -53,6 +62,8 @@ export class CartPage implements OnInit {
               this.total = 0.00;
             } else {
               this.total = this.total-this.totalBr;
+              this.totalDis = this.total*(this.memDisPer/100);
+              this.total = this.total-this.totalDis;
               this.cartBr = this.totalBr;
             }
           } else {
@@ -98,7 +109,7 @@ export class CartPage implements OnInit {
           let qty = data[p].qty;
 
           data[p].qty = nqty;
-          data[p].amount = parseFloat(data[p].amount) + (parseFloat(data[p].product.price) * nqty);
+          data[p].amount = parseFloat(data[p].amount) - (parseFloat(data[p].product.price) * nqty);
         }
       }
 
@@ -124,6 +135,7 @@ export class CartPage implements OnInit {
       .subscribe(data => {
         console.log(data);
         loading.dismiss();
+        this.pageDetail.subCartCount();
         this.recalCart();
         this.pageDetail.getBRPoints();
       }, error => {
@@ -181,6 +193,7 @@ export class CartPage implements OnInit {
       loading.dismiss();
       this.recalCart();
       this.pageDetail.getBRPoints();
+      this.pageDetail.setCartCount(1);
     }, error => {
       console.log(error);
       loading.dismiss();
@@ -188,12 +201,12 @@ export class CartPage implements OnInit {
   }
 
   removeFromCart(item, i) {
-
-    this.pageDetail.subCartCount();
     //this.pageDetail.addBRPoints(item.product.price);
 
     let price = item.product.price;
     let qty = item.qty;
+
+    this.pageDetail.subCartCount(qty);
 
     this.cartItems.splice(i, 1);
 
@@ -290,27 +303,39 @@ export class CartPage implements OnInit {
 
       if (this.cartItems) {
         if (this.cartItems.length > 0) {
+          this.cartBr = 0.00;
+          this.total = 0.00;
+          this.totalDis = 0;
+          this.subtotal = 0.00;
 
           this.cartItems.forEach( (item, index)=>{
             this.total = this.total + (item.product.price * item.qty);
+            this.subtotal = this.subtotal + (item.product.price * item.qty);
           });
 
           if (this.total <= this.totalBr) { 
             this.cartBr = this.total;
+            this.totalDis = 0;
             this.total = 0.00;
           } else {
             this.total = this.total-this.totalBr;
+            this.totalDis = this.total*(this.memDisPer/100);
+            this.total = this.total-this.totalDis;
             this.cartBr = this.totalBr;
           }
         } else {
           this.showEmptyCartMessage = true;
           this.cartBr = 0.00;
           this.total = 0.00;
+          this.totalDis = 0;
+          this.subtotal = 0.00;
         }
       } else {
         this.showEmptyCartMessage = true;
         this.cartBr = 0.00;
         this.total = 0.00;
+        this.totalDis = 0;
+        this.subtotal = 0.00;
       }
     })
   }

@@ -20,12 +20,12 @@
 <ion-tabs>
 
   <ion-tab-bar slot="bottom" class="login-tabs tabs-section">
-    <ion-tab-button class="login" [routerLink]="['/', 'login']" >
-      <ion-label>LOG IN</ion-label>
+    <ion-tab-button class="login" [routerLink]="['/', 'login-otp']" >
+      <ion-label>OTP</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button class="register" (click)="openWithInAppBrowser()" >
-      <ion-label>REGISTER</ion-label>
+    <ion-tab-button class="register" [routerLink]="['/', 'login']" >
+      <ion-label>LOGIN</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

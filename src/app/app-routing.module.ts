@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'faq', loadChildren: './profile/faq/faq.module#FaqPageModule' },
   { path: 'contact-us', loadChildren: './profile/contact-us/contact-us.module#ContactUsPageModule' },
   { path: 'video-tour', loadChildren: './video-tour/video-tour.module#VideoTourPageModule' },
+  { path: 'login-otp', loadChildren: './login-otp/login-otp.module#LoginOTPPageModule' },
 
   /*TABS PAGES*/
   //{ path: 'shop', loadChildren: './shop/shop.module#ShopPageModule' },

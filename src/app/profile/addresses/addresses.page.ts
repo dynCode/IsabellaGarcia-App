@@ -105,6 +105,7 @@ export class AddressesPage implements OnInit {
     .then((response) => {
       console.log("Customer Update", response);
       loading.dismiss();
+      this.presentAlert('Success','Address details updated successfully!');
     })
     .catch((error) => {
       loading.dismiss();

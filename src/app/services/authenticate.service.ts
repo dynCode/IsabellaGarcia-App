@@ -45,6 +45,25 @@ export class AuthenticationService {
         });
     }
 
+    doOTPLogin(loginPin) {
+        this.storage.get("authDetail").then((data) => {
+            
+            data = [];
+            data.push({
+                "sign_in_pin": loginPin
+            });
+
+            this.storage.set("authDetail", data).then( ()=>{
+                console.log("User Set");
+                console.log(data);
+            })
+        });
+        
+        return this.http.post('https://isabellagarcia.co.za/wp-json/jwt-auth/v1/easy-token', {
+            sign_in_pin: loginPin
+        });
+    }
+
     validateAuthToken(token) {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Basic ' + token);
@@ -197,7 +216,9 @@ export class AuthenticationService {
                         "brPoints": this.MemPoints.meta.availible_beauty_rands,
                         "history": this.MemPoints.meta.beauty_bank_history,
                         "loginKey": this.MemPoints.meta.auto_log_key[0],
-                        "authToken": this.user.token
+                        "authToken": this.user.token,
+                        "discount": this.MemPoints.discount,
+                        "redProdIds": this.MemPoints.redeemable_product_ids
                     });
 
                     this.storage.set("user", data).then( ()=>{

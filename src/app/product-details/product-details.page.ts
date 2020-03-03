@@ -30,6 +30,10 @@ export class ProductDetailsPage implements OnInit {
   public UCarts: any;
   searchQuery: any;
 
+  toHTML(input) : any {
+    return new DOMParser().parseFromString(input, "text/html").documentElement.textContent;
+  }
+
   constructor(public productsService: ProductsService, private route: ActivatedRoute, public storage: Storage, public toastController: ToastController, public pageDetail: PageDetailsService,private http: HttpClient) {
     this.storage.ready().then( (data)=>{
       this.storage.get("user").then( (data)=>{
