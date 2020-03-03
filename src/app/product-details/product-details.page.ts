@@ -7,6 +7,8 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ProductsService } from '../services/products.service';
 import {PageDetailsService} from '../services/page-details.service';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
@@ -34,7 +36,7 @@ export class ProductDetailsPage implements OnInit {
     return new DOMParser().parseFromString(input, "text/html").documentElement.textContent;
   }
 
-  constructor(public productsService: ProductsService, private route: ActivatedRoute, public storage: Storage, public toastController: ToastController, public pageDetail: PageDetailsService,private http: HttpClient) {
+  constructor(public productsService: ProductsService, private route: ActivatedRoute, public storage: Storage, public toastController: ToastController, public pageDetail: PageDetailsService, private http: HttpClient, public alertController: AlertController, private router: Router) {
     this.storage.ready().then( (data)=>{
       this.storage.get("user").then( (data)=>{
         console.log("user data", data);
@@ -162,14 +164,37 @@ export class ProductDetailsPage implements OnInit {
 
   }
 
-  async uSuccess() {
-
+  async uToastSuccess() {
     const toast = await this.toastController.create({
       message: 'Cart Updated',
       color: "dark",
       duration: 3000
     });
     toast.present();
+  }
+
+  async uSuccess() {
+
+    const alert = await this.alertController.create({
+      header: 'Cart',
+      message: 'Your product has been added to your cart',
+      buttons: [
+        {
+          text: 'Continue Shopping',
+          role: 'cancel',
+          handler: () => {
+            this.router.navigate(['/', 'tabs']);
+          }
+        }, {
+          text: 'View Cart',
+          handler: () => {
+            this.router.navigate(['/', 'cart']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   toggleWishlist(product) {
@@ -272,7 +297,7 @@ export class ProductDetailsPage implements OnInit {
             console.log("Cart Updated");
             console.log(data);
     
-            this.uSuccess();
+            this.uToastSuccess();
     
           })
           
